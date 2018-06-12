@@ -4,16 +4,16 @@ import { Provider } from 'react-redux'
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import App from './App'
 import store from './store'
-import LoginScene from './container/LoginScene'
-import LogoutScene from './container/LogoutScene'
+import SignUpScene from './container/SignUpScene'
+import SignInScene from './container/SignInScene'
 
 const Wrapper = () =>
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={App} />
-        <Route path="/login" component={LoginScene} />
-        <Route path="/logout" component={LogoutScene} />
+        <Route path="/signUp" component={SignUpScene} />
+        <Route path="/signIn" component={SignInScene} />
       </Switch>
     </BrowserRouter>
   </Provider>

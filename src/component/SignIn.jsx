@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { createForm, formShape } from 'rc-form'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/es/Card/Card'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
+import { signIn } from '../redux/actions/signIn.action'
 
 const styles = theme => ({
   container: {
@@ -22,6 +24,7 @@ const styles = theme => ({
     padding: '2rem',
   },
   button: {
+    marginTop: 25,
     margin: theme.spacing.unit,
     '&:focus': {
       outline: 0,
@@ -29,10 +32,10 @@ const styles = theme => ({
   },
 })
 
-class Login extends React.Component {
+class SignIn extends React.Component {
   submit = () => {
     this.props.form.validateFields((error, value) => {
-      console.log(error, value)
+      this.props.dispatch(signIn(value))
     })
   }
 
@@ -45,7 +48,6 @@ class Login extends React.Component {
         <Card className={classes.card}>
           <div>
             <TextField
-              required
               id="required"
               label={(errors = getFieldError('Email')) ? errors.join(',') : 'Email'}
               className={classes.textField}
@@ -71,23 +73,9 @@ class Login extends React.Component {
               })}
             />
           </div>
-          <div>
-            <TextField
-              id="repeat-password-input"
-              label={(errors = getFieldError('Repeat_password')) ? errors.join(',') : 'Repeat password'}
-              className={classes.textField}
-              type="password"
-              autoComplete="current-password"
-              margin="normal"
-              {...getFieldProps('Repeat_password', {
-                onChange() {},
-                rules: [{ required: true }],
-              })}
-            />
-          </div>
           <Grid container justify="center">
             <Button variant="outlined" color="primary" className={classes.button} onClick={this.submit}>
-              Sign in
+              Sign In
             </Button>
           </Grid>
         </Card>
@@ -96,12 +84,13 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
   form: formShape,
+  dispatch: PropTypes.func.isRequired,
 }
-Login.defaultProps = {
+SignIn.defaultProps = {
   form: '',
 }
 
-export default createForm()(withStyles(styles)(Login))
+export default connect()(createForm()(withStyles(styles)(SignIn)))

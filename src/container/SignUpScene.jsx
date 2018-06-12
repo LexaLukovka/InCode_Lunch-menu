@@ -2,14 +2,14 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Header from '../component/Header'
-import Login from '../component/Login'
+import SignUp from '../component/SignUp'
 
-const LoginScene = () =>
+const SignUpScene = () =>
   <Grid container justify="center">
     <Header />
-    <Login />
+    <SignUp />
   </Grid>
 
-LoginScene.propTypes = {}
+SignUpScene.propTypes = {}
 
-export default LoginScene
+export default SignUpScene
