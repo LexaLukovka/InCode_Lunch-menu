@@ -53,6 +53,7 @@ class SignIn extends React.Component {
         <Card className={classes.card}>
           <div>
             <TextField
+              error={getFieldError('Email') && true}
               id="required"
               label={(errors = getFieldError('Email')) ? errors.join(',') : 'Email'}
               className={classes.textField}
@@ -66,6 +67,7 @@ class SignIn extends React.Component {
           </div>
           <div>
             <TextField
+              error={getFieldError('Password') && true}
               id="password-input"
               label={(errors = getFieldError('Password')) ? errors.join(',') : 'Password'}
               className={classes.textField}

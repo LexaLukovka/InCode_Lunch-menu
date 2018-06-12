@@ -10,6 +10,7 @@ import Card from '@material-ui/core/es/Card/Card'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import { signUp } from '../redux/actions/signUp.action'
+import Typography from '@material-ui/core/es/Typography/Typography'
 
 const styles = theme => ({
   container: {
@@ -35,11 +36,29 @@ const styles = theme => ({
 })
 
 class SignUp extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isVisibility: false,
+    }
+  }
+
   submit = () => {
     this.props.form.validateFields((error, value) => {
       this.props.dispatch(signUp(value))
-      if (!error) {
-        this.props.history.push('/')
+      if (value.Password === value.Repeat_password) {
+        if (!error) {
+          this.props.history.push('/')
+        }
+        this.setState({
+          isVisibility: false,
+        })
+      }
+      else {
+        this.setState({
+          isVisibility: true,
+        })
       }
     })
   }
@@ -48,12 +67,21 @@ class SignUp extends React.Component {
     let errors
     const { classes } = this.props
     const { getFieldProps, getFieldError } = this.props.form
+    const Errors = () =>
+      <Typography variant="caption" color="error"
+                  style={{ visibility: this.state.isVisibility ? 'visibility' : 'hidden' }}>
+        <Grid container justify="center">
+          Пароли не совпадают
+        </Grid>
+      </Typography>
+
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
           <div>
             <TextField
-              id="required"
+              error={getFieldError('Email') && true}
+              id="email"
               label={(errors = getFieldError('Email')) ? errors.join(',') : 'Email'}
               className={classes.textField}
               type="email"
@@ -66,6 +94,7 @@ class SignUp extends React.Component {
           </div>
           <div>
             <TextField
+              error={getFieldError('Password') && true}
               id="password-input"
               label={(errors = getFieldError('Password')) ? errors.join(',') : 'Password'}
               className={classes.textField}
@@ -80,6 +109,7 @@ class SignUp extends React.Component {
           </div>
           <div>
             <TextField
+              error={getFieldError('Repeat_password') && true}
               id="repeat-password-input"
               label={(errors = getFieldError('Repeat_password')) ? errors.join(',') : 'Repeat password'}
               className={classes.textField}
@@ -91,6 +121,7 @@ class SignUp extends React.Component {
                 rules: [{ required: true }],
               })}
             />
+            <Errors />
           </div>
           <Grid container justify="center">
             <Button variant="outlined" color="primary" className={classes.button} onClick={this.submit}>
