@@ -56,8 +56,8 @@ Dishes.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   clicked: PropTypes.bool.isRequired,
-  dishes: PropTypes.element.isRequired,
-  onClick: PropTypes.element.isRequired,
+  dishes: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (store) => ({

@@ -18,8 +18,8 @@ const Cards = ({ classes, children, onClick, clicked }) =>
 Cards.propTypes = {
   onClick: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired,
-  clicked: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
+  clicked: PropTypes.bool.isRequired,
 }
 
 export default withStyles(styles)(Cards)

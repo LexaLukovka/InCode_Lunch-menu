@@ -1,6 +1,8 @@
+/* eslint-disable no-return-assign,no-cond-assign */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import { withStyles } from '@material-ui/core/styles'
 import { createForm, formShape } from 'rc-form'
 import TextField from '@material-ui/core/TextField'
@@ -36,6 +38,9 @@ class SignUp extends React.Component {
   submit = () => {
     this.props.form.validateFields((error, value) => {
       this.props.dispatch(signUp(value))
+      if (!error) {
+        this.props.history.push('/')
+      }
     })
   }
 
@@ -102,9 +107,10 @@ SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
   form: formShape,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
 SignUp.defaultProps = {
   form: '',
 }
 
-export default connect()(createForm()(withStyles(styles)(SignUp)))
+export default connect()(createForm()(withRouter(withStyles(styles)(SignUp))))

@@ -31,7 +31,7 @@ const styles = (theme) => ({
 
 class Header extends React.Component {
   render() {
-    const { classes, value_signIn, value_signUp } = this.props
+    const { classes, valueSignIn, valueSignUp } = this.props
 
     return (
       <AppBar position="static">
@@ -40,7 +40,7 @@ class Header extends React.Component {
             <Link className={classes.link} to="/"> Title </Link>
           </Typography>
           <Typography variant="subheading" color="inherit" className={classes.flex}>
-            {value_signIn.Email}
+            {valueSignIn.Email || valueSignUp.Email}
           </Typography>
           <Button color="inherit" className={classes.button} onClick={() => this.props.history.push('/signIn')}>
             Sign In
@@ -57,19 +57,17 @@ class Header extends React.Component {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  push: PropTypes.any,
-  value_signIn: PropTypes.object,
-  value_signUp: PropTypes.object,
+  valueSignIn: PropTypes.object,
+  valueSignUp: PropTypes.object,
 }
 Header.defaultProps = {
-  push: '',
-  value_signIn: '',
-  value_signUp: '',
+  valueSignIn: '',
+  valueSignUp: '',
 }
 
 const mapStateToProps = (store) => ({
-  value_signIn: store.signIn.value,
-  value_signUp: store.signUp.value,
+  valueSignIn: store.signIn.value,
+  valueSignUp: store.signUp.value,
 })
 
 export default connect(mapStateToProps)(withRouter(withStyles(styles)(Header)))

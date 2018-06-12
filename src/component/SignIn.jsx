@@ -1,6 +1,8 @@
+/* eslint-disable no-cond-assign */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import { withStyles } from '@material-ui/core/styles'
 import { createForm, formShape } from 'rc-form'
 import TextField from '@material-ui/core/TextField'
@@ -36,6 +38,9 @@ class SignIn extends React.Component {
   submit = () => {
     this.props.form.validateFields((error, value) => {
       this.props.dispatch(signIn(value))
+      if (!error) {
+        this.props.history.push('/')
+      }
     })
   }
 
@@ -88,9 +93,10 @@ SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
   form: formShape,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
 SignIn.defaultProps = {
   form: '',
 }
 
-export default connect()(createForm()(withStyles(styles)(SignIn)))
+export default connect()(createForm()(withRouter(withStyles(styles)(SignIn))))
