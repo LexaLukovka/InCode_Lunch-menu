@@ -1,5 +1,6 @@
 module.exports = {
   'extends': 'eslint-config-airbnb',
+  'parser': 'babel-eslint',
   'rules': {
     'no-trailing-spaces': 0,
     'max-len': [2, 120],
