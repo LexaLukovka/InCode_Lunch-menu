@@ -3,4 +3,5 @@ html, body {
     margin: 0;
     padding: 0;
     font-size: 14pt;
+    background: url("Images/dust_scratches.png") repeat;
 }

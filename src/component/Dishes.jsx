@@ -12,7 +12,7 @@ import Cards from './Cards'
 const styles = theme => ({
   card: {
     display: 'flex',
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     margin: '1rem',
   },
   details: {

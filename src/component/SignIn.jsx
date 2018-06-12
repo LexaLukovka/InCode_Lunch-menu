@@ -5,11 +5,13 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { withStyles } from '@material-ui/core/styles'
 import { createForm, formShape } from 'rc-form'
+import Link from 'react-router-dom/es/Link'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/es/Card/Card'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import { signIn } from '../redux/actions/signIn.action'
+import Typography from '@material-ui/core/es/Typography/Typography'
 
 const styles = theme => ({
   container: {
@@ -19,11 +21,11 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
   },
   card: {
     margin: '5rem',
     padding: '2rem',
+    width: 400,
   },
   button: {
     marginTop: 25,
@@ -31,6 +33,10 @@ const styles = theme => ({
     '&:focus': {
       outline: 0,
     },
+  },
+  link: {
+    width: '100%',
+    textAlign: 'center',
   },
 })
 
@@ -53,6 +59,7 @@ class SignIn extends React.Component {
         <Card className={classes.card}>
           <div>
             <TextField
+              fullWidth
               error={getFieldError('Email') && true}
               id="required"
               label={(errors = getFieldError('Email')) ? errors.join(',') : 'Email'}
@@ -67,6 +74,7 @@ class SignIn extends React.Component {
           </div>
           <div>
             <TextField
+              fullWidth
               error={getFieldError('Password') && true}
               id="password-input"
               label={(errors = getFieldError('Password')) ? errors.join(',') : 'Password'}
@@ -81,9 +89,12 @@ class SignIn extends React.Component {
             />
           </div>
           <Grid container justify="center">
-            <Button variant="outlined" color="primary" className={classes.button} onClick={this.submit}>
+            <Button color="primary" className={classes.button} onClick={this.submit}>
               Sign In
             </Button>
+            <div className={classes.link}>
+              <Link to="/signUp"> <Typography variant="caption" color="inherit"> Нет аккаунта? </Typography></Link>
+            </div>
           </Grid>
         </Card>
       </form>

@@ -11,7 +11,7 @@ const styles = {
 }
 
 const Cards = ({ classes, children, onClick, clicked }) =>
-  <Card className={classes.card} style={{ background: clicked ? '#eeeeee' : 'inherit' }} onClick={onClick}>
+  <Card className={classes.card} style={{ background: clicked ? '#d0d0d0' : 'white' }} onClick={onClick}>
     {children}
   </Card>
 

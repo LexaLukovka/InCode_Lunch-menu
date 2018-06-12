@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { withStyles } from '@material-ui/core/styles'
 import { createForm, formShape } from 'rc-form'
+import Link from 'react-router-dom/es/Link'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/es/Card/Card'
 import Button from '@material-ui/core/es/Button/Button'
@@ -20,11 +21,11 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
   },
   card: {
     margin: '5rem',
     padding: '2rem',
+    width: 400,
   },
   button: {
     marginTop: 25,
@@ -32,6 +33,10 @@ const styles = theme => ({
     '&:focus': {
       outline: 0,
     },
+  },
+  link: {
+    width: '100%',
+    textAlign: 'center',
   },
 })
 
@@ -80,6 +85,7 @@ class SignUp extends React.Component {
         <Card className={classes.card}>
           <div>
             <TextField
+              fullWidth
               error={getFieldError('Email') && true}
               id="email"
               label={(errors = getFieldError('Email')) ? errors.join(',') : 'Email'}
@@ -94,6 +100,7 @@ class SignUp extends React.Component {
           </div>
           <div>
             <TextField
+              fullWidth
               error={getFieldError('Password') && true}
               id="password-input"
               label={(errors = getFieldError('Password')) ? errors.join(',') : 'Password'}
@@ -109,6 +116,7 @@ class SignUp extends React.Component {
           </div>
           <div>
             <TextField
+              fullWidth
               error={getFieldError('Repeat_password') && true}
               id="repeat-password-input"
               label={(errors = getFieldError('Repeat_password')) ? errors.join(',') : 'Repeat password'}
@@ -124,9 +132,12 @@ class SignUp extends React.Component {
             <Errors />
           </div>
           <Grid container justify="center">
-            <Button variant="outlined" color="primary" className={classes.button} onClick={this.submit}>
+            <Button color="primary" className={classes.button} onClick={this.submit}>
               Sign Up
             </Button>
+            <div className={classes.link}>
+              <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
+            </div>
           </Grid>
         </Card>
       </form>
