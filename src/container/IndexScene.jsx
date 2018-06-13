@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import Grid from '@material-ui/core/es/Grid/Grid'
-import Header from '../component/Header'
-import IndexBody from '../component/IndexBody'
+import Header from '../component/Header/Header'
+import IndexBody from '../component/@index/IndexBody'
 
 class IndexScene extends React.Component {
   componentWillMount() {

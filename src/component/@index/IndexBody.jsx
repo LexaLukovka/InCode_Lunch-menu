@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Dishes from './Dishes'
-import Container from './Container'
+import Container from '../Container'
 
 const styles = {
   root: {

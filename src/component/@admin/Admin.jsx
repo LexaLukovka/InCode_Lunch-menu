@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Card from '@material-ui/core/es/Card/Card'
-import Cards from './Cards'
+import Cards from '../@index/Cards'
 import Selected from './Selected'
 
 const styles = theme => ({
@@ -48,38 +48,28 @@ const styles = theme => ({
   },
 })
 
-class Admin extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    const { classes, dishesSelect } = this.props
-    return (
-      <Cards>
-        {dishesSelect.map((dish, i) =>
-          <Card key={dish.idDishes} id={i} className={classes.card}>
-            <CardMedia
-              className={classes.cover}
-              image={dish.src}
-            />
-            <div className={classes.details}>
-              <CardContent className={classes.content}>
-                <Typography variant="subheading" color="textSecondary">
-                  <form className={classes.root} autoComplete="off">
-                    <FormControl className={classes.formControl}>
-                      <InputLabel>Блюдо</InputLabel>
-                      <Selected />
-                    </FormControl>
-                  </form>
-                </Typography>
-              </CardContent>
-            </div>
-          </Card>)}
-      </Cards>
-    )
-  }
-}
+const Admin = ({ classes, dishesSelect }) =>
+  <Cards>
+    {dishesSelect.map((dish, index) =>
+      <Card key={index} className={classes.card}>
+        <CardMedia
+          className={classes.cover}
+          image={dish.src}
+        />
+        <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <Typography variant="subheading" color="textSecondary">
+              <form className={classes.root} autoComplete="off">
+                <FormControl className={classes.formControl}>
+                  <InputLabel>Выберите</InputLabel>
+                  <Selected />
+                </FormControl>
+              </form>
+            </Typography>
+          </CardContent>
+        </div>
+      </Card>)}
+  </Cards>
 
 Admin.propTypes = {
   classes: PropTypes.object.isRequired,

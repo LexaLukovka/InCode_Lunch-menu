@@ -34,7 +34,7 @@ const styles = theme => ({
   },
 })
 
-const Dishes = ({ classes, dishes, onClick, clicked, value }) =>
+const Dishes = ({ classes, onClick, clicked, value }) =>
   <Cards onClick={onClick} clicked={clicked}>
     {value.dishesSelect.map((dish, index) =>
       <Card key={index} className={classes.card}>

@@ -3,13 +3,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
+import PropTypes from 'prop-types'
 
 class Selected extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      age: '',
-      value: [],
+      value: '',
     }
   }
 
@@ -21,10 +21,10 @@ class Selected extends React.Component {
     const { dishesSelect } = this.props
     return (
       <Select
-        value={this.state.age}
+        value={this.state.value}
         onChange={this.handleChange}
         inputProps={{
-          name: 'age',
+          name: 'value',
           id: 'age-simple',
         }}
       >
@@ -32,13 +32,15 @@ class Selected extends React.Component {
           <em>None</em>
         </MenuItem>
         {dishesSelect.map(dishesSel =>
-          <MenuItem value={dishesSel.idDishes}>{dishesSel.description}</MenuItem>)}
+          <MenuItem key={dishesSel.idDishes} value={dishesSel.idDishes}>{dishesSel.description}</MenuItem>)}
       </Select>
     )
   }
 }
 
-Select.propTypes = {}
+Selected.propTypes = {
+  dishesSelect: PropTypes.array.isRequired,
+}
 const mapStateToProps = (store) => ({
   dishesSelect: store.loadDishes.dishesSelect,
 })

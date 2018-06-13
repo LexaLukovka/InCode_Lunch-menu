@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/es/Typography/Typography'
 import BottomNavigation from '@material-ui/core/es/BottomNavigation/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/es/BottomNavigationAction/BottomNavigationAction'
 import Grid from '@material-ui/core/es/Grid/Grid'
-import { signOut } from '../redux/actions/signIn.action'
+import { signOut } from '../../redux/actions/signIn.action'
 
 const styles = (theme) => ({
   button: {

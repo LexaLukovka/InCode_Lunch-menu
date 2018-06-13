@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign,no-cond-assign */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -8,10 +7,10 @@ import { createForm, formShape } from 'rc-form'
 import Link from 'react-router-dom/es/Link'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/es/Card/Card'
+import Typography from '@material-ui/core/es/Typography/Typography'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
-import Typography from '@material-ui/core/es/Typography/Typography'
-import { signUp } from '../redux/actions/signUp.action'
+import { signIn } from '../../redux/actions/signIn.action'
 
 const styles = theme => ({
   container: {
@@ -40,48 +39,19 @@ const styles = theme => ({
   },
 })
 
-class SignUp extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isVisibility: false,
-    }
-  }
-
+class SignIn extends React.Component {
   submit = () => {
     this.props.form.validateFields((error, value) => {
-      this.props.dispatch(signUp(value))
-      if (value.Password === value.Repeat_password) {
-        this.setState({
-          isVisibility: false,
-        })
-        if (!error) {
-          this.props.history.push('/')
-        }
-      } else {
-        this.setState({
-          isVisibility: true,
-        })
+      this.props.dispatch(signIn(value))
+      if (!error) {
+        this.props.history.push('/')
       }
     })
   }
 
   render() {
-    let errors
     const { classes } = this.props
     const { getFieldProps, getFieldError } = this.props.form
-    const Errors = () =>
-      <Typography
-        variant="caption"
-        color="error"
-        style={{ visibility: this.state.isVisibility ? 'visibility' : 'hidden' }}
-      >
-        <Grid container justify="center">
-          Пароли не совпадают
-        </Grid>
-      </Typography>
-
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
@@ -89,8 +59,8 @@ class SignUp extends React.Component {
             <TextField
               fullWidth
               error={getFieldError('Email') && true}
-              id="email"
-              label={(errors = getFieldError('Email')) ? errors.join(',') : 'Email'}
+              id="required"
+              label={getFieldError('Email') ? getFieldError('Email').join(',') : 'Email'}
               className={classes.textField}
               type="email"
               margin="normal"
@@ -105,40 +75,22 @@ class SignUp extends React.Component {
               fullWidth
               error={getFieldError('Password') && true}
               id="password-input"
-              label={(errors = getFieldError('Password')) ? errors.join(',') : 'Password'}
+              label={getFieldError('Password') ? getFieldError('Password').join(',') : 'Password'}
               className={classes.textField}
               type="password"
               autoComplete="current-password"
               margin="normal"
               {...getFieldProps('Password', {
-                onChange() {},
                 rules: [{ required: true }],
               })}
             />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              error={getFieldError('Repeat_password') && true}
-              id="repeat-password-input"
-              label={(errors = getFieldError('Repeat_password')) ? errors.join(',') : 'Repeat password'}
-              className={classes.textField}
-              type="password"
-              autoComplete="current-password"
-              margin="normal"
-              {...getFieldProps('Repeat_password', {
-
-                rules: [{ required: true }],
-              })}
-            />
-            <Errors />
           </div>
           <Grid container justify="center">
             <Button color="primary" className={classes.button} onClick={this.submit}>
-              Sign Up
+              Sign In
             </Button>
             <div className={classes.link}>
-              <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
+              <Link to="/signUp"> <Typography variant="caption" color="inherit"> Нет аккаунта? </Typography></Link>
             </div>
           </Grid>
         </Card>
@@ -147,14 +99,14 @@ class SignUp extends React.Component {
   }
 }
 
-SignUp.propTypes = {
+SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
   form: formShape,
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 }
-SignUp.defaultProps = {
+SignIn.defaultProps = {
   form: '',
 }
 
-export default connect()(createForm()(withRouter(withStyles(styles)(SignUp))))
+export default connect()(createForm()(withRouter(withStyles(styles)(SignIn))))
