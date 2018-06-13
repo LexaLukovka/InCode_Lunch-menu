@@ -10,8 +10,8 @@ import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/es/Card/Card'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
-import { signUp } from '../redux/actions/signUp.action'
 import Typography from '@material-ui/core/es/Typography/Typography'
+import { signUp } from '../redux/actions/signUp.action'
 
 const styles = theme => ({
   container: {
@@ -59,8 +59,7 @@ class SignUp extends React.Component {
         this.setState({
           isVisibility: false,
         })
-      }
-      else {
+      } else {
         this.setState({
           isVisibility: true,
         })
@@ -73,8 +72,11 @@ class SignUp extends React.Component {
     const { classes } = this.props
     const { getFieldProps, getFieldError } = this.props.form
     const Errors = () =>
-      <Typography variant="caption" color="error"
-                  style={{ visibility: this.state.isVisibility ? 'visibility' : 'hidden' }}>
+      <Typography
+        variant="caption"
+        color="error"
+        style={{ visibility: this.state.isVisibility ? 'visibility' : 'hidden' }}
+      >
         <Grid container justify="center">
           Пароли не совпадают
         </Grid>
@@ -125,7 +127,7 @@ class SignUp extends React.Component {
               autoComplete="current-password"
               margin="normal"
               {...getFieldProps('Repeat_password', {
-                onChange() {},
+
                 rules: [{ required: true }],
               })}
             />

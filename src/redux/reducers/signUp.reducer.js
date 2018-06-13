@@ -7,6 +7,8 @@ const initialState = {
 const signUp = (state = initialState, { type, payload }) => {
   switch (type) {
     case SIGN_UP: {
+      const localStore = JSON.stringify(payload.Email)
+      localStorage.setItem('Email', localStore)
       return {
         ...state,
         value: payload,

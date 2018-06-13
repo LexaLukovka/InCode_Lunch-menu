@@ -1,4 +1,3 @@
-/* eslint-disable no-cond-assign */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -8,10 +7,10 @@ import { createForm, formShape } from 'rc-form'
 import Link from 'react-router-dom/es/Link'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/es/Card/Card'
+import Typography from '@material-ui/core/es/Typography/Typography'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import { signIn } from '../redux/actions/signIn.action'
-import Typography from '@material-ui/core/es/Typography/Typography'
 
 const styles = theme => ({
   container: {
@@ -51,7 +50,6 @@ class SignIn extends React.Component {
   }
 
   render() {
-    let errors
     const { classes } = this.props
     const { getFieldProps, getFieldError } = this.props.form
     return (
@@ -62,7 +60,7 @@ class SignIn extends React.Component {
               fullWidth
               error={getFieldError('Email') && true}
               id="required"
-              label={(errors = getFieldError('Email')) ? errors.join(',') : 'Email'}
+              label={getFieldError('Email') ? getFieldError('Email').join(',') : 'Email'}
               className={classes.textField}
               type="email"
               margin="normal"
@@ -77,13 +75,12 @@ class SignIn extends React.Component {
               fullWidth
               error={getFieldError('Password') && true}
               id="password-input"
-              label={(errors = getFieldError('Password')) ? errors.join(',') : 'Password'}
+              label={getFieldError('Password') ? getFieldError('Password').join(',') : 'Password'}
               className={classes.textField}
               type="password"
               autoComplete="current-password"
               margin="normal"
               {...getFieldProps('Password', {
-                onChange() {},
                 rules: [{ required: true }],
               })}
             />

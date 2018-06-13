@@ -1,16 +1,15 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router'
 import Button from '@material-ui/core/es/Button/Button'
-import { Link } from 'react-router-dom'
 import Toolbar from '@material-ui/core/es/Toolbar/Toolbar'
 import Typography from '@material-ui/core/es/Typography/Typography'
 import BottomNavigation from '@material-ui/core/es/BottomNavigation/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/es/BottomNavigationAction/BottomNavigationAction'
+import Grid from '@material-ui/core/es/Grid/Grid'
 
 const styles = (theme) => ({
   button: {
@@ -37,7 +36,10 @@ const styles = (theme) => ({
     '&:focus': {
       outline: 0,
     },
-  }
+  },
+  gridCenter: {
+    textAlign: 'center',
+  },
 })
 
 class Header extends React.Component {
@@ -54,9 +56,9 @@ class Header extends React.Component {
   }
 
   render() {
-    const { classes, valueSignIn, valueSignUp } = this.props
+    const { classes } = this.props
     const { value } = this.state
-
+    const localStores = JSON.parse(localStorage.getItem('Email'))
     return (
       <AppBar position="static" color="inherit">
         <Toolbar>
@@ -66,20 +68,30 @@ class Header extends React.Component {
             showLabels
             className={classes.root}
           >
-            <BottomNavigationAction className={classes.buttonNav} onClick={() => this.props.history.push('/')} label="Home" />
+            <BottomNavigationAction
+              className={classes.buttonNav}
+              onClick={() => this.props.history.push('/')}
+              label="Home"
+            />
             <BottomNavigationAction className={classes.buttonNav} label="Statistic" />
             <BottomNavigationAction className={classes.buttonNav} label="Admin" />
           </BottomNavigation>
-
-          <Typography variant="subheading" color="inherit" className={classes.flex}>
-            {valueSignIn.Email || valueSignUp.Email}
-          </Typography>
-          <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signIn')}>
-            Sign In
-          </Button>
-          <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signUp')}>
-            Sign Up
-          </Button>
+          <Grid container className={classes.gridCenter}>
+            <Typography variant="subheading" color="inherit" className={classes.flex}>
+              {localStores}
+            </Typography>
+          </Grid>
+          <Grid container justify="flex-end">
+            <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signIn')}>
+              Sign In
+            </Button>
+            <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signUp')}>
+              Sign Up
+            </Button>
+            <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signIn')}>
+              Sign Out
+            </Button>
+          </Grid>
         </Toolbar>
       </AppBar>
     )
@@ -89,17 +101,6 @@ class Header extends React.Component {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  valueSignIn: PropTypes.object,
-  valueSignUp: PropTypes.object,
-}
-Header.defaultProps = {
-  valueSignIn: '',
-  valueSignUp: '',
 }
 
-const mapStateToProps = (store) => ({
-  valueSignIn: store.signIn.value,
-  valueSignUp: store.signUp.value,
-})
-
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(Header)))
+export default withRouter(withStyles(styles)(Header))

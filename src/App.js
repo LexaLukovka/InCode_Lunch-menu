@@ -2,9 +2,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Grid from '@material-ui/core/es/Grid/Grid'
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import { loadDishes } from './redux/actions/loadDishes.action'
 import IndexScene from './container/IndexScene'
+import SignUpScene from './container/SignUpScene'
+import SignInScene from './container/SignInScene'
 
 class App extends Component {
   componentDidMount() {
@@ -13,9 +15,13 @@ class App extends Component {
 
   render() {
     return (
-      <Grid container justify="center">
-        <IndexScene />
-      </Grid>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={IndexScene} />
+          <Route path="/signUp" redirect component={SignUpScene} />
+          <Route path="/signIn" component={SignInScene} />
+        </Switch>
+      </BrowserRouter>
     )
   }
 }
@@ -23,5 +29,6 @@ class App extends Component {
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
+App.defaultProps = {}
 
 export default connect()(App)
