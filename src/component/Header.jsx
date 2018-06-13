@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router'
 import Button from '@material-ui/core/es/Button/Button'
@@ -10,6 +11,7 @@ import Typography from '@material-ui/core/es/Typography/Typography'
 import BottomNavigation from '@material-ui/core/es/BottomNavigation/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/es/BottomNavigationAction/BottomNavigationAction'
 import Grid from '@material-ui/core/es/Grid/Grid'
+import { signOut } from '../redux/actions/signIn.action'
 
 const styles = (theme) => ({
   button: {
@@ -55,10 +57,16 @@ class Header extends React.Component {
     this.setState({ value })
   }
 
+  handleClickOut = () => {
+    this.props.dispatch(signOut())
+    this.props.history.push('/signIn')
+  }
+
   render() {
     const { classes } = this.props
     const { value } = this.state
-    const localStores = JSON.parse(localStorage.getItem('Email'))
+    const localStoreEmail = JSON.parse(localStorage.getItem('Email'))
+
     return (
       <AppBar position="static" color="inherit">
         <Toolbar>
@@ -78,19 +86,39 @@ class Header extends React.Component {
           </BottomNavigation>
           <Grid container className={classes.gridCenter}>
             <Typography variant="subheading" color="inherit" className={classes.flex}>
-              {localStores}
+              {localStoreEmail}
             </Typography>
           </Grid>
           <Grid container justify="flex-end">
-            <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signIn')}>
-              Sign In
-            </Button>
-            <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signUp')}>
-              Sign Up
-            </Button>
-            <Button color="primary" className={classes.button} onClick={() => this.props.history.push('/signIn')}>
-              Sign Out
-            </Button>
+            {localStoreEmail !== ' ' ?
+              <Button
+                color="primary"
+                className={classes.button}
+                onClick={this.handleClickOut}
+              >
+                Sign Out
+              </Button>
+              :
+              <div>
+                <Button
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => this.props.history.push('/signIn')}
+                >
+                  Sign In
+                </Button>
+                <Button
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => this.props.history.push('/signUp')}
+                >
+                  Sign Up
+                </Button>
+              </div>
+
+            }
+
+
           </Grid>
         </Toolbar>
       </AppBar>
@@ -100,7 +128,8 @@ class Header extends React.Component {
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 }
 
-export default withRouter(withStyles(styles)(Header))
+export default connect()(withRouter(withStyles(styles)(Header)))

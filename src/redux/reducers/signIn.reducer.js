@@ -1,5 +1,5 @@
 import uuid from 'uuid'
-import { SIGN_IN } from '../actions/signIn.action'
+import { SIGN_IN, SIGN_OUT } from '../actions/signIn.action'
 
 const initialState = {
   value: {},
@@ -19,6 +19,17 @@ const signIn = (state = initialState, { type, payload }) => {
         id: uuId,
       }
     }
+
+    case SIGN_OUT: {
+      localStorage.setItem('Email', (JSON.stringify(' ')))
+      localStorage.setItem('uuId', (JSON.stringify(' ')))
+      return {
+        ...state,
+        value: initialState.value,
+        id: initialState.id,
+      }
+    }
+
     default: {
       return state
     }

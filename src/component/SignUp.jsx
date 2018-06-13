@@ -53,12 +53,12 @@ class SignUp extends React.Component {
     this.props.form.validateFields((error, value) => {
       this.props.dispatch(signUp(value))
       if (value.Password === value.Repeat_password) {
-        if (!error) {
-          this.props.history.push('/')
-        }
         this.setState({
           isVisibility: false,
         })
+        if (!error) {
+          this.props.history.push('/')
+        }
       } else {
         this.setState({
           isVisibility: true,
