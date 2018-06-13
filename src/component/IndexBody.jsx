@@ -1,10 +1,12 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/es/Grid/Grid'
 import Dishes from './Dishes'
 
 const styles = {
-  row: {
+  root: {
     display: 'flex',
   },
 }
@@ -25,23 +27,32 @@ class IndexBody extends React.Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, dishes } = this.props
     return (
-      <div>
-        <div className={classes.row}>
-          <Dishes clicked={this.state.isClick === 1} onClick={() => this.handleClick(1)} />
-          <Dishes clicked={this.state.isClick === 2} onClick={() => this.handleClick(2)} />
-        </div>
-        <div className={classes.row}>
-          <Dishes clicked={this.state.isClick === 3} onClick={() => this.handleClick(3)} />
-          <Dishes clicked={this.state.isClick === 4} onClick={() => this.handleClick(4)} />
-        </div>
+      <div className={classes.root}>
+        <Grid container>
+          <Grid item>
+            {dishes.map((dish, index) =>
+              <Dishes
+                key={index}
+                clicked={this.state.isClick === index}
+                onClick={() => this.handleClick(index)}
+                value={dish}
+              />)}
+          </Grid>
+        </Grid>
       </div>
     )
   }
 }
+
 IndexBody.propTypes = {
   classes: PropTypes.object.isRequired,
+  dishes: PropTypes.array.isRequired,
 }
 
-export default withStyles(styles)(IndexBody)
+const mapStateToProps = (store) => ({
+  dishes: store.loadDishes.dishes,
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(IndexBody))

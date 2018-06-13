@@ -65,7 +65,9 @@ class Header extends React.Component {
   render() {
     const { classes } = this.props
     const { value } = this.state
-    const localStoreEmail = JSON.parse(localStorage.getItem('Email'))
+    const localStore = localStorage.getItem('Email')
+    if (localStore === 'undefined') localStorage.setItem('Email', (JSON.stringify(' ')))
+    const localStoreEmail = JSON.parse(localStore)
 
     return (
       <AppBar position="static" color="inherit">
@@ -81,8 +83,15 @@ class Header extends React.Component {
               onClick={() => this.props.history.push('/')}
               label="Home"
             />
-            <BottomNavigationAction className={classes.buttonNav} label="Statistic" />
-            <BottomNavigationAction className={classes.buttonNav} label="Admin" />
+            <BottomNavigationAction
+              className={classes.buttonNav}
+              label="Statistic"
+            />
+            <BottomNavigationAction
+              className={classes.buttonNav}
+              onClick={() => this.props.history.push('/admin')}
+              label="Admin"
+            />
           </BottomNavigation>
           <Grid container className={classes.gridCenter}>
             <Typography variant="subheading" color="inherit" className={classes.flex}>
