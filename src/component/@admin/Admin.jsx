@@ -14,6 +14,7 @@ import Selected from './Selected'
 
 const styles = theme => ({
   card: {
+    height: 70,
     display: 'flex',
     backgroundColor: 'white',
     margin: '1rem',
@@ -40,7 +41,8 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   formControl: {
-    margin: theme.spacing.unit,
+    marginLeft: '1rem',
+    marginTop: -12,
     minWidth: 120,
   },
   selectEmpty: {
@@ -48,7 +50,7 @@ const styles = theme => ({
   },
 })
 
-const Admin = ({ classes, dishesSelect }) =>
+const Admin = ({ classes, dishesSelect, checked }) =>
   <Cards>
     {dishesSelect.map((dish, index) =>
       <Card key={index} className={classes.card}>
@@ -60,10 +62,14 @@ const Admin = ({ classes, dishesSelect }) =>
           <CardContent className={classes.content}>
             <Typography variant="subheading" color="textSecondary">
               <form className={classes.root} autoComplete="off">
-                <FormControl className={classes.formControl}>
-                  <InputLabel>Выберите</InputLabel>
-                  <Selected />
-                </FormControl>
+                {checked ?
+                  <FormControl className={classes.formControl}>
+                    <InputLabel>Select</InputLabel>
+                    <Selected />
+                  </FormControl>
+                  :
+                  dish.description
+                }
               </form>
             </Typography>
           </CardContent>
@@ -75,10 +81,12 @@ Admin.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   dishesSelect: PropTypes.array.isRequired,
+  checked: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (store) => ({
   dishesSelect: store.loadDishes.dishesSelect,
+  checked: store.selectControl.checked,
 })
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(Admin))

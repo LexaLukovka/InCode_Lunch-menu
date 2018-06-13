@@ -4,6 +4,13 @@ import { connect } from 'react-redux'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles/index'
+
+const styles = {
+  root: {
+    width: 200,
+  },
+}
 
 class Selected extends React.Component {
   constructor(props) {
@@ -18,9 +25,10 @@ class Selected extends React.Component {
   }
 
   render() {
-    const { dishesSelect } = this.props
+    const { classes, dishesSelect } = this.props
     return (
       <Select
+        className={classes.root}
         value={this.state.value}
         onChange={this.handleChange}
         inputProps={{
@@ -39,10 +47,11 @@ class Selected extends React.Component {
 }
 
 Selected.propTypes = {
+  classes: PropTypes.object.isRequired,
   dishesSelect: PropTypes.array.isRequired,
 }
 const mapStateToProps = (store) => ({
   dishesSelect: store.loadDishes.dishesSelect,
 })
 
-export default connect(mapStateToProps)(Selected)
+export default connect(mapStateToProps)(withStyles(styles)(Selected))
