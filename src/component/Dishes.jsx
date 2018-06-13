@@ -36,7 +36,7 @@ const styles = theme => ({
 
 const Dishes = ({ classes, dishes, onClick, clicked, value }) =>
   <Cards onClick={onClick} clicked={clicked}>
-    {value.dishes.map((dish, index) =>
+    {value.dishesSelect.map((dish, index) =>
       <Card key={index} className={classes.card}>
         <CardMedia
           className={classes.cover}
@@ -56,13 +56,13 @@ Dishes.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   clicked: PropTypes.bool.isRequired,
-  dishes: PropTypes.array.isRequired,
+  dishesSelect: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
-  value: PropTypes.array.isRequired,
+  value: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (store) => ({
-  dishes: store.loadDishes.dishes,
+  dishesSelect: store.loadDishes.dishesSelect,
 })
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(Dishes))

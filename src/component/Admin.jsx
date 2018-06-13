@@ -7,11 +7,10 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
 import Card from '@material-ui/core/es/Card/Card'
 import Cards from './Cards'
+import Selected from './Selected'
 
 const styles = theme => ({
   card: {
@@ -52,22 +51,14 @@ const styles = theme => ({
 class Admin extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      age: '',
-      name: 'hai',
-    }
-  }
-
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value })
   }
 
   render() {
-    const { classes, dishes } = this.props
+    const { classes, dishesSelect } = this.props
     return (
       <Cards>
-        {dishes.map(dish =>
-          <Card key={dish.id} className={classes.card}>
+        {dishesSelect.map((dish, i) =>
+          <Card key={dish.idDishes} id={i} className={classes.card}>
             <CardMedia
               className={classes.cover}
               image={dish.src}
@@ -77,24 +68,10 @@ class Admin extends React.Component {
                 <Typography variant="subheading" color="textSecondary">
                   <form className={classes.root} autoComplete="off">
                     <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="age-simple">Age</InputLabel>
-                      <Select
-                        value={this.state.age}
-                        onChange={this.handleChange}
-                        inputProps={{
-                          name: 'age',
-                          id: 'age-simple',
-                        }}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        {dishes.map(dishing =>
-                          <MenuItem value={dishing.id * 10}>{dishing.description}</MenuItem>)}
-                      </Select>
+                      <InputLabel>Блюдо</InputLabel>
+                      <Selected />
                     </FormControl>
                   </form>
-                  {dish.description}
                 </Typography>
               </CardContent>
             </div>
@@ -107,11 +84,12 @@ class Admin extends React.Component {
 Admin.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  dishes: PropTypes.array.isRequired,
+  dishesSelect: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = (store) => ({
-  dishes: store.loadDishes.dishes,
+  dishesSelect: store.loadDishes.dishesSelect,
 })
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(Admin))
+

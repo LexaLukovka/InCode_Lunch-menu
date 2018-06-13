@@ -1,95 +1,95 @@
 [
   {
-    "dishes": [
+    "dishesSelect": [
       {
-        "id_Dishes": 1,
+        "idDishes": 1,
         "src": "http://www.tomato-pizza.ru/image/uploaded/1425984970291181.jpg",
         "description": "Пицца"
       },
       {
-        "id_Dishes": 2,
+        "idDishes": 2,
         "src": "http://www.menslife.com/upload/iblock/4be/piknik_po_korolevski_kak_prigotovit_idealnyy_shashlyk.jpg",
         "description": "Шашлык"
       },
       {
-        "id_Dishes": 3,
+        "idDishes": 3,
         "src": "https://gotovim-edim.ru/upload/resize_cache/recipes/1d0/655_454_1/shefburger4.jpg",
         "description": "Бургер"
       },
       {
-        "id_Dishes": 4,
+        "idDishes": 4,
         "src": "http://delovkusa.dp.ua/wp-content/uploads/2015/07/borsh.jpg",
         "description": "Борщ"
       }
     ]
   },
   {
-    "dishes": [
+    "dishesSelect": [
       {
-        "id_Dishes": 1,
+        "idDishes": 1,
         "src": "http://www.tomato-pizza.ru/image/uploaded/1425984970291181.jpg",
         "description": "Пицца"
       },
       {
-        "id_Dishes": 2,
+        "idDishes": 2,
         "src": "http://www.menslife.com/upload/iblock/4be/piknik_po_korolevski_kak_prigotovit_idealnyy_shashlyk.jpg",
         "description": "Шашлык"
       },
       {
-        "id_Dishes": 3,
+        "idDishes": 3,
         "src": "https://gotovim-edim.ru/upload/resize_cache/recipes/1d0/655_454_1/shefburger4.jpg",
         "description": "Бургер"
       },
       {
-        "id_Dishes": 4,
+        "idDishes": 4,
         "src": "http://delovkusa.dp.ua/wp-content/uploads/2015/07/borsh.jpg",
         "description": "Борщ"
       }
     ]
   },
   {
-    "dishes": [
+    "dishesSelect": [
       {
-        "id_Dishes": 1,
+        "idDishes": 1,
         "src": "http://www.tomato-pizza.ru/image/uploaded/1425984970291181.jpg",
         "description": "Пицца"
       },
       {
-        "id_Dishes": 2,
+        "idDishes": 2,
         "src": "http://www.menslife.com/upload/iblock/4be/piknik_po_korolevski_kak_prigotovit_idealnyy_shashlyk.jpg",
         "description": "Шашлык"
       },
       {
-        "id_Dishes": 3,
+        "idDishes": 3,
         "src": "https://gotovim-edim.ru/upload/resize_cache/recipes/1d0/655_454_1/shefburger4.jpg",
         "description": "Бургер"
       },
       {
-        "id_Dishes": 4,
+        "idDishes": 4,
         "src": "http://delovkusa.dp.ua/wp-content/uploads/2015/07/borsh.jpg",
         "description": "Борщ"
       }
     ]
   },
   {
-    "dishes": [
+    "dishesSelect": [
       {
-        "id_Dishes": 1,
+        "idDishes": 1,
         "src": "http://www.tomato-pizza.ru/image/uploaded/1425984970291181.jpg",
         "description": "Пицца"
       },
       {
-        "id_Dishes": 2,
+        "idDishes": 2,
         "src": "http://www.menslife.com/upload/iblock/4be/piknik_po_korolevski_kak_prigotovit_idealnyy_shashlyk.jpg",
         "description": "Шашлык"
       },
       {
-        "id_Dishes": 3,
+        "idDishes": 3,
         "src": "https://gotovim-edim.ru/upload/resize_cache/recipes/1d0/655_454_1/shefburger4.jpg",
         "description": "Бургер"
       },
       {
-        "id_Dishes": 4,
+        "idDishes": 4,
         "src": "http://delovkusa.dp.ua/wp-content/uploads/2015/07/borsh.jpg",
         "description": "Борщ"
       }

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom'
-import { loadDishes } from './redux/actions/loadDishes.action'
+import { loadDishes, loadDishesSelect } from './redux/actions/loadDishes.action'
 import IndexScene from './container/IndexScene'
 import SignUpScene from './container/SignUpScene'
 import SignInScene from './container/SignInScene'
@@ -13,6 +13,7 @@ import AdminScene from './container/AdminScene'
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(loadDishes())
+    this.props.dispatch(loadDishesSelect())
   }
 
   render() {
