@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 
@@ -16,14 +17,17 @@ const Cards = ({ classes, children, onClick, clicked }) =>
   </Card>
 
 Cards.propTypes = {
-  onClick: PropTypes.any,
+  onClick: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   children: PropTypes.any.isRequired,
   clicked: PropTypes.bool,
 }
 Cards.defaultProps = {
-  onClick: PropTypes.any,
   clicked: false,
 }
 
-export default withStyles(styles)(Cards)
+const mapStateToProps = (store) => ({
+  index: store.loadDishes.index,
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(Cards))

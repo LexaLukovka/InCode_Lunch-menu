@@ -6,52 +6,39 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Dishes from './Dishes'
 import Container from '../Container'
+import { clickCardIndex } from '../../redux/actions/loadDishes.action'
 
 const styles = {
   root: {},
 }
 
-class IndexBody extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isClick: null,
-    }
-  }
-
-  handleClick(index) {
-    this.setState({
-      isClick: this.state.isClick === index ? null : index,
-    })
-  }
-
-  render() {
-    const { dishes } = this.props
-    return (
-      <Container>
-        <Grid container>
-          {dishes.map((dish, index) =>
-            <Grid item key={index}>
-              <Dishes
-                clicked={this.state.isClick === index}
-                onClick={() => this.handleClick(index)}
-                value={dish}
-              />
-            </Grid>,
-          )}
-        </Grid>
-      </Container>
-    )
-  }
-}
+const IndexBody = ({ dishes, clicked, dispatch }) =>
+  <Container>
+    <Grid container>
+      {dishes.map((dish, index) =>
+        <Grid item key={index}>
+          <Dishes
+            clicked={clicked === index}
+            onClick={() => dispatch(clickCardIndex(index))}
+            value={dish}
+          />
+        </Grid>,
+      )}
+    </Grid>
+  </Container>
 
 IndexBody.propTypes = {
   dishes: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  clicked: PropTypes.number,
+}
+IndexBody.defaultProps = {
+  clicked: null,
 }
 
 const mapStateToProps = (store) => ({
   dishes: store.loadDishes.dishes,
+  clicked: store.loadDishes.clicked,
 })
 
 export default connect(mapStateToProps)(withStyles(styles)(IndexBody))

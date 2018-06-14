@@ -4,11 +4,14 @@ import {
   LOAD_DISHES_SELECT_PENDING,
   LOAD_DISHES_SELECT_FULFILLED,
   CREATE_DATA_STATISTICS,
+  CLICK_CARD_INDEX,
 } from '../actions/loadDishes.action'
 
 const initialState = {
   loading: false,
   loadingSelect: false,
+  index: '',
+  clicked: null,
   dishes: [],
   dishesSelect: [],
   masStatistics: [],
@@ -52,7 +55,7 @@ const loadDishes = (state = initialState, { type, payload }) => {
     }
 
     case CREATE_DATA_STATISTICS: {
-      const { dishesSelect } = state
+      const { dishesSelect, index } = state
       let counter = 0
       const createData = (date, number, description) => {
         counter += 1
@@ -60,13 +63,22 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
       const descriptions = dishesSelect.map(dish => dish.description).join(', ')
 
-      const create = createData('18.10.2018', 10, descriptions)
+      const create = createData('18.10.2018', index + 1, descriptions)
 
       const arrayStatistics = [...state.masStatistics]
+      // if([...state.masStatistics] === )
       arrayStatistics.push(create)
       return {
         ...state,
         masStatistics: arrayStatistics,
+      }
+    }
+
+    case CLICK_CARD_INDEX: {
+      return {
+        ...state,
+        index: payload,
+        clicked: state.clicked !== payload ? payload : null,
       }
     }
 

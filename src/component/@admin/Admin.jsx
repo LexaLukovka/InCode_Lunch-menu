@@ -18,7 +18,7 @@ const Admin = ({ dishes, checked, classes }) =>
   <Container>
     <div className={classes.root}>
       <Grid container>
-        {!checked ?
+        {checked ?
           dishes.map((dish, index) =>
             <Grid key={index} item>
               <CardsAdmin />
