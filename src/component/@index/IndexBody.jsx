@@ -12,23 +12,31 @@ const styles = {
   root: {},
 }
 
-const IndexBody = ({ dishes, clicked, dispatch }) =>
-  <Container>
-    <Grid container>
-      {dishes.map((dish, index) =>
-        <Grid item key={index}>
-          <Dishes
-            clicked={clicked === index}
-            onClick={() => {
-              dispatch(clickCardIndex(index),
-                dispatch(createDataStatistics()))
-            }}
-            value={dish}
-          />
-        </Grid>,
-      )}
-    </Grid>
-  </Container>
+class IndexBody extends React.Component {
+  handleClick = (index) => {
+    this.props.dispatch(clickCardIndex(index))
+    this.props.dispatch(createDataStatistics())
+  }
+
+  render() {
+    const { dishes, clicked } = this.props
+    return (
+      <Container>
+        <Grid container>
+          {dishes.map((dish, index) =>
+            <Grid item key={index}>
+              <Dishes
+                clicked={clicked === index}
+                onClick={() => this.handleClick(index)}
+                value={dish}
+              />
+            </Grid>,
+          )}
+        </Grid>
+      </Container>
+    )
+  }
+}
 
 IndexBody.propTypes = {
   dishes: PropTypes.array.isRequired,
