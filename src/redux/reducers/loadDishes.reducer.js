@@ -10,7 +10,7 @@ import {
 const initialState = {
   loading: false,
   loadingSelect: false,
-  index: '',
+  index: null,
   clicked: null,
   dishes: [],
   dishesSelect: [],
@@ -56,17 +56,15 @@ const loadDishes = (state = initialState, { type, payload }) => {
 
     case CREATE_DATA_STATISTICS: {
       const { dishesSelect, index } = state
+      // console.log(index)
       let counter = 0
       const createData = (date, number, description) => {
         counter += 1
         return { id: counter, date, number, description }
       }
       const descriptions = dishesSelect.map(dish => dish.description).join(', ')
-
       const create = createData('18.10.2018', index + 1, descriptions)
-
       const arrayStatistics = [...state.masStatistics]
-      // if([...state.masStatistics] === )
       arrayStatistics.push(create)
       return {
         ...state,

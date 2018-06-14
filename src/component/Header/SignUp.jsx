@@ -57,7 +57,7 @@ class SignUp extends React.Component {
           isVisibility: false,
         })
         if (!error) {
-          this.props.history.push('/')
+          this.props.history.push('/verifyEmail')
         }
       } else {
         this.setState({
