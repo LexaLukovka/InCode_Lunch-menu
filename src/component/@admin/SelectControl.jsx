@@ -15,8 +15,7 @@ const styles = theme => ({
     '&$iOSChecked': {
       color: theme.palette.common.white,
       '& + $iOSBar': {
-        backgroundColor: '#303f9f',
-        // theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main,
       },
     },
     transition: theme.transitions.create('transform', {

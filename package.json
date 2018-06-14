@@ -22,7 +22,8 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.3.0",
     "yarn": "^1.7.0",
-    "uuid": "latest"
+    "uuid": "latest",
+    "classnames": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
