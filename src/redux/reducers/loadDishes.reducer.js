@@ -3,6 +3,7 @@ import {
   LOAD_DISHES_FULFILLED,
   LOAD_DISHES_SELECT_PENDING,
   LOAD_DISHES_SELECT_FULFILLED,
+  CREATE_DATA_STATISTICS,
 } from '../actions/loadDishes.action'
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   loadingSelect: false,
   dishes: [],
   dishesSelect: [],
+  masStatistics: [],
 }
 
 const loadDishes = (state = initialState, { type, payload }) => {
@@ -49,6 +51,24 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
     }
 
+    case CREATE_DATA_STATISTICS: {
+      const { dishesSelect } = state
+      let counter = 0
+      const createData = (date, number, description) => {
+        counter += 1
+        return { id: counter, date, number, description }
+      }
+      const descriptions = dishesSelect.map(dish => dish.description).join(', ')
+
+      const create = createData('18.10.2018', 10, descriptions)
+
+      const arrayStatistics = [...state.masStatistics]
+      arrayStatistics.push(create)
+      return {
+        ...state,
+        masStatistics: arrayStatistics,
+      }
+    }
 
     default: {
       return state

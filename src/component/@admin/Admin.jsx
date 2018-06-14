@@ -14,33 +14,21 @@ const styles = {
   },
 }
 
-class Admin extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {}
-  }
-
-  render() {
-    const { dishes, checked, classes } = this.props
-    return (
-      <Container>
-        <div className={classes.root}>
-          <Grid container>
-            {!checked ?
-              dishes.map((dish, index) =>
-                <Grid key={index} item>
-                  <CardsAdmin />
-                </Grid>)
-              :
-              <TableUsers />
-            }
-          </Grid>
-        </div>
-      </Container>
-    )
-  }
-}
+const Admin = ({ dishes, checked, classes }) =>
+  <Container>
+    <div className={classes.root}>
+      <Grid container>
+        {!checked ?
+          dishes.map((dish, index) =>
+            <Grid key={index} item>
+              <CardsAdmin />
+            </Grid>)
+          :
+          <TableUsers />
+        }
+      </Grid>
+    </div>
+  </Container>
 
 Admin.propTypes = {
   classes: PropTypes.object.isRequired,

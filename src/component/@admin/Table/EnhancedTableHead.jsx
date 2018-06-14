@@ -8,8 +8,8 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Tooltip from '@material-ui/core/Tooltip'
 
 const columnData = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Email' },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'Баланс' },
+  { id: 'email', numeric: false, disablePadding: true, label: 'Email' },
+  { id: 'money', numeric: true, disablePadding: false, label: 'Баланс' },
 ]
 
 class EnhancedTableHead extends React.Component {

@@ -85,6 +85,7 @@ class Header extends React.Component {
             />
             <BottomNavigationAction
               className={classes.buttonNav}
+              onClick={() => this.props.history.push('/statistics')}
               label="Statistic"
             />
             <BottomNavigationAction

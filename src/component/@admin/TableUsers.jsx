@@ -11,14 +11,14 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox'
 import TextField from '@material-ui/core/es/TextField/TextField'
-import EnhancedTableToolbar from './EnhancedTableToolbar'
-import EnhancedTableHead from './EnhancedTableHead'
+import EnhancedTableToolbar from './Table/EnhancedTableToolbar'
+import EnhancedTableHead from './Table/EnhancedTableHead'
 
 let counter = 0
 
-const createData = (name, calories) => {
+const createData = (email, money) => {
   counter += 1
-  return { id: counter, name, calories }
+  return { id: counter, email, money }
 }
 
 const styles = theme => ({
@@ -41,12 +41,12 @@ class TableUsers extends React.Component {
 
     this.state = {
       order: 'asc',
-      orderBy: 'calories',
+      orderBy: 'money',
       selected: [],
       data: [
-        createData(`${this.props.emailSignUp}`, 10),
-        createData(`${JSON.parse(localStorage.getItem('Email'))}`, 20),
-      ].sort((a, b) => (a.calories < b.calories ? -1 : 1)),
+        createData(this.props.emailSignUp, 10),
+        createData(JSON.parse(localStorage.getItem('Email')), 20),
+      ].sort((a, b) => (a.money < b.money ? -1 : 1)),
       page: 0,
       rowsPerPage: 5,
     }
@@ -126,30 +126,30 @@ class TableUsers extends React.Component {
               rowCount={data.length}
             />
             <TableBody>
-              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-                const isSelected = this.isSelected(n.id)
+              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(value => {
+                const isSelected = this.isSelected(value.id)
                 return (
                   <TableRow
                     hover
-                    onClick={event => this.handleClick(event, n.id)}
+                    onClick={event => this.handleClick(event, value.id)}
                     role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
-                    key={n.id}
+                    key={value.id}
                     selected={isSelected}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox checked={isSelected} />
                     </TableCell>
                     <TableCell component="th" scope="row" padding="none">
-                      {n.name}
+                      {value.email}
                     </TableCell>
                     <TableCell numeric>
                       <TextField
                         fullWidth
                         id="required"
                         label="Баланс"
-                        defaultValue={n.calories}
+                        defaultValue={value.money}
                         type="number"
                         margin="normal"
                       />

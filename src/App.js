@@ -9,6 +9,7 @@ import SignUpScene from './container/SignUpScene'
 import SignInScene from './container/SignInScene'
 import Errors from './container/Errors'
 import AdminScene from './container/AdminScene'
+import StatisticsScene from './container/StatisticsScene'
 
 class App extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path="/admin" component={AdminScene} />
           <Route path="/signUp" redirect component={SignUpScene} />
           <Route path="/signIn" component={SignInScene} />
+          <Route path="/statistics" component={StatisticsScene} />
           <Route path="/error" component={Errors} />
           <Redirect from="*" to="/error" />
         </Switch>

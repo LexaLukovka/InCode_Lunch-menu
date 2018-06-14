@@ -8,8 +8,7 @@ import Dishes from './Dishes'
 import Container from '../Container'
 
 const styles = {
-  root: {
-  },
+  root: {},
 }
 
 class IndexBody extends React.Component {
@@ -33,9 +32,8 @@ class IndexBody extends React.Component {
       <Container>
         <Grid container>
           {dishes.map((dish, index) =>
-            <Grid item>
+            <Grid item key={index}>
               <Dishes
-                key={index}
                 clicked={this.state.isClick === index}
                 onClick={() => this.handleClick(index)}
                 value={dish}
