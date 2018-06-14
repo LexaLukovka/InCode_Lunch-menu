@@ -63,7 +63,9 @@ const loadDishes = (state = initialState, { type, payload }) => {
         return { id: counter, date, number, description }
       }
       const descriptions = dishesSelect.map(dish => dish.description).join(', ')
+
       const create = createData('18.10.2018', index + 1, descriptions)
+
       const arrayStatistics = [...state.masStatistics]
       arrayStatistics.push(create)
       return {

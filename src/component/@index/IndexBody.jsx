@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Dishes from './Dishes'
 import Container from '../Container'
-import { clickCardIndex } from '../../redux/actions/loadDishes.action'
+import { clickCardIndex, createDataStatistics } from '../../redux/actions/loadDishes.action'
 
 const styles = {
   root: {},
@@ -19,7 +19,10 @@ const IndexBody = ({ dishes, clicked, dispatch }) =>
         <Grid item key={index}>
           <Dishes
             clicked={clicked === index}
-            onClick={() => dispatch(clickCardIndex(index))}
+            onClick={() => {
+              dispatch(clickCardIndex(index),
+                dispatch(createDataStatistics()))
+            }}
             value={dish}
           />
         </Grid>,

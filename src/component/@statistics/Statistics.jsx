@@ -12,7 +12,6 @@ import Paper from '@material-ui/core/Paper'
 import EnhancedTableToolbar from './Table/EnhancedTableToolbar'
 import EnhancedTableHead from './Table/EnhancedTableHead'
 import Container from '../Container'
-import { createDataStatistics } from '../../redux/actions/loadDishes.action'
 
 const styles = theme => ({
   root: {
@@ -39,7 +38,6 @@ class Statistics extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(createDataStatistics())
   }
 
   handleChangePage = (event, page) => {
@@ -119,7 +117,6 @@ class Statistics extends React.Component {
 }
 
 Statistics.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   masStatistics: PropTypes.array.isRequired,
 }

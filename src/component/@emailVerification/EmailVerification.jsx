@@ -42,8 +42,8 @@ const styles = theme => ({
 class EmailVerification extends React.Component {
   submit = () => {
     this.props.form.validateFields((error, value) => {
-      this.props.dispatch(verifyEmail(value))
       if (!error) {
+        this.props.dispatch(verifyEmail(value))
         this.props.history.push('/')
       }
     })
@@ -63,9 +63,7 @@ class EmailVerification extends React.Component {
             className={classes.textField}
             type="email"
             margin="normal"
-            {...getFieldProps('Email', {
-              rules: [{ required: true }],
-            })}
+            {...getFieldProps('Email')}
             // disabled
             defaultValue={email}
           />
