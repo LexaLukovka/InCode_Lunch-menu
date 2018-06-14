@@ -5,12 +5,12 @@ import Header from '../component/Header/Header'
 import EmailVerification from '../component/@emailVerification/EmailVerification'
 
 class VerifyEmailScene extends React.Component {
-  componentWillMount() {
-    const localStoreEmail = JSON.parse(localStorage.getItem('Email'))
-    if (localStoreEmail === ' ' || !localStoreEmail) {
-      this.props.history.push('/signUp')
-    }
-  }
+  // componentWillMount() {
+  //   const localStoreEmail = JSON.parse(localStorage.getItem('Email'))
+  //   if (localStoreEmail === ' ' || !localStoreEmail) {
+  //     this.props.history.push('/signUp')
+  //   }
+  // }
 
   render() {
     return (
