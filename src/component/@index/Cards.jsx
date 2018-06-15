@@ -11,8 +11,12 @@ const styles = {
   },
 }
 
-const Cards = ({ classes, children, onClick, clicked }) =>
-  <Card className={classes.card} style={{ background: clicked ? '#d0d0d0' : 'white' }} onClick={onClick}>
+const Cards = ({ classes, children, onClick, clicked, onUndefinedClick }) =>
+  <Card
+    className={classes.card}
+    style={{ background: clicked ? '#d0d0d0' : 'white' }}
+    onClick={!clicked ? onClick : onUndefinedClick}
+  >
     {children}
   </Card>
 
@@ -21,10 +25,12 @@ Cards.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.any.isRequired,
   clicked: PropTypes.bool,
+  onUndefinedClick: PropTypes.func,
 }
 Cards.defaultProps = {
   clicked: false,
   onClick: null,
+  onUndefinedClick: null,
 }
 
 const mapStateToProps = (store) => ({

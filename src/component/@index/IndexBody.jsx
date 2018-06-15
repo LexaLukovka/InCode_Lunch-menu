@@ -18,8 +18,13 @@ class IndexBody extends React.Component {
     this.props.dispatch(createDataStatistics())
   }
 
+  handleUndefinedClick= (index) => {
+    this.props.dispatch(clickCardIndex(index))
+  }
+
   render() {
     const { dishes, clicked } = this.props
+
     return (
       <Container>
         <Grid container>
@@ -28,6 +33,7 @@ class IndexBody extends React.Component {
               <Dishes
                 clicked={clicked === index}
                 onClick={() => this.handleClick(index)}
+                onUndefinedClick={() => this.handleUndefinedClick(index)}
                 value={dish}
               />
             </Grid>,

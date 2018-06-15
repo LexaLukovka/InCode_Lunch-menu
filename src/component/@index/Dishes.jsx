@@ -34,8 +34,8 @@ const styles = theme => ({
   },
 })
 
-const Dishes = ({ classes, onClick, clicked, value }) =>
-  <Cards onClick={onClick} clicked={clicked}>
+const Dishes = ({ classes, onClick, clicked, value, onUndefinedClick }) =>
+  <Cards onClick={onClick} clicked={clicked} onUndefinedClick={onUndefinedClick}>
     {value.dishesSelect.map((dish, index) =>
       <Card key={index} className={classes.card}>
         <CardMedia
@@ -59,6 +59,7 @@ Dishes.propTypes = {
   dishesSelect: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   value: PropTypes.object.isRequired,
+  onUndefinedClick: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (store) => ({
