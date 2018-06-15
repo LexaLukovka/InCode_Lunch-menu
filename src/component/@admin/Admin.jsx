@@ -15,7 +15,7 @@ const Admin = ({ dishes, checked, classes }) =>
   <Container>
     <SelectControl />
     <div className={classes.root}>
-      <Grid container>
+      <Grid container justify="center">
         {checked ?
           dishes.map((dish, index) =>
             <Grid key={index} item>

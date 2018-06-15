@@ -27,7 +27,7 @@ class IndexBody extends React.Component {
 
     return (
       <Container>
-        <Grid container>
+        <Grid container justify="center">
           {dishes.map((dish, index) =>
             <Grid item key={index}>
               <Dishes

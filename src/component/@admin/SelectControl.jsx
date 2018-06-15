@@ -9,7 +9,7 @@ import { selectControl } from '../../redux/actions/selectControl.action'
 
 const styles = theme => ({
   root: {
-    margin: '15rem',
+    margin: '10rem',
     position: 'fixed',
     left: 0,
   },
