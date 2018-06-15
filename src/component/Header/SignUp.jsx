@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withFormik } from 'formik'
 import * as Yup from 'yup'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
@@ -19,8 +19,7 @@ import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import * as signUpAction from '../../redux/actions/signUp.action'
-import store from '../../store'
+import { signUp } from '../../redux/actions/signUp.action'
 
 const styles = theme => ({
   container: {
@@ -203,7 +202,6 @@ class SignUp extends React.Component {
               color="primary"
               className={classes.button}
               disabled={isSubmitting}
-              onClick={() => this.props.history.push('/verifyEmail')}
             >
               Sign Up
             </Button>
@@ -221,7 +219,6 @@ class SignUp extends React.Component {
 
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   values: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -232,7 +229,7 @@ SignUp.propTypes = {
 }
 SignUp.defaultProps = {}
 
-export default (withFormik({
+export default connect()(withFormik({
   mapPropsToValues: () => ({
     email: '',
     password: '',
@@ -253,9 +250,10 @@ export default (withFormik({
       .min(6, 'Пароль должен быть больше чем 6 символов!')
       .required('Поле является обязательным!'),
   }),
-  handleSubmit: (values, { setSubmitting }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
-      store.dispatch(signUpAction.signUp(values))
+      props.dispatch(signUp(values))
+      props.history.push('/verifyEmail')
       setSubmitting(false)
     }, 100)
   },

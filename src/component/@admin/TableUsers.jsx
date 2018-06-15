@@ -45,7 +45,7 @@ class TableUsers extends React.Component {
       selected: [],
       data: [
         createData(this.props.emailSignUp, 10),
-        createData(JSON.parse(localStorage.getItem('Email')), 20),
+        createData(localStorage.getItem('Email'), 20),
       ].sort((a, b) => (a.money < b.money ? -1 : 1)),
       page: 0,
       rowsPerPage: 5,

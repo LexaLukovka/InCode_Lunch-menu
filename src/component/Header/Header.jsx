@@ -67,7 +67,6 @@ class Header extends React.Component {
     const { value } = this.state
     const localStore = localStorage.getItem('Email')
     if (localStore === 'undefined') localStorage.setItem('Email', (JSON.stringify(' ')))
-    const localStoreEmail = JSON.parse(localStore)
 
     return (
       <AppBar position="static" color="inherit">
@@ -96,11 +95,11 @@ class Header extends React.Component {
           </BottomNavigation>
           <Grid container className={classes.gridCenter}>
             <Typography variant="subheading" color="inherit" className={classes.flex}>
-              {localStoreEmail}
+              {localStore}
             </Typography>
           </Grid>
           <Grid container justify="flex-end">
-            {localStoreEmail !== ' ' ?
+            {localStore !== ' ' ?
               <Button
                 color="primary"
                 className={classes.button}

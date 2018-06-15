@@ -7,7 +7,7 @@ import SelectControl from '../component/@admin/SelectControl'
 
 class AdminScene extends React.Component {
   componentWillMount() {
-    const localStoreEmail = JSON.parse(localStorage.getItem('Email'))
+    const localStoreEmail = localStorage.getItem('Email')
     if (localStoreEmail === ' ' || !localStoreEmail) {
       this.props.history.push('/signUp')
     }

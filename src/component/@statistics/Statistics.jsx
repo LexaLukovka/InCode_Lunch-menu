@@ -37,9 +37,6 @@ class Statistics extends React.Component {
     }
   }
 
-  componentWillMount() {
-  }
-
   handleChangePage = (event, page) => {
     this.setState({ page })
   }

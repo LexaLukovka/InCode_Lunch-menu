@@ -6,7 +6,7 @@ import Statistics from '../component/@statistics/Statistics'
 
 class StatisticsScene extends React.Component {
   componentWillMount() {
-    const localStoreEmail = JSON.parse(localStorage.getItem('Email'))
+    const localStoreEmail = localStorage.getItem('Email')
     if (localStoreEmail === ' ' || !localStoreEmail) {
       this.props.history.push('/signUp')
     }

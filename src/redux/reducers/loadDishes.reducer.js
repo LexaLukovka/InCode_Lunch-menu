@@ -12,6 +12,7 @@ const initialState = {
   loadingSelect: false,
   index: null,
   clicked: null,
+  counter: 0,
   dishes: [],
   dishesSelect: [],
   masStatistics: [],
@@ -55,26 +56,27 @@ const loadDishes = (state = initialState, { type, payload }) => {
     }
 
     case CREATE_DATA_STATISTICS: {
-      const { dishesSelect, index } = state
-      // console.log(index)
-      let counter = 0
-      const createData = (date, number, description) => {
-        counter += 1
-        return { id: counter, date, number, description }
-      }
+      const { dishesSelect, index, counter } = state
       const descriptions = dishesSelect.map(dish => dish.description).join(', ')
 
-      const create = createData('18.10.2018', index + 1, descriptions)
-
+      const createData = {
+        id: counter,
+        date: '18.10.2018',
+        number: (index + 1),
+        description: descriptions,
+      }
       const arrayStatistics = [...state.masStatistics]
-      arrayStatistics.push(create)
+      arrayStatistics.push(createData)
       return {
         ...state,
+        counter: counter + 1,
         masStatistics: arrayStatistics,
+
       }
     }
 
-    case CLICK_CARD_INDEX: {
+    case
+    CLICK_CARD_INDEX: {
       return {
         ...state,
         index: payload,
