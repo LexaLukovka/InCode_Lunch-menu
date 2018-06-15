@@ -9,10 +9,9 @@ const initialState = {
 const signIn = (state = initialState, { type, payload }) => {
   switch (type) {
     case SIGN_IN: {
-      const localStore = JSON.stringify(payload.Email)
       const uuId = uuid.v1()
       localStorage.setItem('uuId', uuId)
-      localStorage.setItem('Email', localStore)
+      localStorage.setItem('Email', payload.email)
       return {
         ...state,
         value: payload,
@@ -21,8 +20,7 @@ const signIn = (state = initialState, { type, payload }) => {
     }
 
     case SIGN_OUT: {
-      localStorage.setItem('Email', (JSON.stringify(' ')))
-      localStorage.setItem('uuId', (JSON.stringify(' ')))
+      localStorage.clear()
       return {
         ...state,
         value: initialState.value,

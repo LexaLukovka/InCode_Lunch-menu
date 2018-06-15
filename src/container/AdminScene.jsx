@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Header from '../component/Header/Header'
 import Admin from '../component/@admin/Admin'
-import SelectControl from '../component/@admin/SelectControl'
+
 
 class AdminScene extends React.Component {
   componentWillMount() {
     const localStoreEmail = localStorage.getItem('Email')
-    if (localStoreEmail === ' ' || !localStoreEmail) {
+    if (!localStoreEmail) {
       this.props.history.push('/signUp')
     }
   }
@@ -17,7 +17,6 @@ class AdminScene extends React.Component {
     return (
       <Grid container justify="center">
         <Header />
-        <SelectControl />
         <Admin />
       </Grid>
 

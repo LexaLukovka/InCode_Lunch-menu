@@ -7,11 +7,13 @@ import Grid from '@material-ui/core/es/Grid/Grid'
 import Container from '../Container'
 import CardsAdmin from './CardsAdmin'
 import TableUsers from './TableUsers'
+import SelectControl from './SelectControl'
 
 const styles = {}
 
 const Admin = ({ dishes, checked, classes }) =>
   <Container>
+    <SelectControl />
     <div className={classes.root}>
       <Grid container>
         {checked ?

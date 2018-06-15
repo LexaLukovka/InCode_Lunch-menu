@@ -13,6 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import TextField from '@material-ui/core/es/TextField/TextField'
 import EnhancedTableToolbar from './Table/EnhancedTableToolbar'
 import EnhancedTableHead from './Table/EnhancedTableHead'
+import ModalScene from '../../container/ModalScene'
 
 let counter = 0
 
@@ -113,73 +114,77 @@ class TableUsers extends React.Component {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
 
     return (
-      <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={this.handleSelectAllClick}
-              onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
-            />
-            <TableBody>
-              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(value => {
-                const isSelected = this.isSelected(value.id)
-                return (
-                  <TableRow
-                    hover
-                    onClick={event => this.handleClick(event, value.id)}
-                    role="checkbox"
-                    aria-checked={isSelected}
-                    tabIndex={-1}
-                    key={value.id}
-                    selected={isSelected}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox checked={isSelected} />
-                    </TableCell>
-                    <TableCell component="th" scope="row" padding="none">
-                      {value.email}
-                    </TableCell>
-                    <TableCell numeric>
-                      <TextField
-                        fullWidth
-                        id="required"
-                        label="Баланс"
-                        defaultValue={value.money}
-                        type="number"
-                        margin="normal"
-                      />
-                    </TableCell>
+      <div>
+        <Paper className={classes.root}>
+          <EnhancedTableToolbar numSelected={selected.length} />
+          <div className={classes.tableWrapper}>
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={this.handleSelectAllClick}
+                onRequestSort={this.handleRequestSort}
+                rowCount={data.length}
+              />
+              <TableBody>
+                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(value => {
+                  const isSelected = this.isSelected(value.id)
+                  return (
+                    <TableRow
+                      hover
+                      onClick={event => this.handleClick(event, value.id)}
+                      role="checkbox"
+                      aria-checked={isSelected}
+                      tabIndex={-1}
+                      key={value.id}
+                      selected={isSelected}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox checked={isSelected} />
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {value.email}
+                      </TableCell>
+                      <TableCell numeric>
+                        <TextField
+                          fullWidth
+                          id="required"
+                          label="Баланс"
+                          defaultValue={value.money}
+                          type="number"
+                          margin="normal"
+                        />
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 49 * emptyRows }}>
+                    <TableCell colSpan={6} />
                   </TableRow>
-                )
-              })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page',
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-      </Paper>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
+        </Paper>
+
+        <ModalScene />
+      </div>
     )
   }
 }

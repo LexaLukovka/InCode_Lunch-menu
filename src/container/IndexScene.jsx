@@ -8,7 +8,7 @@ import IndexBody from '../component/@index/IndexBody'
 class IndexScene extends React.Component {
   componentWillMount() {
     const localStoreEmail = localStorage.getItem('Email')
-    if (localStoreEmail === ' ' || !localStoreEmail) {
+    if (!localStoreEmail) {
       this.props.history.push('/signUp')
     }
   }

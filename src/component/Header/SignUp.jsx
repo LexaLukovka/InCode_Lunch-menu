@@ -6,7 +6,6 @@ import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { withStyles } from '@material-ui/core/styles'
-import classNames from 'classnames'
 import Link from 'react-router-dom/es/Link'
 import Card from '@material-ui/core/es/Card/Card'
 import Button from '@material-ui/core/es/Button/Button'
@@ -50,9 +49,6 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing.unit * 2,
   },
   withoutLabel: {
     marginTop: theme.spacing.unit * 3,
@@ -116,7 +112,7 @@ class SignUp extends React.Component {
       <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
         <Card className={classes.card}>
           <div className={classes.div}>
-            <FormControl className={classNames(classes.margin, classes.textFieldS)}>
+            <FormControl className={classes.textFieldS}>
               <InputLabel
                 htmlFor="email"
                 style={errors.email && touched.email && { color: 'red' }}
@@ -136,7 +132,7 @@ class SignUp extends React.Component {
             </FormControl>
           </div>
           <div className={classes.div}>
-            <FormControl className={classNames(classes.margin, classes.textFieldS)}>
+            <FormControl className={classes.textFieldS}>
               <InputLabel
                 htmlFor="password"
                 style={errors.password && touched.password && { color: 'red' }}
@@ -166,7 +162,7 @@ class SignUp extends React.Component {
             </FormControl>
           </div>
           <div className={classes.div}>
-            <FormControl className={classNames(classes.margin, classes.textFieldS)}>
+            <FormControl className={classes.textFieldS}>
               <InputLabel
                 htmlFor="password"
                 style={errors.repeatPassword && touched.repeatPassword && { color: 'red' }}
@@ -228,7 +224,7 @@ SignUp.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
-export default connect()(withFormik({
+export default connect()(withRouter(withFormik({
   mapPropsToValues: () => ({
     email: '',
     password: '',
@@ -252,9 +248,9 @@ export default connect()(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(signUp(values))
-      // props.history.push('/verifyEmail')
+      props.history.push('/verifyEmail')
       setSubmitting(false)
     }, 100)
   },
   displayName: 'SignUp',
-})(withRouter(withStyles(styles)(SignUp))))
+})(withStyles(styles)(SignUp))))

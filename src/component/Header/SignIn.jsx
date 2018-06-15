@@ -18,7 +18,6 @@ import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
 import Input from '@material-ui/core/es/Input/Input'
 import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
-import classNames from 'classnames'
 import { signIn } from '../../redux/actions/signIn.action'
 
 const styles = theme => ({
@@ -50,9 +49,6 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing.unit * 2,
   },
   withoutLabel: {
     marginTop: theme.spacing.unit * 3,
@@ -101,7 +97,7 @@ class SignIn extends React.Component {
       <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
         <Card className={classes.card}>
           <div className={classes.div}>
-            <FormControl className={classNames(classes.margin, classes.textFieldS)}>
+            <FormControl className={classes.textFieldS}>
               <InputLabel
                 htmlFor="email"
                 style={errors.email && touched.email && { color: 'red' }}
@@ -121,7 +117,7 @@ class SignIn extends React.Component {
             </FormControl>
           </div>
           <div className={classes.div}>
-            <FormControl className={classNames(classes.margin, classes.textFieldS)}>
+            <FormControl className={classes.textFieldS}>
               <InputLabel
                 htmlFor="password"
                 style={errors.password && touched.password && { color: 'red' }}
@@ -182,7 +178,7 @@ SignIn.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
-export default connect()(withFormik({
+export default connect()(withRouter(withFormik({
   mapPropsToValues: () => ({
     email: '',
     password: '',
@@ -207,4 +203,4 @@ export default connect()(withFormik({
     }, 100)
   },
   displayName: 'SignIn',
-})(withRouter(withStyles(styles)(SignIn))))
+})(withStyles(styles)(SignIn))))

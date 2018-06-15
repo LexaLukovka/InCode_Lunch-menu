@@ -5,11 +5,13 @@ import {
   LOAD_DISHES_SELECT_FULFILLED,
   CREATE_DATA_STATISTICS,
   CLICK_CARD_INDEX,
+  LOAD_MODAL_DATA,
 } from '../actions/loadDishes.action'
 
 const initialState = {
   loading: false,
   loadingSelect: false,
+  modalData: [],
   index: null,
   clicked: null,
   counter: 0,
@@ -55,7 +57,15 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
     }
 
-    case CREATE_DATA_STATISTICS: {
+    case LOAD_MODAL_DATA: {
+      return {
+        ...state,
+        modalData: payload,
+      }
+    }
+
+    case
+    CREATE_DATA_STATISTICS: {
       const { dishesSelect, index, counter } = state
       const descriptions = dishesSelect.map(dish => dish.description).join(', ')
 

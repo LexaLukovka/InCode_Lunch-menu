@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { withStyles } from '@material-ui/core/styles'
-import { createForm, formShape } from 'rc-form'
+import { withFormik } from 'formik/dist/formik'
 import Link from 'react-router-dom/es/Link'
-import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/es/Card/Card'
 import Typography from '@material-ui/core/es/Typography/Typography'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
+import FormControl from '@material-ui/core/es/FormControl/FormControl'
+import Input from '@material-ui/core/es/Input/Input'
+import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
 import { verifyEmail } from '../../redux/actions/signUp.action'
 
 const styles = theme => ({
@@ -39,63 +41,68 @@ const styles = theme => ({
   },
 })
 
-class EmailVerification extends React.Component {
-  submit = () => {
-    this.props.form.validateFields((error, value) => {
-      if (!error) {
-        this.props.dispatch(verifyEmail(value))
-        this.props.history.push('/')
-      }
-    })
-  }
-
-  render() {
-    const { classes, email, uuId } = this.props
-    const { getFieldProps, getFieldError } = this.props.form
-    return (
-      <form className={classes.container} noValidate autoComplete="off">
-        <Card className={classes.card}>
-          <TextField
+const EmailVerification = ({
+  classes,
+  errors,
+  isSubmitting,
+  handleSubmit,
+  email,
+  uuId,
+}) =>
+  <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
+    <Card className={classes.card}>
+      <div className={classes.div}>
+        <FormControl className={classes.textFieldS}>
+          <InputLabel
+            htmlFor="email"
+            style={errors.email && { color: 'red' }}
+          >
+            {errors.email ? errors.email : 'Email'}
+          </InputLabel>
+          <Input
             fullWidth
-            error={getFieldError('Email') && true}
-            id="required"
-            label={getFieldError('Email') ? getFieldError('Email').join(',') : 'Email'}
-            className={classes.textField}
-            type="email"
-            margin="normal"
-            {...getFieldProps('Email')}
-            // disabled
-            defaultValue={email}
+            id="email"
+            type="text"
+            value={email}
+            disabled
           />
-          <TextField
+        </FormControl>
+      </div>
+      <div className={classes.div}>
+        <FormControl className={classes.textFieldS}>
+          <Input
+            fullWidth
             type="hidden"
-            {...getFieldProps('uuId')}
-            defaultValue={uuId}
+            id="uuId"
+            value={uuId}
           />
-          <Grid container justify="center">
-            <Button color="primary" className={classes.button} onClick={this.submit}>
-              Verify email
-            </Button>
-            <div className={classes.link}>
-              <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
-            </div>
-          </Grid>
-        </Card>
-      </form>
-    )
-  }
-}
+        </FormControl>
+      </div>
+      <Grid container justify="center">
+        <Button
+          type="submit"
+          color="primary"
+          className={classes.button}
+          disabled={isSubmitting}
+        >
+          Verify email
+        </Button>
+        <div className={classes.link}>
+          <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
+        </div>
+      </Grid>
+    </Card>
+  </form>
 
 EmailVerification.propTypes = {
   classes: PropTypes.object.isRequired,
-  form: formShape,
-  dispatch: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   email: PropTypes.string,
   uuId: PropTypes.string,
+  errors: PropTypes.object.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 EmailVerification.defaultProps = {
-  form: '',
   email: '',
   uuId: '',
 }
@@ -105,4 +112,13 @@ const mapStateToProps = (store) => ({
   uuId: store.signUp.uuId,
 })
 
-export default connect(mapStateToProps)(createForm()(withRouter(withStyles(styles)(EmailVerification))))
+export default connect(mapStateToProps)(withRouter(withFormik({
+  handleSubmit: (values, { props, setSubmitting }) => {
+    setTimeout(() => {
+      props.dispatch(verifyEmail(values))
+      props.history.push('/')
+      setSubmitting(false)
+    }, 100)
+  },
+  displayName: 'VerifyEmail',
+})(withStyles(styles)(EmailVerification))))
