@@ -8,10 +8,9 @@ import { withRouter } from 'react-router'
 import Button from '@material-ui/core/es/Button/Button'
 import Toolbar from '@material-ui/core/es/Toolbar/Toolbar'
 import Typography from '@material-ui/core/es/Typography/Typography'
-import BottomNavigation from '@material-ui/core/es/BottomNavigation/BottomNavigation'
-import BottomNavigationAction from '@material-ui/core/es/BottomNavigationAction/BottomNavigationAction'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import { signOut } from '../../redux/actions/signIn.action'
+import ButtonNavigation from './ButtonNavigations'
 
 const styles = (theme) => ({
   button: {
@@ -45,18 +44,6 @@ const styles = (theme) => ({
 })
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      value: 0,
-    }
-  }
-
-  handleChange = (event, value) => {
-    this.setState({ value })
-  }
-
   handleClickOut = () => {
     this.props.dispatch(signOut())
     this.props.history.push('/signIn')
@@ -64,34 +51,12 @@ class Header extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { value } = this.state
 
     const localStore = localStorage.getItem('Email')
     return (
       <AppBar position="static" color="inherit">
         <Toolbar>
-          <BottomNavigation
-            value={value}
-            onChange={this.handleChange}
-            showLabels
-            className={classes.root}
-          >
-            <BottomNavigationAction
-              className={classes.buttonNav}
-              onClick={() => this.props.history.push('/')}
-              label="Home"
-            />
-            <BottomNavigationAction
-              className={classes.buttonNav}
-              onClick={() => this.props.history.push('/statistics')}
-              label="Statistic"
-            />
-            <BottomNavigationAction
-              className={classes.buttonNav}
-              onClick={() => this.props.history.push('/admin')}
-              label="Admin"
-            />
-          </BottomNavigation>
+          <ButtonNavigation />
           <Grid container className={classes.gridCenter}>
             <Typography variant="subheading" color="inherit" className={classes.flex}>
               {!localStore ? '' : localStore}
@@ -123,7 +88,6 @@ class Header extends React.Component {
                   Sign Up
                 </Button>
               </div>
-
             }
           </Grid>
         </Toolbar>
