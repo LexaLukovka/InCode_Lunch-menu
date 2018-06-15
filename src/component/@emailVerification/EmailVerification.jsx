@@ -101,7 +101,7 @@ EmailVerification.defaultProps = {
 }
 
 const mapStateToProps = (store) => ({
-  email: store.signUp.value.Email,
+  email: store.signUp.value.email,
   uuId: store.signUp.uuId,
 })
 

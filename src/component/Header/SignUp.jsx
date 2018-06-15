@@ -227,7 +227,6 @@ SignUp.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
-SignUp.defaultProps = {}
 
 export default connect()(withFormik({
   mapPropsToValues: () => ({
@@ -253,7 +252,7 @@ export default connect()(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(signUp(values))
-      props.history.push('/verifyEmail')
+      // props.history.push('/verifyEmail')
       setSubmitting(false)
     }, 100)
   },

@@ -65,8 +65,12 @@ class Header extends React.Component {
   render() {
     const { classes } = this.props
     const { value } = this.state
-    const localStore = localStorage.getItem('Email')
-    if (localStore === 'undefined') localStorage.setItem('Email', (JSON.stringify(' ')))
+    let localStore = localStorage.getItem('Email')
+    if (localStore === undefined) {
+      console.log(1)
+      localStorage.setItem('Email', (JSON.stringify(' ')))
+      localStore = JSON.parse(localStore)
+    }
 
     return (
       <AppBar position="static" color="inherit">

@@ -8,11 +8,7 @@ import Container from '../Container'
 import CardsAdmin from './CardsAdmin'
 import TableUsers from './TableUsers'
 
-const styles = {
-  root: {
-    marginLeft: '-9rem',
-  },
-}
+const styles = {}
 
 const Admin = ({ dishes, checked, classes }) =>
   <Container>

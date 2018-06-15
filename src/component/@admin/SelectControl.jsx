@@ -9,7 +9,9 @@ import { selectControl } from '../../redux/actions/selectControl.action'
 
 const styles = theme => ({
   root: {
-    marginLeft: '15rem',
+    margin: '15rem',
+    position: 'fixed',
+    left: 0,
   },
   iOSSwitchBase: {
     '&$iOSChecked': {
