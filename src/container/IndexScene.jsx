@@ -6,6 +6,8 @@ import Header from '../component/Header/Header'
 import IndexBody from '../component/@index/IndexBody'
 
 class IndexScene extends React.Component {
+  state = { users: [] }
+
   componentWillMount() {
     const localStoreEmail = localStorage.getItem('Email')
     if (!localStoreEmail) {
@@ -13,11 +15,18 @@ class IndexScene extends React.Component {
     }
   }
 
+  componentDidMount() {
+    fetch('/users')
+      .then(res => res.json())
+      .then(users => this.setState({ users }))
+  }
+
   render() {
     return (
       <Grid container justify="center">
         <Header />
         <IndexBody />
+        {console.log(this.state.users)}
       </Grid>
     )
   }
