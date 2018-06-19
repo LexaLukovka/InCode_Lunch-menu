@@ -17,8 +17,8 @@ class IndexScene extends React.Component {
 
   componentDidMount() {
     fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }))
+      .then((res, err) => !err && res.json())
+      .then((users, err) => !err && this.setState({ users }))
   }
 
   render() {
