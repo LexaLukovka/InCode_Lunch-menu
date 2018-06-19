@@ -12,7 +12,7 @@ const signUp = (state = initialState, { type, payload }) => {
   switch (type) {
     case SIGN_UP: {
       const uuId = uuid.v1()
-      localStorage.setItem('uuId', uuId)
+      localStorage.setItem('token', uuId)
       localStorage.setItem('Email', payload.email)
       return {
         ...state,
