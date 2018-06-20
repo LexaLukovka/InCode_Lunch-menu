@@ -1,7 +1,8 @@
 import uuid from 'uuid'
 import {
   SIGN_IN_FULFILLED,
-  SIGN_OUT_FULFILLED,
+  SIGN_IN_REJECTED,
+  SIGN_OUT,
 } from '../actions/signIn.action'
 
 const initialState = {
@@ -22,7 +23,14 @@ const signIn = (state = initialState, { type, payload }) => {
       }
     }
 
-    case SIGN_OUT_FULFILLED: {
+    case SIGN_IN_REJECTED: {
+      return {
+        ...state,
+        messages: payload,
+      }
+    }
+
+    case SIGN_OUT: {
       localStorage.clear()
       return {
         ...state,

@@ -19,6 +19,7 @@ import Input from '@material-ui/core/es/Input/Input'
 import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import { signIn } from '../../redux/actions/signIn.action'
+import Errors from '../Errors/Errors'
 
 const styles = theme => ({
   container: {
@@ -85,6 +86,7 @@ class SignIn extends React.Component {
   render() {
     const {
       classes,
+      messages,
       values,
       touched,
       errors,
@@ -146,6 +148,9 @@ class SignIn extends React.Component {
               />
             </FormControl>
           </div>
+          <Errors> {messages.length && messages} </Errors>
+          {console.log(messages)}
+          {console.log(messages.messages)}
           <Grid container justify="center">
             <Button
               type="submit"
@@ -169,6 +174,7 @@ class SignIn extends React.Component {
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
+  messages: PropTypes.object,
   values: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -177,8 +183,15 @@ SignIn.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
+SignIn.defaultProps = {
+  messages: {},
+}
 
-export default connect()(withRouter(withFormik({
+const mapStateToProps = (store) => ({
+  messages: store.signIn.messages,
+})
+
+export default connect(mapStateToProps)(withRouter(withFormik({
   mapPropsToValues: () => ({
     email: '',
     password: '',
@@ -198,7 +211,7 @@ export default connect()(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(signIn(values))
-      props.history.push('/')
+      // props.history.push('/')
       setSubmitting(false)
     }, 100)
   },

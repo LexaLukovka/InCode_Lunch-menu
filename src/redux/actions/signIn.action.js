@@ -5,7 +5,6 @@ export const SIGN_IN_FULFILLED = 'SIGN_IN_FULFILLED'
 export const SIGN_IN_REJECTED = 'SIGN_IN_REJECTED'
 
 export const SIGN_OUT = 'SIGN_OUT'
-export const SIGN_OUT_FULFILLED = 'SIGN_OUT_FULFILLED'
 
 export const signIn = (value) => ({
   type: SIGN_IN,
