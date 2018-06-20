@@ -29,7 +29,8 @@
     "redux-thunk": "^2.3.0",
     "uuid": "latest",
     "yarn": "^1.7.0",
-    "yup": "^0.25.1"
+    "yup": "^0.25.1",
+    "redux-promise-middleware": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

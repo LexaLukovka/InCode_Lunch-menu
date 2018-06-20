@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { signUp } from '../../redux/actions/signUp.action'
+import Errors from '../Errors/Errors'
 
 const styles = theme => ({
   container: {
@@ -96,17 +97,8 @@ class SignUp extends React.Component {
       handleChange,
       handleBlur,
       handleSubmit,
+      messages,
     } = this.props
-
-    const Errors = () =>
-      <Typography
-        variant="caption"
-        color="error"
-      >
-        <Grid container justify="center">
-          Пароли не совпадают
-        </Grid>
-      </Typography>
 
     return (
       <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
@@ -191,7 +183,11 @@ class SignUp extends React.Component {
               />
             </FormControl>
           </div>
-          {!errors.repeatPassword && values.password !== values.repeatPassword && <Errors />}
+          {!errors.repeatPassword && values.password !== values.repeatPassword &&
+          <Errors> Пароли не совпадают </Errors>
+          }
+          {console.log(messages)}
+          <Errors> {messages.length && messages.messages} </Errors>
           <Grid container justify="center">
             <Button
               type="submit"
@@ -215,6 +211,7 @@ class SignUp extends React.Component {
 
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
+  messages: PropTypes.object,
   values: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -223,8 +220,15 @@ SignUp.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
+SignUp.defaultProps = {
+  messages: {},
+}
 
-export default connect()(withRouter(withFormik({
+const mapStateToProps = (store) => ({
+  messages: store.signUp.messages,
+})
+
+export default connect(mapStateToProps)(withRouter(withFormik({
   mapPropsToValues: () => ({
     email: '',
     password: '',
@@ -248,7 +252,9 @@ export default connect()(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(signUp(values))
-      props.history.push('/verifyEmail')
+      console.log(props)
+      console.log(props.messages)
+      // props.history.push('/verifyEmail')
       setSubmitting(false)
     }, 100)
   },
