@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { signUp } from '../../redux/actions/signUp.action'
+import Errors from '../Errors/Errors'
 
 const styles = theme => ({
   container: {
@@ -97,16 +98,6 @@ class SignUp extends React.Component {
       handleBlur,
       handleSubmit,
     } = this.props
-
-    const Errors = () =>
-      <Typography
-        variant="caption"
-        color="error"
-      >
-        <Grid container justify="center">
-          Пароли не совпадают
-        </Grid>
-      </Typography>
 
     return (
       <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
@@ -191,7 +182,9 @@ class SignUp extends React.Component {
               />
             </FormControl>
           </div>
-          {!errors.repeatPassword && values.password !== values.repeatPassword && <Errors />}
+          {!errors.repeatPassword && values.password !== values.repeatPassword &&
+          <Errors>Пароли не совпадают </Errors>
+          }
           <Grid container justify="center">
             <Button
               type="submit"

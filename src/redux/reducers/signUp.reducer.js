@@ -1,16 +1,17 @@
 import uuid from 'uuid'
-import { SIGN_UP, VERIFY_EMAIL } from '../actions/signUp.action'
+import { SIGN_UP_FULFILLED, SIGN_UP_REJECTED, VERIFY_EMAIL } from '../actions/signUp.action'
 
 const initialState = {
   value: {},
   uuId: '',
   uuIdVerify: '',
   email: '',
+  massages: {},
 }
 
 const signUp = (state = initialState, { type, payload }) => {
   switch (type) {
-    case SIGN_UP: {
+    case SIGN_UP_FULFILLED: {
       const uuId = uuid.v1()
       localStorage.setItem('token', uuId)
       localStorage.setItem('Email', payload.email)
@@ -20,6 +21,13 @@ const signUp = (state = initialState, { type, payload }) => {
         uuId,
       }
     }
+    case SIGN_UP_REJECTED: {
+      return {
+        ...state,
+        massages: payload,
+      }
+    }
+
     case VERIFY_EMAIL: {
       return {
         ...state,

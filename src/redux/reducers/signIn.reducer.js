@@ -1,5 +1,10 @@
 import uuid from 'uuid'
-import { SIGN_IN, SIGN_OUT } from '../actions/signIn.action'
+import {
+  SIGN_IN_FULFILLED,
+  SIGN_IN_REJECTED,
+  SIGN_OUT,
+  SIGN_OUT_FULFILLED,
+} from '../actions/signIn.action'
 
 const initialState = {
   value: {},
@@ -8,7 +13,7 @@ const initialState = {
 
 const signIn = (state = initialState, { type, payload }) => {
   switch (type) {
-    case SIGN_IN: {
+    case SIGN_IN_FULFILLED: {
       const uuId = uuid.v1()
       localStorage.setItem('uuId', uuId)
       localStorage.setItem('Email', payload.email)
@@ -16,6 +21,12 @@ const signIn = (state = initialState, { type, payload }) => {
         ...state,
         value: payload,
         id: uuId,
+      }
+    }
+    case SIGN_IN_REJECTED: {
+      return {
+        ...state,
+        massages: payload,
       }
     }
 

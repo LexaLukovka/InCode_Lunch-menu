@@ -15,11 +15,11 @@ class IndexScene extends React.Component {
     }
   }
 
-  componentDidMount() {
-    fetch('/users')
-      .then((res, err) => !err && res.json())
-      .then((users, err) => !err && this.setState({ users }))
-  }
+  // componentDidMount() {
+  //   fetch('/signIn')
+  //     .then((res, err) => (!err && res.json().length !== 0) && res.json())
+  //     .then((users, err) => !err && this.setState({ users }))
+  // }
 
   render() {
     return (
