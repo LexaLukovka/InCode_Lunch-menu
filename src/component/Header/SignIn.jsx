@@ -10,16 +10,14 @@ import VisibilityOff from '@material-ui/icons/es/VisibilityOff'
 import Visibility from '@material-ui/icons/es/Visibility'
 import Link from 'react-router-dom/es/Link'
 import Card from '@material-ui/core/es/Card/Card'
+import TextField from '@material-ui/core/es/TextField/TextField'
 import Typography from '@material-ui/core/es/Typography/Typography'
 import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
-import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
-import Input from '@material-ui/core/es/Input/Input'
 import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import { signIn } from '../../redux/actions/signIn.action'
-import Errors from '../Errors/Errors'
 
 const styles = theme => ({
   container: {
@@ -67,12 +65,40 @@ const styles = theme => ({
 })
 
 class SignIn extends React.Component {
-  constructor(props) {
-    super(props)
+  state = {
+    showPassword: false,
+    isSubmited: false,
+  }
 
-    this.state = {
-      showPassword: false,
-    }
+  handleSubmit = (e) => {
+    const { handleSubmit } = this.props
+    this.setState({ isSubmited: true })
+
+    handleSubmit(e)
+  }
+
+  serverError = (fieldName) => {
+    const { auth } = this.props
+
+    const serverErrors = {}
+    auth.errors.forEach(error => {
+      serverErrors[error.field] = error.message
+    })
+
+    return serverErrors[fieldName]
+  }
+
+  hasError = (fieldName) => {
+    const { isSubmited } = this.state
+    const { errors, touched } = this.props
+
+    return (!!errors[fieldName] && touched[fieldName] && isSubmited) || this.serverError(fieldName)
+  }
+
+  showHelperError = (fieldName) => {
+    const { errors, touched } = this.props
+
+    return (touched[fieldName] && errors[fieldName]) || this.serverError(fieldName)
   }
 
   handleMouseDownPassword = event => {
@@ -86,71 +112,62 @@ class SignIn extends React.Component {
   render() {
     const {
       classes,
-      messages,
       values,
       touched,
       errors,
       isSubmitting,
       handleChange,
       handleBlur,
-      handleSubmit,
     } = this.props
     return (
-      <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
+      <form className={classes.container} onSubmit={this.handleSubmit} noValidate>
         <Card className={classes.card}>
           <div className={classes.div}>
             <FormControl className={classes.textFieldS}>
-              <InputLabel
-                htmlFor="email"
-                style={errors.email && touched.email && { color: 'red' }}
-              >
-                {errors.email && touched.email ? errors.email : 'Email'}
-              </InputLabel>
-              <Input
+              <TextField
                 fullWidth
-                id="email"
+                label="Введите email"
+                name="email"
                 type="text"
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={errors.email && touched.email ? classes.errors : classes.textField}
-                error={errors.email && touched.email && true}
+                error={this.hasError('email')}
+                helperText={this.showHelperError('email')}
               />
             </FormControl>
           </div>
           <div className={classes.div}>
             <FormControl className={classes.textFieldS}>
-              <InputLabel
-                htmlFor="password"
-                style={errors.password && touched.password && { color: 'red' }}
-              >
-                {errors.password && touched.password ? errors.password : 'Password'}
-              </InputLabel>
-              <Input
+              <TextField
                 fullWidth
-                id="password"
+                label="Введите пароль"
+                name="password"
                 type={this.state.showPassword ? 'text' : 'password'}
                 value={values.password}
                 onChange={handleChange}
+                helperText={this.showHelperError('password')}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="Toggle password visibility"
+                        onClick={this.handleClickShowPassword}
+                        onMouseDown={this.handleMouseDownPassword}
+                      >
+                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 onBlur={handleBlur}
                 className={errors.password && touched.password ? classes.errors : classes.textField}
-                error={errors.password && touched.password && true}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="Toggle password visibility"
-                      onClick={this.handleClickShowPassword}
-                      onMouseDown={this.handleMouseDownPassword}
-                    >
-                      {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>}
+                error={this.hasError('password')}
+
               />
             </FormControl>
           </div>
-          <Errors> {messages.length && messages} </Errors>
-          {console.log(messages)}
-          {console.log(messages.messages)}
           <Grid container justify="center">
             <Button
               type="submit"
@@ -174,7 +191,7 @@ class SignIn extends React.Component {
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
-  messages: PropTypes.object,
+  auth: PropTypes.object.isRequired,
   values: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -183,12 +200,9 @@ SignIn.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
-SignIn.defaultProps = {
-  messages: {},
-}
 
 const mapStateToProps = (store) => ({
-  messages: store.signIn.messages,
+  auth: store.signIn,
 })
 
 export default connect(mapStateToProps)(withRouter(withFormik({

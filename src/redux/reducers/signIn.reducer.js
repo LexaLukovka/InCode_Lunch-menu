@@ -8,6 +8,7 @@ import {
 const initialState = {
   value: {},
   id: '',
+  errors: [],
 }
 
 const signIn = (state = initialState, { type, payload }) => {
@@ -26,7 +27,7 @@ const signIn = (state = initialState, { type, payload }) => {
     case SIGN_IN_REJECTED: {
       return {
         ...state,
-        messages: payload,
+        errors: payload,
       }
     }
 
