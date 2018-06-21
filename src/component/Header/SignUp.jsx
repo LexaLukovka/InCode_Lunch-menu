@@ -12,8 +12,7 @@ import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Typography from '@material-ui/core/es/Typography/Typography'
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
-import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
-import Input from '@material-ui/core/es/Input/Input'
+import TextField from '@material-ui/core/es/TextField/TextField'
 import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
@@ -76,6 +75,39 @@ class SignUp extends React.Component {
     }
   }
 
+  handleSubmit = (e) => {
+    const { handleSubmit } = this.props
+    this.setState({ isSubmited: true })
+
+    handleSubmit(e)
+  }
+
+  serverError = (fieldName) => {
+    const { auth } = this.props
+
+    const serverErrors = {}
+    if (auth.errors) {
+      auth.errors.forEach(error => {
+        serverErrors[error.field] = error.message
+      })
+    }
+
+    return serverErrors[fieldName]
+  }
+
+  hasError = (fieldName) => {
+    const { isSubmited } = this.state
+    const { errors, touched } = this.props
+
+    return (!!errors[fieldName] && touched[fieldName] && isSubmited) || this.serverError(fieldName)
+  }
+
+  showHelperError = (fieldName) => {
+    const { errors, touched } = this.props
+
+    return (touched[fieldName] && errors[fieldName]) || this.serverError(fieldName)
+  }
+
   handleMouseDownPassword = event => {
     event.preventDefault()
   }
@@ -96,98 +128,88 @@ class SignUp extends React.Component {
       isSubmitting,
       handleChange,
       handleBlur,
-      handleSubmit,
-      messages,
     } = this.props
 
     return (
-      <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
+      <form className={classes.container} onSubmit={this.handleSubmit} noValidate>
         <Card className={classes.card}>
           <div className={classes.div}>
             <FormControl className={classes.textFieldS}>
-              <InputLabel
-                htmlFor="email"
-                style={errors.email && touched.email && { color: 'red' }}
-              >
-                {errors.email && touched.email ? errors.email : 'Email'}
-              </InputLabel>
-              <Input
+              <TextField
                 fullWidth
-                id="email"
+                name="email"
                 type="text"
+                label="Введите Email"
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={errors.email && touched.email ? classes.errors : classes.textField}
-                error={errors.email && touched.email && true}
+                error={this.hasError('email')}
+                helperText={this.showHelperError('email')}
               />
             </FormControl>
           </div>
           <div className={classes.div}>
             <FormControl className={classes.textFieldS}>
-              <InputLabel
-                htmlFor="password"
-                style={errors.password && touched.password && { color: 'red' }}
-              >
-                {errors.password && touched.password ? errors.password : 'Password'}
-              </InputLabel>
-              <Input
+              <TextField
                 fullWidth
-                id="password"
+                name="password"
+                label="Введите пароль"
                 type={this.state.showPassword ? 'text' : 'password'}
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={errors.password && touched.password ? classes.errors : classes.textField}
-                error={errors.password && touched.password && true}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="Toggle password visibility"
-                      onClick={this.handleClickShowPassword}
-                      onMouseDown={this.handleMouseDownPassword}
-                    >
-                      {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>}
+                error={this.hasError('password')}
+                helperText={this.showHelperError('password')}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="Toggle password visibility"
+                        onClick={this.handleClickShowPassword}
+                        onMouseDown={this.handleMouseDownPassword}
+                      >
+                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </FormControl>
           </div>
           <div className={classes.div}>
             <FormControl className={classes.textFieldS}>
-              <InputLabel
-                htmlFor="password"
-                style={errors.repeatPassword && touched.repeatPassword && { color: 'red' }}
-              >
-                {errors.repeatPassword && touched.repeatPassword ? errors.repeatPassword : 'Repeat password'}
-              </InputLabel>
-              <Input
+              <TextField
                 fullWidth
-                id="repeatPassword"
+                name="repeatPassword"
+                label="Повторите пароль"
                 type={this.state.showRepeatPassword ? 'text' : 'password'}
                 value={values.repeatPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={errors.repeatPassword && touched.repeatPassword ? classes.errors : classes.textField}
-                error={errors.repeatPassword && touched.repeatPassword && true}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="Toggle password visibility"
-                      onClick={this.handleClickShowReapedPassword}
-                      onMouseDown={this.handleMouseDownPassword}
-                    >
-                      {this.state.showRepeatPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>}
+                helperText={this.showHelperError('repeatPassword')}
+                error={this.hasError('repeatPassword')}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="Toggle password visibility"
+                        onClick={this.handleClickShowReapedPassword}
+                        onMouseDown={this.handleMouseDownPassword}
+                      >
+                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </FormControl>
           </div>
           {!errors.repeatPassword && values.password !== values.repeatPassword &&
           <Errors> Пароли не совпадают </Errors>
           }
-          {console.log(messages)}
-          <Errors> {messages.length && messages.messages} </Errors>
           <Grid container justify="center">
             <Button
               type="submit"
@@ -211,7 +233,7 @@ class SignUp extends React.Component {
 
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
-  messages: PropTypes.object,
+  auth: PropTypes.object.isRequired,
   values: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -220,12 +242,8 @@ SignUp.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
-SignUp.defaultProps = {
-  messages: {},
-}
-
 const mapStateToProps = (store) => ({
-  messages: store.signUp.messages,
+  auth: store.signUp,
 })
 
 export default connect(mapStateToProps)(withRouter(withFormik({
@@ -252,8 +270,6 @@ export default connect(mapStateToProps)(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(signUp(values))
-      console.log(props)
-      console.log(props.messages)
       // props.history.push('/verifyEmail')
       setSubmitting(false)
     }, 100)

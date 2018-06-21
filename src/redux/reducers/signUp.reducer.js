@@ -29,7 +29,7 @@ const signUp = (state = initialState, { type, payload }) => {
     case SIGN_UP_REJECTED: {
       return {
         ...state,
-        messages: payload,
+        errors: payload,
       }
     }
 

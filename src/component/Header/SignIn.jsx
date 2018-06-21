@@ -65,9 +65,13 @@ const styles = theme => ({
 })
 
 class SignIn extends React.Component {
-  state = {
-    showPassword: false,
-    isSubmited: false,
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showPassword: false,
+      isSubmited: false,
+    }
   }
 
   handleSubmit = (e) => {
@@ -81,9 +85,11 @@ class SignIn extends React.Component {
     const { auth } = this.props
 
     const serverErrors = {}
-    auth.errors.forEach(error => {
-      serverErrors[error.field] = error.message
-    })
+    if (auth.errors) {
+      auth.errors.forEach(error => {
+        serverErrors[error.field] = error.message
+      })
+    }
 
     return serverErrors[fieldName]
   }
@@ -126,7 +132,7 @@ class SignIn extends React.Component {
             <FormControl className={classes.textFieldS}>
               <TextField
                 fullWidth
-                label="Введите email"
+                label="Введите Email"
                 name="email"
                 type="text"
                 value={values.email}
