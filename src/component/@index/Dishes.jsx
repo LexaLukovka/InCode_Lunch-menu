@@ -36,16 +36,16 @@ const styles = theme => ({
 
 const Dishes = ({ classes, onClick, clicked, value, onUndefinedClick }) =>
   <Cards onClick={onClick} clicked={clicked} onUndefinedClick={onUndefinedClick}>
-    {value.dishesSelect.map((dish, index) =>
+    {value.map((dish, index) =>
       <Card key={index} className={classes.card}>
         <CardMedia
           className={classes.cover}
-          image={dish.src}
+          image={dish.images}
         />
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography variant="subheading" color="textSecondary">
-              {dish.description}
+              {dish.dish}
             </Typography>
           </CardContent>
         </div>
@@ -58,7 +58,7 @@ Dishes.propTypes = {
   clicked: PropTypes.bool.isRequired,
   dishesSelect: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.array.isRequired,
   onUndefinedClick: PropTypes.func.isRequired,
 }
 

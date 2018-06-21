@@ -36,7 +36,7 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
       return {
         ...state,
-        dishes: dish,
+        dishes: dish.dish,
       }
     }
     case LOAD_DISHES_SELECT_PENDING: {
