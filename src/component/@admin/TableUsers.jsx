@@ -103,7 +103,7 @@ class TableUsers extends React.Component {
   }
 
   handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.value })
+    this.setState({ rowsPerPage: event.target.user })
   }
 
   isSelected = id => this.state.selected.indexOf(id) !== -1
@@ -198,7 +198,7 @@ TableUsers.defaultProps = {
 }
 
 const mapStateToProps = (store) => ({
-  emailSignUp: store.signUp.value.Email,
+  emailSignUp: store.signUp.user.Email,
 })
 
 export default connect(mapStateToProps)(withStyles(styles)(TableUsers))

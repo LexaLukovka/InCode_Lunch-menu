@@ -75,6 +75,12 @@ class SignUp extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.auth.user) {
+      this.props.history.push('/verifyEmail')
+    }
+  }
+
   handleSubmit = (e) => {
     const { handleSubmit } = this.props
     this.setState({ isSubmited: true })
@@ -234,6 +240,7 @@ class SignUp extends React.Component {
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   values: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -270,7 +277,6 @@ export default connect(mapStateToProps)(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(signUp(values))
-      // props.history.push('/verifyEmail')
       setSubmitting(false)
     }, 100)
   },

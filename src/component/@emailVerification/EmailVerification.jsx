@@ -41,74 +41,83 @@ const styles = theme => ({
   },
 })
 
-const EmailVerification = ({
-  classes,
-  errors,
-  isSubmitting,
-  handleSubmit,
-  email,
-  uuId,
-}) =>
-  <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
-    <Card className={classes.card}>
-      <div className={classes.div}>
-        <FormControl className={classes.textFieldS}>
-          <InputLabel
-            htmlFor="email"
-            style={errors.email && { color: 'red' }}
-          >
-            {errors.email ? errors.email : 'Email'}
-          </InputLabel>
-          <Input
-            fullWidth
-            id="email"
-            type="text"
-            value={email}
-            disabled
-          />
-        </FormControl>
-      </div>
-      <div className={classes.div}>
-        <FormControl className={classes.textFieldS}>
-          <Input
-            fullWidth
-            type="hidden"
-            id="uuId"
-            value={uuId}
-          />
-        </FormControl>
-      </div>
-      <Grid container justify="center">
-        <Button
-          type="submit"
-          color="primary"
-          className={classes.button}
-          disabled={isSubmitting}
-        >
-          Verify email
-        </Button>
-        <div className={classes.link}>
-          <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
-        </div>
-      </Grid>
-    </Card>
-  </form>
+class EmailVerification extends React.Component {
+  componentWillMount() {
+    if (!this.props.auth.user) {
+      this.props.history.push('/signUp')
+    }
+  }
+
+  render() {
+    const {
+      classes,
+      errors,
+      isSubmitting,
+      handleSubmit,
+      auth,
+      uuId,
+    } = this.props
+    return (
+      <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
+        <Card className={classes.card}>
+          <div className={classes.div}>
+            <FormControl className={classes.textFieldS}>
+              <InputLabel
+                htmlFor="email"
+                style={errors.email && { color: 'red' }}
+              >
+                {errors.email ? errors.email : 'Email'}
+              </InputLabel>
+              <Input
+                fullWidth
+                id="email"
+                type="text"
+                value={auth.user && auth.user.user[0].email}
+                disabled
+              />
+            </FormControl>
+          </div>
+          <div className={classes.div}>
+            <FormControl className={classes.textFieldS}>
+              <Input
+                fullWidth
+                type="hidden"
+                id="uuId"
+                value={uuId}
+              />
+            </FormControl>
+          </div>
+          <Grid container justify="center">
+            <Button
+              type="submit"
+              color="primary"
+              className={classes.button}
+              disabled={isSubmitting}
+            >
+              Verify email
+            </Button>
+            <div className={classes.link}>
+              <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
+            </div>
+          </Grid>
+        </Card>
+      </form>
+    )
+  }
+}
 
 EmailVerification.propTypes = {
   classes: PropTypes.object.isRequired,
-  email: PropTypes.string,
-  uuId: PropTypes.string,
+  auth: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  uuId: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
-EmailVerification.defaultProps = {
-  email: '',
-  uuId: '',
-}
 
 const mapStateToProps = (store) => ({
-  email: store.signUp.value.email,
+  auth: store.signUp,
   uuId: store.signUp.uuId,
 })
 

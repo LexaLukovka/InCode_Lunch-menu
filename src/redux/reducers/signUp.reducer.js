@@ -2,11 +2,11 @@ import uuid from 'uuid'
 import {
   SIGN_UP_FULFILLED,
   SIGN_UP_REJECTED,
-  VERIFY_EMAIL,
+  VERIFY_EMAIL_FULFILLED,
 } from '../actions/signUp.action'
 
 const initialState = {
-  value: {},
+  user: null,
   uuId: '',
   uuIdVerify: '',
   email: '',
@@ -18,10 +18,10 @@ const signUp = (state = initialState, { type, payload }) => {
     case SIGN_UP_FULFILLED: {
       const uuId = uuid.v1()
       localStorage.setItem('token', uuId)
-      localStorage.setItem('Email', payload.email)
+      localStorage.setItem('Email', payload.user[0].email)
       return {
         ...state,
-        value: payload,
+        user: payload,
         uuId,
       }
     }
@@ -33,10 +33,10 @@ const signUp = (state = initialState, { type, payload }) => {
       }
     }
 
-    case VERIFY_EMAIL: {
+    case VERIFY_EMAIL_FULFILLED: {
       return {
         ...state,
-        email: payload.Email,
+        user: payload,
         uuIdVerify: payload.uuid,
       }
     }

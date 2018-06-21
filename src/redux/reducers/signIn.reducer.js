@@ -6,7 +6,7 @@ import {
 } from '../actions/signIn.action'
 
 const initialState = {
-  value: {},
+  user: null,
   id: '',
   errors: [],
 }
@@ -16,10 +16,10 @@ const signIn = (state = initialState, { type, payload }) => {
     case SIGN_IN_FULFILLED: {
       const uuId = uuid.v1()
       localStorage.setItem('uuId', uuId)
-      localStorage.setItem('Email', payload.email)
+      localStorage.setItem('Email', payload.user[0].email)
       return {
         ...state,
-        value: payload,
+        user: payload,
         id: uuId,
       }
     }
@@ -35,7 +35,7 @@ const signIn = (state = initialState, { type, payload }) => {
       localStorage.clear()
       return {
         ...state,
-        value: initialState.value,
+        user: initialState.user,
         id: initialState.id,
       }
     }

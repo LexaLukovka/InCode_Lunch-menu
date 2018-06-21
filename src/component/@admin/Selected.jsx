@@ -21,7 +21,7 @@ class Selected extends React.Component {
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value })
+    this.setState({ [event.target.name]: event.target.user })
   }
 
   render() {
