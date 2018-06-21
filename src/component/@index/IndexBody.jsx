@@ -13,8 +13,8 @@ const styles = {
 }
 
 class IndexBody extends React.Component {
-  handleClick = (index) => {
-    this.props.dispatch(clickCardIndex(index))
+  handleClick = (index, value) => {
+    this.props.dispatch(clickCardIndex(index, value))
     this.props.dispatch(createDataStatistics())
   }
 
@@ -24,7 +24,6 @@ class IndexBody extends React.Component {
 
   render() {
     const { menu, clicked } = this.props
-    console.log(menu)
     return (
       <Container>
         <Grid container justify="center">
@@ -33,12 +32,11 @@ class IndexBody extends React.Component {
               <Grid item key={index}>
                 <Dishes
                   clicked={clicked === index}
-                  onClick={() => this.handleClick(index)}
+                  onClick={() => this.handleClick(index, value.menu)}
                   onUndefinedClick={() => this.handleUndefinedClick(index)}
                   value={value.menu}
                 />
-              </Grid>,
-            )
+              </Grid>),
           )}
         </Grid>
       </Container>

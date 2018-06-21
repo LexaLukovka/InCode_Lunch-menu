@@ -32,9 +32,9 @@ export const loadModalData = () => ({
   payload: modalData,
 })
 
-export const clickCardIndex = (index) => ({
+export const clickCardIndex = (index, value) => ({
   type: CLICK_CARD_INDEX,
-  payload: index,
+  payload: { index, value },
 })
 
 export const createDataStatistics = () => ({

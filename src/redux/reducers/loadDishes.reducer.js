@@ -12,6 +12,7 @@ const initialState = {
   loading: false,
   loadingSelect: false,
   modalData: [],
+  dish: null,
   index: null,
   clicked: null,
   counter: 0,
@@ -53,7 +54,7 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
       return {
         ...state,
-        dishesSelect: dishSelect,
+        dishesSelect: dishSelect.dish,
       }
     }
 
@@ -66,14 +67,12 @@ const loadDishes = (state = initialState, { type, payload }) => {
 
     case
     CREATE_DATA_STATISTICS: {
-      const { dishesSelect, index, counter } = state
-      const descriptions = dishesSelect.map(dish => dish.description).join(', ')
-
+      const { index, counter, dish } = state
       const createData = {
         id: counter,
         date: '18.10.2018',
         number: (index + 1),
-        description: descriptions,
+        description: dish.value.map(value => value.description).join(', '),
       }
       const arrayStatistics = [...state.masStatistics]
       arrayStatistics.push(createData)
@@ -85,12 +84,12 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
     }
 
-    case
-    CLICK_CARD_INDEX: {
+    case CLICK_CARD_INDEX: {
       return {
         ...state,
-        index: payload,
-        clicked: state.clicked !== payload ? payload : null,
+        index: payload.index,
+        dish: payload,
+        clicked: state.clicked !== payload.index ? payload.index : null,
       }
     }
 
