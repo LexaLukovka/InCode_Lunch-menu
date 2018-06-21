@@ -18,7 +18,7 @@ class Selected extends React.Component {
     this.state = {
       value: '',
     }
-    // console.log(this.props.values.map(v => v.description))
+    console.log(this.props.values.map(v => v.description))
   }
 
   handleChange = event => {
@@ -27,6 +27,7 @@ class Selected extends React.Component {
 
   render() {
     const { classes, values } = this.props
+    console.log(values)
     return (
       <Select
         className={classes.root}

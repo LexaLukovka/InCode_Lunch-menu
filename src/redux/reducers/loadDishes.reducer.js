@@ -4,7 +4,7 @@ import {
   LOAD_DISHES_SELECT_PENDING,
   LOAD_DISHES_SELECT_FULFILLED,
   CREATE_DATA_STATISTICS,
-  CREATE_DATA_ADMIN,
+  CREATE_DATA_ADMIN_FULFILLED,
   CLICK_CARD_INDEX,
   LOAD_MODAL_DATA,
 } from '../actions/loadDishes.action'
@@ -83,13 +83,20 @@ const loadDishes = (state = initialState, { type, payload }) => {
 
       }
     }
-    case CREATE_DATA_ADMIN: {
-      const { index, counter, dish } = state
-      const createData = {
-        id: counter,
-        email: '18.10.2018',
-        money: (index + 1),
-      }
+    case CREATE_DATA_ADMIN_FULFILLED: {
+      const { counter, dish } = state
+      let createData = []
+      let data = []
+      const values = payload.users.map(valuese => valuese.map(value => value.email))
+      // .map(value => value.email))
+      // balance: value.balance,
+      // }
+      // ))
+      // values.forEach((item) => {
+      //   console.log((item))
+      // })
+
+      createData.push(data)
       const arrayStatistics = [...state.masStatistics]
       arrayStatistics.push(createData)
       return {

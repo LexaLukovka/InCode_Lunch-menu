@@ -11,6 +11,7 @@ export const LOAD_DISHES_SELECT_FULFILLED = 'LOAD_DISHES_SELECT_FULFILLED'
 
 export const CREATE_DATA_STATISTICS = 'CREATE_DATA_STATISTICS'
 export const CREATE_DATA_ADMIN = 'CREATE_DATA_ADMIN'
+export const CREATE_DATA_ADMIN_FULFILLED = 'CREATE_DATA_ADMIN_FULFILLED'
 
 export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 export const LOAD_MODAL_DATA = 'LOAD_MODAL_DATA'
@@ -43,4 +44,5 @@ export const createDataStatistics = () => ({
 })
 export const createDataAdmin = () => ({
   type: CREATE_DATA_ADMIN,
+  payload: Http.get('/signUp'),
 })

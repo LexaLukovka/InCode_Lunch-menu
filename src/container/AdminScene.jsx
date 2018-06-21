@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Header from '../component/Header/Header'
 import Admin from '../component/@admin/Admin'
-
+import { createDataAdmin } from '../redux/actions/loadDishes.action'
 
 class AdminScene extends React.Component {
   componentWillMount() {
@@ -11,6 +12,7 @@ class AdminScene extends React.Component {
     if (!localStoreEmail) {
       this.props.history.push('/signUp')
     }
+    this.props.dispatch(createDataAdmin())
   }
 
   render() {
@@ -25,7 +27,8 @@ class AdminScene extends React.Component {
 }
 
 AdminScene.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 }
 
-export default AdminScene
+export default connect()(AdminScene)

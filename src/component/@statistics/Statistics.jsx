@@ -42,7 +42,7 @@ class Statistics extends React.Component {
   }
 
   handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.user })
+    this.setState({ rowsPerPage: event.target.value })
   }
 
   isSelected = id => this.state.selected.indexOf(id) !== -1
@@ -62,7 +62,7 @@ class Statistics extends React.Component {
                 rowCount={masStatistics.length}
               />
               <TableBody>
-                {masStatistics.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((value, index) => {
+                {masStatistics.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((values, index) => {
                   const isSelected = this.isSelected(index)
                   return (
                     <TableRow
@@ -74,13 +74,13 @@ class Statistics extends React.Component {
                       selected={isSelected}
                     >
                       <TableCell component="th" scope="row">
-                        {value.date}
+                        {values.date}
                       </TableCell>
                       <TableCell numeric>
-                        {value.number}
+                        {values.number}
                       </TableCell>
                       <TableCell numeric>
-                        {value.description}
+                        {values.description}
                       </TableCell>
                     </TableRow>
                   )
