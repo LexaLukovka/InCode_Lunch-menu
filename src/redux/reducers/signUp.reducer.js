@@ -16,13 +16,9 @@ const initialState = {
 const signUp = (state = initialState, { type, payload }) => {
   switch (type) {
     case SIGN_UP_FULFILLED: {
-      const uuId = uuid.v1()
-      localStorage.setItem('token', uuId)
-      localStorage.setItem('Email', payload.user[0].email)
       return {
         ...state,
         user: payload,
-        uuId,
       }
     }
 

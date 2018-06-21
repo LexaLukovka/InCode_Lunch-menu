@@ -13,9 +13,12 @@ class Http {
 
   async get(url, params) {
     const [err, response] = await to(this.instance.get(url, params))
-    if (err) throw err.response.data
-
-    return response.data
+    if (err) {
+      if (!err.response) {
+        throw err.response
+      }
+      throw err.response.data
+    }
   }
 
   async post(url, params) {

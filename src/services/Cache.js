@@ -10,6 +10,7 @@ class Cache {
 
   put(name, value) {
     localStorage.setItem(`cache-${name}`, JSON.stringify(value))
+    localStorage.setItem('Email', JSON.stringify(value.email))
   }
 
   remove(name) {

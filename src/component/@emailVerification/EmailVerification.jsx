@@ -72,7 +72,7 @@ class EmailVerification extends React.Component {
                 fullWidth
                 id="email"
                 type="text"
-                value={auth.user && auth.user.user[0].email}
+                value={auth.user && auth.user.email}
                 disabled
               />
             </FormControl>

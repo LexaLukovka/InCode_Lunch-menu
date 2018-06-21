@@ -1,4 +1,4 @@
-import Http from '../../services/Http'
+import User from '../../services/api/User'
 
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_UP_REJECTED = 'SIGN_UP_REJECTED'
@@ -7,14 +7,14 @@ export const SIGN_UP_FULFILLED = 'SIGN_UP_FULFILLED'
 export const VERIFY_EMAIL = 'VERIFY_EMAIL'
 export const VERIFY_EMAIL_FULFILLED = 'VERIFY_EMAIL_FULFILLED'
 
-export const signUp = (value) => async dispatch => {
+export const signUp = (form) => async dispatch => {
   await dispatch({
     type: SIGN_UP,
-    payload: Http.post('http://localhost:3333/signUp', value),
+    payload: User.register(form),
   })
 }
 
-export const verifyEmail = (value) => ({
+export const verifyEmail = (form) => ({
   type: VERIFY_EMAIL,
-  payload: Http.post('http://localhost:3333/signIn', value),
+  payload: User.login(form),
 })

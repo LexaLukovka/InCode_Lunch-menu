@@ -23,12 +23,11 @@ export const loadDishes = () => async dispatch => {
   })
 }
 
-export const loadDishesSelect = () => async dispatch => {
-  await dispatch({
-    type: LOAD_DISHES_SELECT,
-    payload: Http.get('/dishes'),
-  })
-}
+export const loadDishesSelect = () => ({
+  type: LOAD_DISHES_SELECT,
+  payload: Http.get('/dishes'),
+})
+
 export const loadModalData = () => ({
   type: LOAD_MODAL_DATA,
   payload: modalData,
@@ -42,6 +41,7 @@ export const clickCardIndex = (index, value) => ({
 export const createDataStatistics = () => ({
   type: CREATE_DATA_STATISTICS,
 })
+
 export const createDataAdmin = () => ({
   type: CREATE_DATA_ADMIN,
   payload: Http.get('/signUp'),
