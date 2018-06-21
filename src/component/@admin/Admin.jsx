@@ -11,16 +11,17 @@ import SelectControl from './SelectControl'
 
 const styles = {}
 
-const Admin = ({ dishes, checked, classes }) =>
+const Admin = ({ menu, checked, classes }) =>
   <Container>
     <SelectControl />
     <div className={classes.root}>
       <Grid container justify="center">
         {checked ?
-          dishes.map((dish, index) =>
-            <Grid key={index} item>
-              <CardsAdmin />
-            </Grid>)
+          menu.map(dishes =>
+            dishes.map((dish, index) =>
+              <Grid key={index} item>
+                <CardsAdmin values={dish.menu} />
+              </Grid>))
           :
           <TableUsers />
         }
@@ -30,12 +31,12 @@ const Admin = ({ dishes, checked, classes }) =>
 
 Admin.propTypes = {
   classes: PropTypes.object.isRequired,
-  dishes: PropTypes.array.isRequired,
+  menu: PropTypes.array.isRequired,
   checked: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = (store) => ({
-  dishes: store.loadDishes.dishes,
+  menu: store.loadDishes.menu,
   checked: store.selectControl.checked,
 })
 

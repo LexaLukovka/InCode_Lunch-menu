@@ -18,14 +18,15 @@ class Selected extends React.Component {
     this.state = {
       value: '',
     }
+    // console.log(this.props.values.map(v => v.description))
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.user })
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render() {
-    const { classes, dishesSelect } = this.props
+    const { classes, values } = this.props
     return (
       <Select
         className={classes.root}
@@ -36,11 +37,15 @@ class Selected extends React.Component {
           id: 'age-simple',
         }}
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        {dishesSelect.map(dishesSel =>
-          <MenuItem key={dishesSel.idDishes} value={dishesSel.idDishes}>{dishesSel.description}</MenuItem>)}
+        <MenuItem value=""> <em>None</em> </MenuItem>
+        {values.map(dish =>
+          <MenuItem
+            key={dish._id}
+            name={dish._id}
+            value={dish.description}
+          >
+            {dish.description}
+          </MenuItem>)}
       </Select>
     )
   }
@@ -48,10 +53,7 @@ class Selected extends React.Component {
 
 Selected.propTypes = {
   classes: PropTypes.object.isRequired,
-  dishesSelect: PropTypes.array.isRequired,
+  values: PropTypes.array.isRequired,
 }
-const mapStateToProps = (store) => ({
-  dishesSelect: store.loadDishes.dishesSelect,
-})
 
-export default connect(mapStateToProps)(withStyles(styles)(Selected))
+export default connect()(withStyles(styles)(Selected))

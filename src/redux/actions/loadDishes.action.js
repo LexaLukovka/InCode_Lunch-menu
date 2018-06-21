@@ -10,6 +10,7 @@ export const LOAD_DISHES_SELECT_PENDING = 'LOAD_DISHES_SELECT_PENDING'
 export const LOAD_DISHES_SELECT_FULFILLED = 'LOAD_DISHES_SELECT_FULFILLED'
 
 export const CREATE_DATA_STATISTICS = 'CREATE_DATA_STATISTICS'
+export const CREATE_DATA_ADMIN = 'CREATE_DATA_ADMIN'
 
 export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 export const LOAD_MODAL_DATA = 'LOAD_MODAL_DATA'
@@ -39,4 +40,7 @@ export const clickCardIndex = (index, value) => ({
 
 export const createDataStatistics = () => ({
   type: CREATE_DATA_STATISTICS,
+})
+export const createDataAdmin = () => ({
+  type: CREATE_DATA_ADMIN,
 })

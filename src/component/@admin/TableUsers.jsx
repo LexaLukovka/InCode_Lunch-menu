@@ -45,7 +45,7 @@ class TableUsers extends React.Component {
       orderBy: 'money',
       selected: [],
       data: [
-        createData(this.props.emailSignUp, 10),
+        createData(this.props.user, 10),
         createData(localStorage.getItem('Email'), 20),
       ].sort((a, b) => (a.money < b.money ? -1 : 1)),
       page: 0,
@@ -191,14 +191,14 @@ class TableUsers extends React.Component {
 
 TableUsers.propTypes = {
   classes: PropTypes.object.isRequired,
-  emailSignUp: PropTypes.string,
+  user: PropTypes.string,
 }
 TableUsers.defaultProps = {
-  emailSignUp: '',
+  user: '',
 }
 
 const mapStateToProps = (store) => ({
-  emailSignUp: store.signUp.user.Email,
+  user: store.signUp.user,
 })
 
 export default connect(mapStateToProps)(withStyles(styles)(TableUsers))

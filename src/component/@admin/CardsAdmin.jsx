@@ -50,13 +50,13 @@ const styles = theme => ({
   },
 })
 
-const CardsAdmin = ({ classes, dishesSelect }) =>
+const CardsAdmin = ({ classes, values, value }) =>
   <Cards>
-    {dishesSelect.map((dish, index) =>
+    {values.map((dish, index) =>
       <Card key={index} className={classes.card}>
         <CardMedia
           className={classes.cover}
-          image={dish.src}
+          image={dish.image}
         />
         <div className={classes.details}>
           <CardContent className={classes.content}>
@@ -64,7 +64,7 @@ const CardsAdmin = ({ classes, dishesSelect }) =>
               <form className={classes.root} autoComplete="off">
                 <FormControl className={classes.formControl}>
                   <InputLabel>Select</InputLabel>
-                  <Selected />
+                  <Selected values={values} />
                 </FormControl>
               </form>
             </Typography>
@@ -75,11 +75,8 @@ const CardsAdmin = ({ classes, dishesSelect }) =>
 
 CardsAdmin.propTypes = {
   classes: PropTypes.object.isRequired,
-  dishesSelect: PropTypes.array.isRequired,
+  values: PropTypes.array.isRequired,
 }
 
-const mapStateToProps = (store) => ({
-  dishesSelect: store.loadDishes.dishesSelect,
-})
 
-export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(CardsAdmin))
+export default connect()(withStyles(styles, { withTheme: true })(CardsAdmin))
