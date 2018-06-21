@@ -15,7 +15,7 @@ const initialState = {
   index: null,
   clicked: null,
   counter: 0,
-  dishes: [],
+  menu: [],
   dishesSelect: [],
   masStatistics: [],
 }
@@ -36,7 +36,7 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
       return {
         ...state,
-        dishes: dish.dish,
+        menu: dish.menu,
       }
     }
     case LOAD_DISHES_SELECT_PENDING: {

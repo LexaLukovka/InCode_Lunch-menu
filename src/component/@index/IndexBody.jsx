@@ -23,20 +23,22 @@ class IndexBody extends React.Component {
   }
 
   render() {
-    const { dishes, clicked } = this.props
+    const { menu, clicked } = this.props
+    console.log(menu)
     return (
       <Container>
         <Grid container justify="center">
-          {dishes.map((dish, index) =>
-            <Grid item key={index}>
-              {console.log(dish)}
-              <Dishes
-                clicked={clicked === index}
-                onClick={() => this.handleClick(index)}
-                onUndefinedClick={() => this.handleUndefinedClick(index)}
-                value={dish}
-              />
-            </Grid>,
+          {menu.map(dishes =>
+            dishes.map((value, index) =>
+              <Grid item key={index}>
+                <Dishes
+                  clicked={clicked === index}
+                  onClick={() => this.handleClick(index)}
+                  onUndefinedClick={() => this.handleUndefinedClick(index)}
+                  value={value.menu}
+                />
+              </Grid>,
+            )
           )}
         </Grid>
       </Container>
@@ -45,7 +47,7 @@ class IndexBody extends React.Component {
 }
 
 IndexBody.propTypes = {
-  dishes: PropTypes.array.isRequired,
+  menu: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   clicked: PropTypes.number,
 }
@@ -54,7 +56,7 @@ IndexBody.defaultProps = {
 }
 
 const mapStateToProps = (store) => ({
-  dishes: store.loadDishes.dishes,
+  menu: store.loadDishes.menu,
   clicked: store.loadDishes.clicked,
 })
 

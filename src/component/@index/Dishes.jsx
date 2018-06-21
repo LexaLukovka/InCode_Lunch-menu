@@ -40,12 +40,12 @@ const Dishes = ({ classes, onClick, clicked, value, onUndefinedClick }) =>
       <Card key={index} className={classes.card}>
         <CardMedia
           className={classes.cover}
-          image={dish.images}
+          image={dish.image}
         />
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography variant="subheading" color="textSecondary">
-              {dish.dish}
+              {dish.description}
             </Typography>
           </CardContent>
         </div>
@@ -56,14 +56,10 @@ Dishes.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   clicked: PropTypes.bool.isRequired,
-  dishesSelect: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   value: PropTypes.array.isRequired,
   onUndefinedClick: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (store) => ({
-  dishesSelect: store.loadDishes.dishesSelect,
-})
 
-export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(Dishes))
+export default connect()(withStyles(styles, { withTheme: true })(Dishes))
