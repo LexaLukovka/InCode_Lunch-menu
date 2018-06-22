@@ -104,7 +104,6 @@ class SignUp extends React.Component {
   hasError = (fieldName) => {
     const { isSubmited } = this.state
     const { errors, touched } = this.props
-
     return (!!errors[fieldName] && touched[fieldName] && isSubmited) || this.serverError(fieldName)
   }
 

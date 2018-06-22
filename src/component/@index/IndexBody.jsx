@@ -15,7 +15,7 @@ const styles = {
 class IndexBody extends React.Component {
   handleClick = (index, value) => {
     this.props.dispatch(clickCardIndex(index, value))
-    this.props.dispatch(createDataStatistics())
+    this.props.dispatch(createDataStatistics(index, value))
   }
 
   handleUndefinedClick = (index) => {

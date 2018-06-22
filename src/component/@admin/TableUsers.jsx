@@ -112,7 +112,6 @@ class TableUsers extends React.Component {
     const { classes } = this.props
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
-
     return (
       <div>
         <Paper className={classes.root}>

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this,no-underscore-dangle */
 import React from 'react'
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -5,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles/index'
+import { changeSelect } from '../../redux/actions/loadDishes.action'
 
 const styles = {
   root: {
@@ -18,16 +20,17 @@ class Selected extends React.Component {
     this.state = {
       value: '',
     }
-    console.log(this.props.values.map(v => v.description))
+    // console.log(this.props.values.map(v => v.description))
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
+    console.log(event.target.value)
     this.setState({ [event.target.name]: event.target.value })
+    this.props.dispatch(changeSelect(event.target.value))
   }
 
   render() {
     const { classes, values } = this.props
-    console.log(values)
     return (
       <Select
         className={classes.root}
@@ -38,7 +41,6 @@ class Selected extends React.Component {
           id: 'age-simple',
         }}
       >
-        <MenuItem value=""> <em>None</em> </MenuItem>
         {values.map(dish =>
           <MenuItem
             key={dish._id}
@@ -55,6 +57,7 @@ class Selected extends React.Component {
 Selected.propTypes = {
   classes: PropTypes.object.isRequired,
   values: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired,
 }
 
 export default connect()(withStyles(styles)(Selected))

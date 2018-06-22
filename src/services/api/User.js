@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+/* eslint-disable class-methods-use-this,no-underscore-dangle */
 import JWT from 'jwt-decode'
 import Http from '../Http'
 import Token from '../Token'
@@ -6,9 +6,8 @@ import Cache from '../Cache'
 
 class User {
   async register(credentials) {
-    const { token, refreshToken } = await Http.post('/signUp', credentials)
+    const { token, refreshToken } = await Http.post('http://localhost:3333/signUp', credentials)
     Token.remember(token, refreshToken)
-    console.log(token)
 
     // const user = JWT(token).data
     const user = JWT(token)._doc
@@ -28,10 +27,10 @@ class User {
 
   async login(credentials) {
     if (!Cache.has('user') || !Cache.has('token')) {
-      const { token, refreshToken } = await Http.post('/signIn', credentials)
+      const { token, refreshToken } = await Http.post('http://localhost:3333/signIn', credentials)
       Token.remember(token, refreshToken)
 
-      const user = JWT(token).data
+      const user = JWT(token)._doc
       this.save(user)
     }
 
@@ -43,7 +42,6 @@ class User {
     Cache.remove('user')
     Token.clear()
   }
-
 }
 
 export default new User()

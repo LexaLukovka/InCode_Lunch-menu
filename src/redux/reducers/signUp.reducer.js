@@ -1,4 +1,3 @@
-import uuid from 'uuid'
 import {
   SIGN_UP_FULFILLED,
   SIGN_UP_REJECTED,
@@ -33,7 +32,6 @@ const signUp = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: payload,
-        uuIdVerify: payload.uuid,
       }
     }
     default: {

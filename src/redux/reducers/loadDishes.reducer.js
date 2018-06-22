@@ -1,10 +1,17 @@
 import {
   LOAD_DISHES_PENDING,
   LOAD_DISHES_FULFILLED,
+  LOAD_DISHES_REJECTED,
+
+  CHANGE_SELECT_FULFILLED,
+
   LOAD_DISHES_SELECT_PENDING,
   LOAD_DISHES_SELECT_FULFILLED,
-  CREATE_DATA_STATISTICS,
+
   CREATE_DATA_ADMIN_FULFILLED,
+
+  CREATE_DATA_STATISTICS_FULFILLED,
+
   CLICK_CARD_INDEX,
   LOAD_MODAL_DATA,
 } from '../actions/loadDishes.action'
@@ -31,16 +38,23 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
     }
     case LOAD_DISHES_FULFILLED: {
-      let dish
-      const { loading } = state
-      if (loading === true) {
-        dish = payload
-      }
       return {
         ...state,
-        menu: dish.menu,
+        menu: payload.menu,
       }
     }
+    case LOAD_DISHES_REJECTED: {
+      return {
+        ...state,
+      }
+    }
+
+    case CHANGE_SELECT_FULFILLED: {
+      return {
+        ...state,
+      }
+    }
+
     case LOAD_DISHES_SELECT_PENDING: {
       return {
         ...state,
@@ -48,14 +62,9 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
     }
     case LOAD_DISHES_SELECT_FULFILLED: {
-      let dishSelect
-      const { loadingSelect } = state
-      if (loadingSelect === true) {
-        dishSelect = payload
-      }
       return {
         ...state,
-        dishesSelect: dishSelect.dish,
+        dishesSelect: payload.dish,
       }
     }
 
@@ -66,44 +75,16 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
     }
 
-    case CREATE_DATA_STATISTICS: {
-      const { index, counter, dish } = state
-      const createData = {
-        id: counter,
-        date: '18.10.2018',
-        number: (index + 1),
-        description: dish.value.map(value => value.description).join(', '),
-      }
-      const arrayStatistics = [...state.masStatistics]
-      arrayStatistics.push(createData)
+    case CREATE_DATA_STATISTICS_FULFILLED: {
       return {
         ...state,
-        counter: counter + 1,
-        masStatistics: arrayStatistics,
-
+        masStatistics: payload.createData,
       }
     }
-    case CREATE_DATA_ADMIN_FULFILLED: {
-      const { counter, dish } = state
-      let createData = []
-      let data = []
-      const values = payload.users.map(valuese => valuese.map(value => value.email))
-      // .map(value => value.email))
-      // balance: value.balance,
-      // }
-      // ))
-      // values.forEach((item) => {
-      //   console.log((item))
-      // })
 
-      createData.push(data)
-      const arrayStatistics = [...state.masStatistics]
-      arrayStatistics.push(createData)
+    case CREATE_DATA_ADMIN_FULFILLED: {
       return {
         ...state,
-        counter: counter + 1,
-        masStatistics: arrayStatistics,
-
       }
     }
 

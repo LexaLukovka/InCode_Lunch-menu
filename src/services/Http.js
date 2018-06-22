@@ -19,6 +19,7 @@ class Http {
       }
       throw err.response.data
     }
+    return response.data
   }
 
   async post(url, params) {
