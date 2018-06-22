@@ -34,6 +34,19 @@ class Http {
 
     return response.data
   }
+
+  async put(url, params) {
+    const [err, response] = await to(this.instance.put(url, params))
+
+    if (err) {
+      if (!err.response) {
+        throw err.response
+      }
+      throw err.response.data
+    }
+
+    return response.data
+  }
 }
 
 export default new Http()

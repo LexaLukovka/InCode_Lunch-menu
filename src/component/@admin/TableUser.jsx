@@ -30,7 +30,7 @@ const styles = theme => ({
   },
 })
 
-class TableUsers extends React.Component {
+class TableUser extends React.Component {
   constructor(props) {
     super(props)
 
@@ -46,7 +46,6 @@ class TableUsers extends React.Component {
 
   componentWillMount() {
     this.props.dispatch(createDataAdmin())
-    console.log(this.props.values[0])
     this.setState({
       data: this.props.values[0],
     })
@@ -62,8 +61,8 @@ class TableUsers extends React.Component {
 
     const data =
       order === 'desc'
-        ? this.props.users.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-        : this.props.users.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1))
+        ? this.state.data.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+        : this.state.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1))
 
     this.setState({ data, order, orderBy })
   }
@@ -101,23 +100,20 @@ class TableUsers extends React.Component {
     this.setState({ page })
   }
 
-  handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.user })
+  handleChange = (event, email) => {
+    this.props.dispatch(changeBalance(email, event.target.value))
   }
 
-  handleChange = (event) => {
-    console.log(event.target.value)
-    this.props.dispatch(changeBalance(event.target.value))
+  handleChangeRowsPerPage = event => {
+    this.setState({ rowsPerPage: event.target.user })
   }
 
   isSelected = id => this.state.selected.indexOf(id) !== -1
 
   render() {
-    const { classes, users, values } = this.props
-    const usersLength = users.map(v => v.length)
+    const { classes } = this.props
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state
-
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, usersLength[0] - page * rowsPerPage)
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
     return (
       <div>
         <Paper className={classes.root}>
@@ -130,41 +126,42 @@ class TableUsers extends React.Component {
                 orderBy={orderBy}
                 onSelectAllClick={this.handleSelectAllClick}
                 onRequestSort={this.handleRequestSort}
-                rowCount={usersLength[0]}
+                rowCount={data.length}
               />
               <TableBody>
-                {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(value => value.map(v => {
+                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((value, index) => {
                   const isSelected = this.isSelected(value.id)
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, v.id)}
+                      onClick={event => this.handleClick(event, value.id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={v.id}
+                      key={value.id}
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {v.email}
+                        {value.email}
                       </TableCell>
                       <TableCell numeric>
                         <TextField
                           fullWidth
                           id="required"
                           label="Баланс"
-                          defaultValue={v.balance}
-                          onChange={this.handleChange.bind(this)}
+                          index={index}
+                          defaultValue={value.balance}
+                          onChange={(event) => this.handleChange(event, value.email)}
                           type="number"
                           margin="normal"
                         />
                       </TableCell>
                     </TableRow>
                   )
-                }))}
+                })}
                 {emptyRows > 0 && (
                   <TableRow style={{ height: 49 * emptyRows }}>
                     <TableCell colSpan={6} />
@@ -175,7 +172,7 @@ class TableUsers extends React.Component {
           </div>
           <TablePagination
             component="div"
-            count={usersLength[0]}
+            count={data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             backIconButtonProps={{
@@ -195,17 +192,16 @@ class TableUsers extends React.Component {
   }
 }
 
-TableUsers.propTypes = {
+TableUser.propTypes = {
   classes: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  users: PropTypes.array,
+  user: PropTypes.string,
 }
-TableUsers.defaultProps = {
-  users: '',
+TableUser.defaultProps = {
+  user: '',
 }
 
 const mapStateToProps = (store) => ({
-  users: store.loadDishes.users,
+  user: store.signUp.user,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(TableUsers))
+export default connect(mapStateToProps)(withStyles(styles)(TableUser))

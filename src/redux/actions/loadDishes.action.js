@@ -20,6 +20,9 @@ export const CREATE_DATA_STATISTICS_FULFILLED = 'CREATE_DATA_STATISTICS_FULFILLE
 export const CREATE_DATA_ADMIN = 'CREATE_DATA_ADMIN'
 export const CREATE_DATA_ADMIN_FULFILLED = 'CREATE_DATA_ADMIN_FULFILLED'
 
+export const CHANGE_BALANCE = 'CHANGE_BALANCE'
+export const CHANGE_BALANCE_FULFILLED = 'CHANGE_BALANCE_FULFILLED'
+
 export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 export const LOAD_MODAL_DATA = 'LOAD_MODAL_DATA'
 
@@ -30,12 +33,17 @@ export const loadDishes = () => ({
 
 export const loadDishesSelect = () => ({
   type: LOAD_DISHES_SELECT,
-  payload: Http.get('/dishes'),
+  // payload: Http.get('/dishes'),
 })
 
 export const changeSelect = (value) => ({
   type: CHANGE_SELECT,
   // payload: Http.put('/menu'),
+})
+
+export const changeBalance = (email, value) => ({
+  type: CHANGE_BALANCE,
+  payload: Http.put('/balance', { email, value }),
 })
 
 export const loadModalData = () => ({
@@ -55,5 +63,5 @@ export const createDataStatistics = (index, value) => ({
 
 export const createDataAdmin = () => ({
   type: CREATE_DATA_ADMIN,
-  payload: Http.get('/signUp'),
+  payload: Http.get('/users'),
 })

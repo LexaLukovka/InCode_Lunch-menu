@@ -8,10 +8,11 @@ import Container from '../Container'
 import CardsAdmin from './CardsAdmin'
 import TableUsers from './TableUsers'
 import SelectControl from './SelectControl'
+import TableUser from './TableUser'
 
 const styles = {}
 
-const Admin = ({ menu, checked, classes }) =>
+const Admin = ({ menu, checked, classes, users }) =>
   <Container>
     <SelectControl />
     <div className={classes.root}>
@@ -23,7 +24,7 @@ const Admin = ({ menu, checked, classes }) =>
                 <CardsAdmin values={dish.menu} />
               </Grid>))
           :
-          <TableUsers />
+          <TableUser values={users} />
         }
       </Grid>
     </div>
@@ -38,6 +39,7 @@ Admin.propTypes = {
 const mapStateToProps = (store) => ({
   menu: store.loadDishes.menu,
   checked: store.selectControl.checked,
+  users: store.loadDishes.users,
 })
 
 export default connect(mapStateToProps)(withStyles(styles)(Admin))

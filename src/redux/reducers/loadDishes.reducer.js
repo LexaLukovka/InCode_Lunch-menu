@@ -19,6 +19,7 @@ import {
 const initialState = {
   loading: false,
   loadingSelect: false,
+  users: null,
   modalData: [],
   dish: null,
   index: null,
@@ -85,6 +86,7 @@ const loadDishes = (state = initialState, { type, payload }) => {
     case CREATE_DATA_ADMIN_FULFILLED: {
       return {
         ...state,
+        users: payload.user,
       }
     }
 
