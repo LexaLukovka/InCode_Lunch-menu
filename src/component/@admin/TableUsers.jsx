@@ -1,4 +1,4 @@
-/* eslint-disable no-mixed-operators */
+/* eslint-disable no-mixed-operators,arrow-body-style */
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -35,8 +35,7 @@ class TableUsers extends React.Component {
 
     this.state = {
       order: 'asc',
-      orderBy: 'money',
-      selected: [],
+      orderBy: 'balance',
       data: [].sort((a, b) => (a.balance < b.balance ? -1 : 1)),
       page: 0,
       rowsPerPage: 5,
@@ -66,35 +65,6 @@ class TableUsers extends React.Component {
     this.setState({ data, order, orderBy })
   }
 
-  handleSelectAllClick = (event, checked) => {
-    if (checked) {
-      this.setState({ selected: this.state.data.map(n => n.id) })
-      return
-    }
-    this.setState({ selected: [] })
-  }
-
-  handleClick = (event, id) => {
-    const { selected } = this.state
-    const selectedIndex = selected.indexOf(id)
-    let newSelected = []
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id)
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      )
-    }
-
-    this.setState({ selected: newSelected })
-  }
-
   handleChangePage = (event, page) => {
     this.setState({ page })
   }
@@ -104,41 +74,33 @@ class TableUsers extends React.Component {
   }
 
   handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.user })
+    this.setState({ rowsPerPage: event.target.value })
   }
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1
 
   render() {
     const { classes } = this.props
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state
+    const { data, order, orderBy, rowsPerPage, page } = this.state
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
     return (
       <div>
         <Paper className={classes.root}>
-          <EnhancedTableToolbar numSelected={selected.length} />
+          <EnhancedTableToolbar />
           <div className={classes.tableWrapper}>
             <Table className={classes.table} aria-labelledby="tableTitle">
               <EnhancedTableHead
-                numSelected={selected.length}
                 order={order}
                 orderBy={orderBy}
-                onSelectAllClick={this.handleSelectAllClick}
                 onRequestSort={this.handleRequestSort}
                 rowCount={data.length}
               />
               <TableBody>
                 {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((value, index) => {
-                  const isSelected = this.isSelected(value.id)
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, value.id)}
-                      role="checkbox"
-                      aria-checked={isSelected}
                       tabIndex={-1}
                       key={value.id}
-                      selected={isSelected}
                     >
                       <TableCell padding="default">
                         {value.email}

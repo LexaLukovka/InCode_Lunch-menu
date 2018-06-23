@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 
 const columnData = [
   { id: 'email', numeric: false, disablePadding: true, label: 'Email' },
-  { id: 'money', numeric: true, disablePadding: false, label: 'Баланс' },
+  { id: 'balance', numeric: true, disablePadding: false, label: 'Баланс' },
 ]
 
 class EnhancedTableHead extends React.Component {

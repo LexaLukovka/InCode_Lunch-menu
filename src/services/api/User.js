@@ -16,14 +16,6 @@ class User {
     return user
   }
 
-  getSaved() {
-    return Cache.get('user')
-  }
-
-  save(user) {
-    Cache.put('user', user)
-  }
-
   async login(credentials) {
     if (!Cache.has('user') || !Cache.has('token')) {
       const { token, refreshToken } = await Http.post('/signIn', credentials)
@@ -34,6 +26,7 @@ class User {
     }
     return this.getSaved()
   }
+
   async verifyEmail(credentials) {
     if (!Cache.has('user') || !Cache.has('token')) {
       const { token, refreshToken } = await Http.post('/verifyEmail', credentials)
@@ -45,7 +38,28 @@ class User {
     return this.getSaved()
   }
 
-  // noinspection JSUnusedGlobalSymbols
+  async changeBalance({ email, value }) {
+    if (!Cache.has('user') || !Cache.has('token')) {
+      const { token, refreshToken } = await Http.put('/balance', { email, value })
+      Token.remember(token, refreshToken)
+
+      const user = JWT(token)._doc
+
+      if (Cache.get('user').email === user.email) {
+        this.save(user)
+      }
+    }
+    return this.getSaved()
+  }
+
+  getSaved() {
+    return Cache.get('user')
+  }
+
+  save(user) {
+    Cache.put('user', user)
+  }
+
   logout() {
     Cache.remove('user')
     Token.clear()

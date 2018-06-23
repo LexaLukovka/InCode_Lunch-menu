@@ -5,9 +5,12 @@ import Typography from '@material-ui/core/es/Typography/Typography'
 import Cache from '../../services/Cache'
 
 const EmailUsers = () =>
-  <Grid container justify="flex-start">
+  <Grid container>
     <Typography variant="subheading" color="inherit">
-      {Cache.get('user') ? Cache.get('user').email : ''}
+      <div style={{ display: 'flex' }}>
+        <div style={{ marginRight: 10 }}>{Cache.get('user') ? Cache.get('user').email : ''}</div>
+        <div>Баланс {Cache.get('user') ? Cache.get('user').balance : ''}</div>
+      </div>
     </Typography>
   </Grid>
 

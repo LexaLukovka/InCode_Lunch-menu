@@ -1,6 +1,7 @@
 import modalData from '../../modalData.json'
 import Http from '../../services/Http'
 import Menu from '../../services/api/Menu'
+import User from '../../services/api/User'
 
 export const LOAD_DISHES = 'LOAD_DISHES'
 export const LOAD_DISHES_PENDING = 'LOAD_DISHES_PENDING'
@@ -21,6 +22,7 @@ export const CREATE_DATA_ADMIN = 'CREATE_DATA_ADMIN'
 export const CREATE_DATA_ADMIN_FULFILLED = 'CREATE_DATA_ADMIN_FULFILLED'
 
 export const CHANGE_BALANCE = 'CHANGE_BALANCE'
+export const CHANGE_BALANCE_FULFILLED = 'CHANGE_BALANCE_FULFILLED'
 
 export const SHOW_STATISTICS = 'SHOW_STATISTICS'
 export const SHOW_STATISTICS_FULFILLED = 'SHOW_STATISTICS_FULFILLED'
@@ -45,7 +47,7 @@ export const changeSelect = (value) => ({
 
 export const changeBalance = (email, value) => ({
   type: CHANGE_BALANCE,
-  payload: Http.put('/balance', { email, value }),
+  payload: User.changeBalance({ email, value }),
 })
 
 export const loadModalData = () => ({

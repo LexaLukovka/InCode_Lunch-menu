@@ -14,7 +14,7 @@ const Header = () =>
       <Grid container justify="flex-start">
         <ButtonNavigation />
       </Grid>
-      <Grid container justify="center">
+      <Grid container justify="center" style={{ marginLeft: '15rem' }}>
         <EmailUsers />
       </Grid>
       <Grid container justify="flex-end">

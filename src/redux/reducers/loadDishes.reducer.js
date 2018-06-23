@@ -9,10 +9,9 @@ import {
   LOAD_DISHES_SELECT_FULFILLED,
 
   CREATE_DATA_ADMIN_FULFILLED,
-
   CREATE_DATA_STATISTICS_FULFILLED,
-
   SHOW_STATISTICS_FULFILLED,
+  CHANGE_BALANCE_FULFILLED,
 
   CLICK_CARD_INDEX,
   LOAD_MODAL_DATA,
@@ -22,6 +21,7 @@ const initialState = {
   loading: false,
   loadingSelect: false,
   users: null,
+  userBalance: null,
   modalData: [],
   dish: null,
   index: null,
@@ -76,6 +76,13 @@ const loadDishes = (state = initialState, { type, payload }) => {
       return {
         ...state,
         statistics: payload.orders,
+      }
+    }
+
+    case CHANGE_BALANCE_FULFILLED: {
+      return {
+        ...state,
+        userBalance: payload.users,
       }
     }
 
