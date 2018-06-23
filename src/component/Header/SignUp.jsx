@@ -17,7 +17,7 @@ import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import { signUp } from '../../redux/actions/signUp.action'
+import { signUp } from '../../redux/actions/auth.action'
 import Errors from '../Errors/Errors'
 
 const styles = theme => ({
@@ -149,7 +149,7 @@ class SignUp extends React.Component {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={errors.email && touched.email ? classes.errors : classes.textField}
-                error={this.hasError('email')}
+                error={!!this.hasError('email')}
                 helperText={this.showHelperError('email')}
               />
             </FormControl>
@@ -165,7 +165,7 @@ class SignUp extends React.Component {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={errors.password && touched.password ? classes.errors : classes.textField}
-                error={this.hasError('password')}
+                error={!!this.hasError('password')}
                 helperText={this.showHelperError('password')}
                 InputProps={{
                   endAdornment: (
@@ -195,7 +195,7 @@ class SignUp extends React.Component {
                 onBlur={handleBlur}
                 className={errors.repeatPassword && touched.repeatPassword ? classes.errors : classes.textField}
                 helperText={this.showHelperError('repeatPassword')}
-                error={this.hasError('repeatPassword')}
+                error={!!this.hasError('repeatPassword')}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -249,7 +249,7 @@ SignUp.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 const mapStateToProps = (store) => ({
-  auth: store.signUp,
+  auth: store.auth,
 })
 
 export default connect(mapStateToProps)(withRouter(withFormik({

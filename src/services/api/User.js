@@ -6,12 +6,11 @@ import Cache from '../Cache'
 
 class User {
   async register(credentials) {
-    const { token, refreshToken } = await Http.post('http://localhost:3333/signUp', credentials)
+    const { token, refreshToken } = await Http.post('/signUp', credentials)
     Token.remember(token, refreshToken)
 
     // const user = JWT(token).data
     const user = JWT(token)._doc
-    console.log(user)
     this.save(user)
 
     return user
@@ -27,13 +26,22 @@ class User {
 
   async login(credentials) {
     if (!Cache.has('user') || !Cache.has('token')) {
-      const { token, refreshToken } = await Http.post('http://localhost:3333/signIn', credentials)
+      const { token, refreshToken } = await Http.post('/signIn', credentials)
       Token.remember(token, refreshToken)
 
       const user = JWT(token)._doc
       this.save(user)
     }
+    return this.getSaved()
+  }
+  async verifyEmail(credentials) {
+    if (!Cache.has('user') || !Cache.has('token')) {
+      const { token, refreshToken } = await Http.post('/verifyEmail', credentials)
+      Token.remember(token, refreshToken)
 
+      const user = JWT(token)._doc
+      this.save(user)
+    }
     return this.getSaved()
   }
 

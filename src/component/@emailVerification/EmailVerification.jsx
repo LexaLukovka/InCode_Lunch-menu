@@ -11,8 +11,8 @@ import Button from '@material-ui/core/es/Button/Button'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
 import Input from '@material-ui/core/es/Input/Input'
-import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
-import { verifyEmail } from '../../redux/actions/signUp.action'
+import TextField from '@material-ui/core/es/TextField/TextField'
+import { verifyEmail } from '../../redux/actions/auth.action'
 
 const styles = theme => ({
   container: {
@@ -20,8 +20,12 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
+    width: 300,
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
+  },
+  textFieldS: {
+    flexBasis: 200,
   },
   card: {
     margin: '5rem',
@@ -51,26 +55,20 @@ class EmailVerification extends React.Component {
   render() {
     const {
       classes,
-      errors,
       isSubmitting,
       handleSubmit,
       auth,
-      uuId,
     } = this.props
     return (
-      <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
+      <form className={classes.container} onSubmit={handleSubmit} autoComplete="off">
         <Card className={classes.card}>
-          <div className={classes.div}>
+          <div>
             <FormControl className={classes.textFieldS}>
-              <InputLabel
-                htmlFor="email"
-                style={errors.email && { color: 'red' }}
-              >
-                {errors.email ? errors.email : 'Email'}
-              </InputLabel>
-              <Input
+              <TextField
                 fullWidth
-                id="email"
+                className={classes.textField}
+                name="email"
+                label="Email"
                 type="text"
                 value={auth.user && auth.user.email}
                 disabled
@@ -82,8 +80,8 @@ class EmailVerification extends React.Component {
               <Input
                 fullWidth
                 type="hidden"
-                id="uuId"
-                value={uuId}
+                name="token"
+                value={auth.user && auth.user.password}
               />
             </FormControl>
           </div>
@@ -110,24 +108,21 @@ EmailVerification.propTypes = {
   classes: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  uuId: PropTypes.string.isRequired,
-  errors: PropTypes.object.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (store) => ({
-  auth: store.signUp,
-  uuId: store.signUp.uuId,
+  auth: store.auth,
 })
 
 export default connect(mapStateToProps)(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(verifyEmail(values))
-      props.history.push('/')
       setSubmitting(false)
     }, 100)
+    props.history.push('/')
   },
   displayName: 'VerifyEmail',
 })(withStyles(styles)(EmailVerification))))

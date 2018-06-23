@@ -1,19 +1,40 @@
+
 import {
+  SIGN_IN_FULFILLED,
+  SIGN_IN_REJECTED,
+  SIGN_OUT_FULFILLED,
   SIGN_UP_FULFILLED,
   SIGN_UP_REJECTED,
   VERIFY_EMAIL_FULFILLED,
-} from '../actions/signUp.action'
+} from '../actions/auth.action'
 
 const initialState = {
   user: null,
-  uuId: '',
-  uuIdVerify: '',
-  email: '',
-  messages: {},
+  errors: [],
 }
 
-const signUp = (state = initialState, { type, payload }) => {
+const auth = (state = initialState, { type, payload }) => {
   switch (type) {
+    case SIGN_IN_FULFILLED: {
+      return {
+        ...state,
+        user: payload,
+      }
+    }
+
+    case SIGN_IN_REJECTED: {
+      return {
+        ...state,
+        errors: payload,
+      }
+    }
+
+    case SIGN_OUT_FULFILLED: {
+      return {
+        ...state,
+      }
+    }
+
     case SIGN_UP_FULFILLED: {
       return {
         ...state,
@@ -40,4 +61,4 @@ const signUp = (state = initialState, { type, payload }) => {
   }
 }
 
-export default signUp
+export default auth

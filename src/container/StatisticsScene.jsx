@@ -6,8 +6,8 @@ import Statistics from '../component/@statistics/Statistics'
 
 class StatisticsScene extends React.Component {
   componentWillMount() {
-    const localStoreEmail = localStorage.getItem('Email')
-    if (localStoreEmail === ' ' || !localStoreEmail) {
+    const localStore = localStorage.getItem('cache-user')
+    if (!localStore) {
       this.props.history.push('/signUp')
     }
   }

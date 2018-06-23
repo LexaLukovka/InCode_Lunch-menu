@@ -8,8 +8,8 @@ import { createDataAdmin } from '../redux/actions/loadDishes.action'
 
 class AdminScene extends React.Component {
   componentWillMount() {
-    const localStoreEmail = localStorage.getItem('Email')
-    if (!localStoreEmail) {
+    const localStore = localStorage.getItem('cache-user')
+    if (!localStore) {
       this.props.history.push('/signUp')
     }
     this.props.dispatch(createDataAdmin())

@@ -17,7 +17,7 @@ import Grid from '@material-ui/core/es/Grid/Grid'
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
 import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
-import { signIn } from '../../redux/actions/signIn.action'
+import { signIn } from '../../redux/actions/auth.action'
 
 const styles = theme => ({
   container: {
@@ -55,7 +55,7 @@ const styles = theme => ({
   textFieldS: {
     flexBasis: 200,
   },
-  errors: {
+  errorsClass: {
     width: 300,
     color: theme.palette.error.dark,
   },
@@ -144,8 +144,8 @@ class SignIn extends React.Component {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={errors.email && touched.email ? classes.errors : classes.textField}
-                error={this.hasError('email')}
+                className={errors.email && touched.email ? classes.errorsClass : classes.textField}
+                error={!!this.hasError('email')}
                 helperText={this.showHelperError('email')}
               />
             </FormControl>
@@ -174,8 +174,8 @@ class SignIn extends React.Component {
                   ),
                 }}
                 onBlur={handleBlur}
-                className={errors.password && touched.password ? classes.errors : classes.textField}
-                error={this.hasError('password')}
+                className={errors.password && touched.password ? classes.errorsClass : classes.textField}
+                error={!!this.hasError('password')}
 
               />
             </FormControl>
@@ -215,7 +215,7 @@ SignIn.propTypes = {
 }
 
 const mapStateToProps = (store) => ({
-  auth: store.signIn,
+  auth: store.auth,
 })
 
 export default connect(mapStateToProps)(withRouter(withFormik({

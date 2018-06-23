@@ -6,9 +6,8 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Container from '../Container'
 import CardsAdmin from './CardsAdmin'
-import TableUsers from './TableUsers'
 import SelectControl from './SelectControl'
-import TableUser from './TableUser'
+import TableUsers from './TableUsers'
 
 const styles = {}
 
@@ -24,7 +23,7 @@ const Admin = ({ menu, checked, classes, users }) =>
                 <CardsAdmin values={dish.menu} />
               </Grid>))
           :
-          <TableUser values={users} />
+          <TableUsers values={users} />
         }
       </Grid>
     </div>
@@ -32,8 +31,12 @@ const Admin = ({ menu, checked, classes, users }) =>
 
 Admin.propTypes = {
   classes: PropTypes.object.isRequired,
+  users: PropTypes.array,
   menu: PropTypes.array.isRequired,
   checked: PropTypes.bool.isRequired,
+}
+Admin.defaultProps = {
+  users: null,
 }
 
 const mapStateToProps = (store) => ({
