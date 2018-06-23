@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Dishes from './Dishes'
 import Container from '../Container'
-import { clickCardIndex, createDataStatistics } from '../../redux/actions/loadDishes.action'
+import { clickCardIndex, createDataStatistics, showStatistics } from '../../redux/actions/loadDishes.action'
 
 const styles = {
   root: {},
@@ -16,6 +16,7 @@ class IndexBody extends React.Component {
   handleClick = (index, value) => {
     this.props.dispatch(clickCardIndex(index, value))
     this.props.dispatch(createDataStatistics(index, value))
+    this.props.dispatch(showStatistics())
   }
 
   handleUndefinedClick = (index) => {

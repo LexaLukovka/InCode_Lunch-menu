@@ -21,7 +21,9 @@ export const CREATE_DATA_ADMIN = 'CREATE_DATA_ADMIN'
 export const CREATE_DATA_ADMIN_FULFILLED = 'CREATE_DATA_ADMIN_FULFILLED'
 
 export const CHANGE_BALANCE = 'CHANGE_BALANCE'
-export const CHANGE_BALANCE_FULFILLED = 'CHANGE_BALANCE_FULFILLED'
+
+export const SHOW_STATISTICS = 'SHOW_STATISTICS'
+export const SHOW_STATISTICS_FULFILLED = 'SHOW_STATISTICS_FULFILLED'
 
 export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 export const LOAD_MODAL_DATA = 'LOAD_MODAL_DATA'
@@ -58,8 +60,14 @@ export const clickCardIndex = (index, value) => ({
 
 export const createDataStatistics = (index, value) => ({
   type: CREATE_DATA_STATISTICS,
-  payload: Http.post('/order', { index, value }),
+  payload: Http.put('/order', { index, value }),
 })
+
+export const showStatistics = () => ({
+  type: SHOW_STATISTICS,
+  payload: Http.get('/order'),
+})
+
 
 export const createDataAdmin = () => ({
   type: CREATE_DATA_ADMIN,

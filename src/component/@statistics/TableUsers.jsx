@@ -1,4 +1,4 @@
-/* eslint-disable no-mixed-operators */
+/* eslint-disable no-mixed-operators,react/no-did-mount-set-state */
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -9,11 +9,8 @@ import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import TextField from '@material-ui/core/es/TextField/TextField'
 import EnhancedTableToolbar from './Table/EnhancedTableToolbar'
 import EnhancedTableHead from './Table/EnhancedTableHead'
-import ModalScene from '../../container/ModalScene'
-import { changeBalance, createDataAdmin } from '../../redux/actions/loadDishes.action'
 
 const styles = theme => ({
   root: {
@@ -35,18 +32,17 @@ class TableUsers extends React.Component {
 
     this.state = {
       order: 'asc',
-      orderBy: 'money',
+      orderBy: 'date',
       selected: [],
-      data: [].sort((a, b) => (a.balance < b.balance ? -1 : 1)),
+      data: [].sort((a, b) => (a.data < b.data ? -1 : 1)),
       page: 0,
       rowsPerPage: 5,
     }
   }
 
-  componentWillMount() {
-    this.props.dispatch(createDataAdmin())
+  componentDidMount() {
     this.setState({
-      data: this.props.values[0],
+      data: this.props.values,
     })
   }
 
@@ -99,10 +95,6 @@ class TableUsers extends React.Component {
     this.setState({ page })
   }
 
-  handleChange = (event, email) => {
-    this.props.dispatch(changeBalance(email, event.target.value))
-  }
-
   handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.user })
   }
@@ -137,23 +129,17 @@ class TableUsers extends React.Component {
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={value.id}
+                      key={index}
                       selected={isSelected}
                     >
-                      <TableCell padding="default">
-                        {value.email}
+                      <TableCell component="th" scope="row" padding="default">
+                        {value.date}
                       </TableCell>
                       <TableCell numeric>
-                        <TextField
-                          fullWidth
-                          id="required"
-                          label="Баланс"
-                          index={index}
-                          defaultValue={value.balance}
-                          onChange={(event) => this.handleChange(event, value.email)}
-                          type="number"
-                          margin="normal"
-                        />
+                        {value.number}
+                      </TableCell>
+                      <TableCell numeric>
+                        {value.description}
                       </TableCell>
                     </TableRow>
                   )
@@ -181,8 +167,6 @@ class TableUsers extends React.Component {
             onChangeRowsPerPage={this.handleChangeRowsPerPage}
           />
         </Paper>
-
-        <ModalScene />
       </div>
     )
   }
@@ -191,8 +175,6 @@ class TableUsers extends React.Component {
 TableUsers.propTypes = {
   classes: PropTypes.object.isRequired,
   values: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
 }
-
 
 export default connect()(withStyles(styles)(TableUsers))

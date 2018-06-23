@@ -12,6 +12,8 @@ import {
 
   CREATE_DATA_STATISTICS_FULFILLED,
 
+  SHOW_STATISTICS_FULFILLED,
+
   CLICK_CARD_INDEX,
   LOAD_MODAL_DATA,
 } from '../actions/loadDishes.action'
@@ -26,6 +28,7 @@ const initialState = {
   clicked: null,
   counter: 0,
   menu: [],
+  statistics: [],
   dishesSelect: [],
   masStatistics: [],
 }
@@ -66,6 +69,13 @@ const loadDishes = (state = initialState, { type, payload }) => {
       return {
         ...state,
         dishesSelect: payload.dish,
+      }
+    }
+
+    case SHOW_STATISTICS_FULFILLED: {
+      return {
+        ...state,
+        statistics: payload.orders,
       }
     }
 
