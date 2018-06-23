@@ -1,5 +1,7 @@
+/* eslint-disable prefer-destructuring */
 import modalData from '../../modalData.json'
 import Http from '../../services/Http'
+import Cache from '../../services/Cache'
 import Menu from '../../services/api/Menu'
 import User from '../../services/api/User'
 
@@ -60,16 +62,21 @@ export const clickCardIndex = (index, value) => ({
   payload: { index, value },
 })
 
-export const createDataStatistics = (index, value) => ({
-  type: CREATE_DATA_STATISTICS,
-  payload: Http.put('/order', { index, value }),
-})
+export const createDataStatistics = (index, value) => {
+  const email = Cache.get('user').email
+  return {
+    type: CREATE_DATA_STATISTICS,
+    payload: Http.put('/order', { email, index, value }),
+  }
+}
 
-export const showStatistics = () => ({
-  type: SHOW_STATISTICS,
-  payload: Http.get('/order'),
-})
-
+export const showStatistics = () => {
+  const user = Cache.get('user')
+  return {
+    type: SHOW_STATISTICS,
+    payload: Http.post('/order', user),
+  }
+}
 
 export const createDataAdmin = () => ({
   type: CREATE_DATA_ADMIN,

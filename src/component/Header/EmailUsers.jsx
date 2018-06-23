@@ -9,7 +9,7 @@ const EmailUsers = () =>
     <Typography variant="subheading" color="inherit">
       <div style={{ display: 'flex' }}>
         <div style={{ marginRight: 10 }}>{Cache.get('user') ? Cache.get('user').email : ''}</div>
-        <div>Баланс {Cache.get('user') ? Cache.get('user').balance : ''}</div>
+        <div>{Cache.get('user') ? `Баланс ${Cache.get('user').balance}` : ''}</div>
       </div>
     </Typography>
   </Grid>
