@@ -1,4 +1,5 @@
-/* eslint-disable prefer-destructuring */
+/* eslint-disable prefer-destructuring,arrow-body-style */
+// import menu from '../../dishes.json'
 import Http from '../../services/Http'
 import Cache from '../../services/Cache'
 import Menu from '../../services/api/Menu'
@@ -33,10 +34,13 @@ export const LOAD_MODAL_DATA_FULFILLED = 'LOAD_MODAL_DATA_FULFILLED'
 
 export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 
-export const loadDishes = () => ({
-  type: LOAD_DISHES,
-  payload: Menu.all(),
-})
+export const loadDishes = () => {
+  // Menu.addMenu(menu)
+  return {
+    type: LOAD_DISHES,
+    payload: Menu.all(),
+  }
+}
 
 export const loadDishesSelect = () => ({
   type: LOAD_DISHES_SELECT,

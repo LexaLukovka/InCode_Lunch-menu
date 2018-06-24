@@ -9,6 +9,7 @@ import Container from '../Container'
 import {
   clickCardIndex,
   createDataStatistics,
+  showStatistics,
 } from '../../redux/actions/loadDishes.action'
 
 const styles = {
@@ -19,6 +20,7 @@ class IndexBody extends React.Component {
   handleClick = (index, value) => {
     this.props.dispatch(clickCardIndex(index, value))
     this.props.dispatch(createDataStatistics(index, value))
+    this.props.dispatch(showStatistics())
   }
 
   handleUndefinedClick = (index) => {
