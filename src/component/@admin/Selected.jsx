@@ -17,11 +17,11 @@ const styles = {
 class Selected extends React.Component {
   constructor(props) {
     super(props)
-    const dish = (this.props.values.map((v) => v.description))
+    // const dish = (this.props.values.map((v) => v.description))
     this.state = {
       dishOne: '',
     }
-    dish.forEach(key => { this.setState({ dishOne: key }) })
+    // dish.forEach(key => { this.setState({ dishOne: key }) })
     this.handleChange = this.handleChange.bind(this)
   }
 

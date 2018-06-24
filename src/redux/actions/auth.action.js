@@ -35,5 +35,5 @@ export const signUp = (form) => async dispatch => {
 
 export const verifyEmail = (form) => ({
   type: VERIFY_EMAIL,
-  // payload: User.verifyEmail(form),
+  payload: User.verifyEmail(form),
 })

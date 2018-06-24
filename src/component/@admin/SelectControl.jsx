@@ -65,7 +65,6 @@ class SelectControl extends React.Component {
 
   render() {
     const { classes, checked } = this.props
-    console.log(checked)
     return (
       <FormGroup row className={classes.root}>
         <FormControlLabel

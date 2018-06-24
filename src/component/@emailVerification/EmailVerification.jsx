@@ -119,6 +119,7 @@ const mapStateToProps = (store) => ({
 export default connect(mapStateToProps)(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
+      console.log(values)
       props.dispatch(verifyEmail(values))
       setSubmitting(false)
     }, 100)
