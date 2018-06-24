@@ -49,7 +49,7 @@ export const loadDishesSelect = () => ({
 
 export const changeSelect = (value) => ({
   type: CHANGE_SELECT,
-  // payload: Http.put('/menu'),
+  // payload: Http.put('/selected', value),
 })
 
 export const changeBalance = (email, value) => ({

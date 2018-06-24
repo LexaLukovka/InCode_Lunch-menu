@@ -45,7 +45,7 @@ class TableUsers extends React.Component {
   componentWillMount() {
     this.props.dispatch(createDataAdmin())
     this.setState({
-      data: this.props.values[0],
+      data: this.props.values ? this.props.values[0] : [],
     })
   }
 

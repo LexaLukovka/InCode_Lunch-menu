@@ -13,6 +13,7 @@ const styles = {}
 
 const Admin = ({ menu, checked, classes, users }) =>
   <Container>
+    {console.log(users)}
     <SelectControl />
     <div className={classes.root}>
       <Grid container justify="center">

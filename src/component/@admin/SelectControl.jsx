@@ -6,6 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import { connect } from 'react-redux'
 import { selectControl } from '../../redux/actions/selectControl.action'
+import Cache from '../../services/Cache'
 
 const styles = theme => ({
   root: {
@@ -58,11 +59,13 @@ const styles = theme => ({
 
 class SelectControl extends React.Component {
   handleChange = event => {
-    this.props.dispatch(selectControl(event.target.checked))
+    Cache.put('checked', event.target.checked)
+    this.props.dispatch(selectControl())
   }
 
   render() {
     const { classes, checked } = this.props
+    console.log(checked)
     return (
       <FormGroup row className={classes.root}>
         <FormControlLabel
