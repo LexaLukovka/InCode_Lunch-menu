@@ -1,5 +1,4 @@
 /* eslint-disable prefer-destructuring */
-import modalData from '../../modalData.json'
 import Http from '../../services/Http'
 import Cache from '../../services/Cache'
 import Menu from '../../services/api/Menu'
@@ -29,8 +28,10 @@ export const CHANGE_BALANCE_FULFILLED = 'CHANGE_BALANCE_FULFILLED'
 export const SHOW_STATISTICS = 'SHOW_STATISTICS'
 export const SHOW_STATISTICS_FULFILLED = 'SHOW_STATISTICS_FULFILLED'
 
-export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 export const LOAD_MODAL_DATA = 'LOAD_MODAL_DATA'
+export const LOAD_MODAL_DATA_FULFILLED = 'LOAD_MODAL_DATA_FULFILLED'
+
+export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 
 export const loadDishes = () => ({
   type: LOAD_DISHES,
@@ -54,7 +55,7 @@ export const changeBalance = (email, value) => ({
 
 export const loadModalData = () => ({
   type: LOAD_MODAL_DATA,
-  payload: modalData,
+  payload: Http.get('/order'),
 })
 
 export const clickCardIndex = (index, value) => ({

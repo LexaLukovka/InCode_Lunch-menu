@@ -12,9 +12,9 @@ import {
   CREATE_DATA_STATISTICS_FULFILLED,
   SHOW_STATISTICS_FULFILLED,
   CHANGE_BALANCE_FULFILLED,
+  LOAD_MODAL_DATA_FULFILLED,
 
   CLICK_CARD_INDEX,
-  LOAD_MODAL_DATA,
 } from '../actions/loadDishes.action'
 
 const initialState = {
@@ -86,10 +86,10 @@ const loadDishes = (state = initialState, { type, payload }) => {
       }
     }
 
-    case LOAD_MODAL_DATA: {
+    case LOAD_MODAL_DATA_FULFILLED: {
       return {
         ...state,
-        modalData: payload,
+        modalData: payload.counterOrders,
       }
     }
 

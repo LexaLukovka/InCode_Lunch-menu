@@ -71,12 +71,12 @@ class TableUsers extends React.Component {
 
   handleChange = (event, email) => {
     this.props.dispatch(changeBalance(email, event.target.value))
+    this.props.dispatch(createDataAdmin())
   }
 
   handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value })
   }
-
 
   render() {
     const { classes } = this.props
@@ -155,6 +155,5 @@ TableUsers.propTypes = {
   values: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 }
-
 
 export default connect()(withStyles(styles)(TableUsers))

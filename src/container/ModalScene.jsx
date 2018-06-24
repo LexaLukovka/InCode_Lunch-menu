@@ -49,6 +49,7 @@ const styles = theme => ({
   },
   div: {
     marginLeft: '15rem',
+    marginTop: '5rem',
   },
 })
 
@@ -72,7 +73,7 @@ class ModalScene extends React.Component {
     const { classes, modalData } = this.props
     return (
       <Grid container className={classes.div}>
-        <Button className={classes.button} color="primary" onClick={this.handleOpen}>Open Modal</Button>
+        <Button className={classes.button} color="primary" onClick={this.handleOpen}>Сформировать заказ</Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -89,13 +90,13 @@ class ModalScene extends React.Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {modalData.map(value => {
+                  {modalData.map((value, index) => {
                     return (
-                      <TableRow key={value.id}>
+                      <TableRow key={index}>
                         <TableCell component="th" scope="row">
-                          Меню {value.id}
+                          Меню {index + 1}
                         </TableCell>
-                        <TableCell numeric>{value.countLunch}</TableCell>
+                        <TableCell numeric>{value}</TableCell>
                       </TableRow>
                     )
                   })}
