@@ -13,16 +13,14 @@ const styles = {}
 
 const Admin = ({ menu, checked, classes, users }) =>
   <Container>
-    {console.log(users)}
     <SelectControl />
     <div className={classes.root}>
       <Grid container justify="center">
         {checked ?
-          menu.map(dishes =>
-            dishes.map((dish, index) =>
-              <Grid key={index} item>
-                <CardsAdmin values={dish.menu} />
-              </Grid>))
+          menu.map((dishes, index) =>
+            <Grid key={index} item>
+              <CardsAdmin index={index} values={dishes.menu} />
+            </Grid>)
           :
           <TableUsers values={users} />
         }

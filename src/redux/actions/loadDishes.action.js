@@ -1,5 +1,4 @@
 /* eslint-disable prefer-destructuring,arrow-body-style */
-// import menu from '../../dishes.json'
 import Http from '../../services/Http'
 import Cache from '../../services/Cache'
 import Menu from '../../services/api/Menu'
@@ -35,7 +34,7 @@ export const LOAD_MODAL_DATA_FULFILLED = 'LOAD_MODAL_DATA_FULFILLED'
 export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 
 export const loadDishes = () => {
-  // Menu.addMenu(menu)
+  // Menu.addMenu()
   return {
     type: LOAD_DISHES,
     payload: Menu.all(),
@@ -47,9 +46,9 @@ export const loadDishesSelect = () => ({
   // payload: Http.get('/dishes'),
 })
 
-export const changeSelect = (value) => ({
+export const changeSelect = (IndexMenu, indexDish, value) => ({
   type: CHANGE_SELECT,
-  // payload: Http.put('/selected', value),
+  payload: Http.put('/selected', { IndexMenu, indexDish, value }),
 })
 
 export const changeBalance = (email, value) => ({

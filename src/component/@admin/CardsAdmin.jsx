@@ -11,7 +11,6 @@ import Card from '@material-ui/core/es/Card/Card'
 import Cards from '../@index/Cards'
 import Selected from './Selected'
 
-
 const styles = theme => ({
   card: {
     height: 70,
@@ -50,10 +49,10 @@ const styles = theme => ({
   },
 })
 
-const CardsAdmin = ({ classes, values, value }) =>
+const CardsAdmin = ({ classes, values, index }) =>
   <Cards>
-    {values.map((dish, index) =>
-      <Card key={index} className={classes.card}>
+    {values.map((dish, i) =>
+      <Card key={i} className={classes.card}>
         <CardMedia
           className={classes.cover}
           image={dish.image}
@@ -64,7 +63,7 @@ const CardsAdmin = ({ classes, values, value }) =>
               <form className={classes.root} autoComplete="off">
                 <FormControl className={classes.formControl}>
                   <InputLabel>Select</InputLabel>
-                  <Selected values={values} />
+                  <Selected IndexMenu={index} indexDish={i} values={values} />
                 </FormControl>
               </form>
             </Typography>
@@ -75,8 +74,8 @@ const CardsAdmin = ({ classes, values, value }) =>
 
 CardsAdmin.propTypes = {
   classes: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
   values: PropTypes.array.isRequired,
 }
-
 
 export default connect()(withStyles(styles, { withTheme: true })(CardsAdmin))

@@ -9,6 +9,7 @@ import Container from '../Container'
 import {
   clickCardIndex,
   createDataStatistics,
+  loadDishes,
   showStatistics,
 } from '../../redux/actions/loadDishes.action'
 
@@ -17,6 +18,10 @@ const styles = {
 }
 
 class IndexBody extends React.Component {
+  componentWillMount() {
+    this.props.dispatch(loadDishes())
+  }
+
   handleClick = (index, value) => {
     this.props.dispatch(clickCardIndex(index, value))
     this.props.dispatch(createDataStatistics(index, value))
@@ -29,20 +34,19 @@ class IndexBody extends React.Component {
 
   render() {
     const { menu, clicked } = this.props
+    const menus = menu.map(v => v.menu)
     return (
       <Container>
         <Grid container justify="center">
-          {menu.map(dishes =>
-            dishes.map((value, index) =>
-              <Grid item key={index}>
-                <Dishes
-                  clicked={clicked === index}
-                  onClick={() => this.handleClick(index, value.menu)}
-                  onUndefinedClick={() => this.handleUndefinedClick(index)}
-                  value={value.menu}
-                />
-              </Grid>),
-          )}
+          {menus.map((dishes, index) =>
+            <Grid item key={index}>
+              <Dishes
+                clicked={clicked === index}
+                onClick={() => this.handleClick(index, dishes)}
+                onUndefinedClick={() => this.handleUndefinedClick(index)}
+                value={dishes}
+              />
+            </Grid>)},
         </Grid>
       </Container>
     )

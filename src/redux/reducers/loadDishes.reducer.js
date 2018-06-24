@@ -44,7 +44,7 @@ const loadDishes = (state = initialState, { type, payload }) => {
     case LOAD_DISHES_FULFILLED: {
       return {
         ...state,
-        menu: payload.menu,
+        menu: payload.menu[0].menu,
       }
     }
     case LOAD_DISHES_REJECTED: {
