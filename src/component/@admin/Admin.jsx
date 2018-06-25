@@ -16,7 +16,7 @@ const Admin = ({ menu, checked, classes, users }) =>
     <SelectControl />
     <div className={classes.root}>
       <Grid container justify="center">
-        {checked ?
+        {(checked !== null) && checked ?
           menu.map((dishes, index) =>
             <Grid key={index} item>
               <CardsAdmin index={index} values={dishes.menu} />
@@ -32,10 +32,11 @@ Admin.propTypes = {
   classes: PropTypes.object.isRequired,
   users: PropTypes.array,
   menu: PropTypes.array.isRequired,
-  checked: PropTypes.bool.isRequired,
+  checked: PropTypes.bool,
 }
 Admin.defaultProps = {
   users: null,
+  checked: null,
 }
 
 const mapStateToProps = (store) => ({

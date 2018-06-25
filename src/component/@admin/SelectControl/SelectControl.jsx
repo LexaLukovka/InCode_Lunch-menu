@@ -78,7 +78,7 @@ class SelectControl extends React.Component {
               checked: classes.iOSChecked,
             }}
             disableRipple
-            checked={checked}
+            checked={(checked !== null) && checked}
             onChange={this.handleChange}
             value="checked"
           />}
@@ -91,8 +91,11 @@ class SelectControl extends React.Component {
 
 SelectControl.propTypes = {
   classes: PropTypes.object.isRequired,
-  checked: PropTypes.bool.isRequired,
+  checked: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
+}
+SelectControl.defaultProps = {
+  checked: null,
 }
 
 const mapStateToProps = (store) => ({

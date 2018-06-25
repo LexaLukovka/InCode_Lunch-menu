@@ -268,8 +268,10 @@ export default connect(mapStateToProps)(withRouter(withFormik({
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
-      props.dispatch(signUp(values))
-      props.dispatch(verifyEmailGet())
+      if (values.password === values.repeatPassword) {
+        props.dispatch(signUp(values))
+        props.dispatch(verifyEmailGet())
+      }
       setSubmitting(false)
     }, 500)
   },
