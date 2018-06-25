@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/es/Grid/Grid'
-import Dishes from './Dishes'
+import Dishes from './IndexMenu/Dishes'
 import Container from '../Container'
 import {
   clickCardIndex,

@@ -10,10 +10,10 @@ import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/es/TextField/TextField'
-import EnhancedTableToolbar from './Table/EnhancedTableToolbar'
-import EnhancedTableHead from './Table/EnhancedTableHead'
-import ModalScene from '../../container/ModalScene'
-import { changeBalance, createDataAdmin } from '../../redux/actions/load.action'
+import EnhancedTableToolbar from './EnhancedTableToolbar'
+import EnhancedTableHead from './EnhancedTableHead'
+import ModalScene from '../ModalWindow/ModalWindow'
+import { changeBalance, createDataAdmin } from '../../../redux/actions/load.action'
 
 const styles = theme => ({
   root: {

@@ -53,7 +53,7 @@ const styles = theme => ({
   },
 })
 
-class ModalScene extends React.Component {
+class ModalWindow extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -110,11 +110,11 @@ class ModalScene extends React.Component {
   }
 }
 
-ModalScene.propTypes = {
+ModalWindow.propTypes = {
   classes: PropTypes.object.isRequired,
   modalData: PropTypes.array,
 }
-ModalScene.defaultProps = {
+ModalWindow.defaultProps = {
   modalData: [],
 }
 
@@ -122,4 +122,4 @@ const mapStateToProps = (store) => ({
   modalData: store.loadDishes.modalData,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(ModalScene))
+export default connect(mapStateToProps)(withStyles(styles)(ModalWindow))

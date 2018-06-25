@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { withStyles } from '@material-ui/core/styles/index'
-import { changeSelect } from '../../redux/actions/load.action'
+import { changeSelect } from '../../../redux/actions/load.action'
 
 const styles = {
   root: {

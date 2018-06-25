@@ -9,8 +9,8 @@ import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import EnhancedTableToolbar from './Table/EnhancedTableToolbar'
-import EnhancedTableHead from './Table/EnhancedTableHead'
+import EnhancedTableToolbar from './EnhancedTableToolbar'
+import EnhancedTableHead from './EnhancedTableHead'
 
 const styles = theme => ({
   root: {

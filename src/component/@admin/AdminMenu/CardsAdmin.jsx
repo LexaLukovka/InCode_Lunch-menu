@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Card from '@material-ui/core/es/Card/Card'
-import Cards from '../@index/Cards'
+import Cards from '../../@index/IndexMenu/Cards'
 import Selected from './Selected'
 
 const styles = theme => ({

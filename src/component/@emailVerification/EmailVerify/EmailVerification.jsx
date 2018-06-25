@@ -12,8 +12,8 @@ import Grid from '@material-ui/core/es/Grid/Grid'
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
 import Input from '@material-ui/core/es/Input/Input'
 import TextField from '@material-ui/core/es/TextField/TextField'
-import { verifyEmail } from '../../redux/actions/auth.action'
-import Cache from '../../services/Cache'
+import { verifyEmail } from '../../../redux/actions/auth.action'
+import Cache from '../../../services/Cache'
 
 const styles = theme => ({
   container: {

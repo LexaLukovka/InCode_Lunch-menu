@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Container from '../Container'
-import CardsAdmin from './CardsAdmin'
-import SelectControl from './SelectControl'
-import TableUsers from './TableUsers'
+import CardsAdmin from './AdminMenu/CardsAdmin'
+import SelectControl from './SelectControl/SelectControl'
+import TableUsers from './Table/TableUsers'
 
 const styles = {}
 

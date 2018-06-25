@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import TableUsers from './TableUsers'
+import TableUsers from './Table/TableUsers'
 import { showStatistics } from '../../redux/actions/load.action'
 
 class Statistics extends React.Component {

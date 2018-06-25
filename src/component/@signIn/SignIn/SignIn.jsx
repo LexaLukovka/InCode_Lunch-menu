@@ -17,7 +17,7 @@ import Grid from '@material-ui/core/es/Grid/Grid'
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
 import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
-import { signIn } from '../../redux/actions/auth.action'
+import { signIn } from '../../../redux/actions/auth.action'
 
 const styles = theme => ({
   container: {

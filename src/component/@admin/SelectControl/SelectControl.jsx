@@ -5,8 +5,8 @@ import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import { connect } from 'react-redux'
-import { selectControl } from '../../redux/actions/selectControl.action'
-import Cache from '../../services/Cache'
+import { selectControl } from '../../../redux/actions/selectControl.action'
+import Cache from '../../../services/Cache'
 
 const styles = theme => ({
   root: {

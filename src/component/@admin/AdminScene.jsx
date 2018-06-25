@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/es/Grid/Grid'
-import Header from '../component/Header/Header'
-import Admin from '../component/@admin/Admin'
-import { createDataAdmin } from '../redux/actions/load.action'
-import Cache from '../services/Cache'
+import Header from '../Header/Header'
+import Admin from './Admin'
+import { createDataAdmin } from '../../redux/actions/load.action'
+import Cache from '../../services/Cache'
 
 class AdminScene extends React.Component {
   componentWillMount() {

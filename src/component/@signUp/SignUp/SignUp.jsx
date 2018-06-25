@@ -17,8 +17,8 @@ import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import { signUp, verifyEmailGet } from '../../redux/actions/auth.action'
-import Errors from '../Errors/Errors'
+import { signUp, verifyEmailGet } from '../../../redux/actions/auth.action'
+import Errors from '../../Errors/Errors'
 
 const styles = theme => ({
   container: {
