@@ -271,7 +271,7 @@ export default connect(mapStateToProps)(withRouter(withFormik({
       props.dispatch(signUp(values))
       props.dispatch(verifyEmailGet())
       setSubmitting(false)
-    }, 100)
+    }, 500)
   },
   displayName: 'SignUp',
 })(withStyles(styles)(SignUp))))

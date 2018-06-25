@@ -9,9 +9,15 @@ import Cache from '../services/Cache'
 
 class AdminScene extends React.Component {
   componentWillMount() {
-    if (!Cache.get('user').authorization) {
-      this.props.history.push('/signUp')
-    }
+    if (Cache.get('user')) {
+      if (!Cache.get('user').authorization) {
+        this.props.history.push('/signUp')
+      }
+      if (Cache.get('user').role === 'user') {
+        this.props.history.push('/')
+      }
+    } else this.props.history.push('/signUp')
+
     this.props.dispatch(createDataAdmin())
   }
 

@@ -1,8 +1,8 @@
 /* eslint-disable arrow-body-style */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
+import { withStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import Button from '@material-ui/core/Button'
 import Table from '@material-ui/core/Table'

@@ -239,7 +239,7 @@ export default connect(mapStateToProps)(withRouter(withFormik({
     setTimeout(() => {
       props.dispatch(signIn(values))
       setSubmitting(false)
-    }, 100)
+    }, 500)
   },
   displayName: 'SignIn',
 })(withStyles(styles)(SignIn))))

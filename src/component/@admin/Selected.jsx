@@ -1,10 +1,9 @@
 /* eslint-disable class-methods-use-this,no-underscore-dangle */
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
-import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles/index'
 import { changeSelect } from '../../redux/actions/load.action'
 

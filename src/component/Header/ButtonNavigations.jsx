@@ -6,6 +6,7 @@ import { withRouter } from 'react-router'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { buttonNavigationAction } from '../../redux/actions/buttonNavigation.action'
+import Cache from '../../services/Cache'
 
 const styles = (theme) => ({
   button: {
@@ -52,6 +53,7 @@ class ButtonNavigations extends React.Component {
           label="Statistics"
         />
         <BottomNavigationAction
+          disabled={Cache.get('user') && Cache.get('user').role === 'user' && true}
           className={classes.buttonNav}
           onClick={() => this.props.history.push('/admin')}
           label="Admin"

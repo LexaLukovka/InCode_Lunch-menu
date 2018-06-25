@@ -10,9 +10,12 @@ import Cache from '../services/Cache'
 
 class IndexScene extends React.Component {
   componentWillMount() {
-    if (!Cache.get('user').authorization) {
-      this.props.history.push('/signUp')
-    }
+    if (Cache.get('user')) {
+      if (!Cache.get('user').authorization) {
+        this.props.history.push('/signUp')
+      }
+    } else this.props.history.push('/signUp')
+
     this.props.dispatch(showStatistics())
     this.props.dispatch(loadModalData())
   }

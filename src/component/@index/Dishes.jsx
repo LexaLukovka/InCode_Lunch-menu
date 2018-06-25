@@ -61,5 +61,4 @@ Dishes.propTypes = {
   onUndefinedClick: PropTypes.func.isRequired,
 }
 
-
 export default connect()(withStyles(styles, { withTheme: true })(Dishes))
