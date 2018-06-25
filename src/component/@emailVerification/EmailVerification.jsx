@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/es/FormControl/FormControl'
 import Input from '@material-ui/core/es/Input/Input'
 import TextField from '@material-ui/core/es/TextField/TextField'
 import { verifyEmail } from '../../redux/actions/auth.action'
+import Cache from '../../services/Cache'
 
 const styles = theme => ({
   container: {
@@ -45,69 +46,50 @@ const styles = theme => ({
   },
 })
 
-class EmailVerification extends React.Component {
-  componentWillMount() {
-    if (!this.props.auth.user) {
-      this.props.history.push('/signUp')
-    }
-  }
-
-  render() {
-    const {
-      classes,
-      isSubmitting,
-      handleSubmit,
-      auth,
-    } = this.props
-    return (
-      <form className={classes.container} onSubmit={handleSubmit} autoComplete="off">
-        <Card className={classes.card}>
-          <div>
-            <FormControl className={classes.textFieldS}>
-              <TextField
-                fullWidth
-                className={classes.textField}
-                name="email"
-                label="Email"
-                type="text"
-                value={auth.user && auth.user.email}
-                disabled
-              />
-            </FormControl>
-          </div>
-          <div className={classes.div}>
-            <FormControl className={classes.textFieldS}>
-              <Input
-                fullWidth
-                type="hidden"
-                name="token"
-                value={auth.user && auth.user.password}
-              />
-            </FormControl>
-          </div>
-          <Grid container justify="center">
-            <Button
-              type="submit"
-              color="primary"
-              className={classes.button}
-              disabled={isSubmitting}
-            >
-              Verify email
-            </Button>
-            <div className={classes.link}>
-              <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
-            </div>
-          </Grid>
-        </Card>
-      </form>
-    )
-  }
-}
+const EmailVerification = ({ classes, isSubmitting, handleSubmit }) =>
+  <form className={classes.container} onSubmit={handleSubmit} autoComplete="off">
+    <Card className={classes.card}>
+      <div>
+        <FormControl className={classes.textFieldS}>
+          <TextField
+            fullWidth
+            className={classes.textField}
+            name="email"
+            label="Email"
+            type="text"
+            value={Cache.get('user').email}
+            disabled
+          />
+        </FormControl>
+      </div>
+      <div className={classes.div}>
+        <FormControl className={classes.textFieldS}>
+          <Input
+            fullWidth
+            type="hidden"
+            name="token"
+            value={Cache.get('user').password}
+          />
+        </FormControl>
+      </div>
+      <Grid container justify="center">
+        <Button
+          type="submit"
+          color="primary"
+          className={classes.button}
+          disabled={isSubmitting}
+        >
+          Verify email
+        </Button>
+        <div className={classes.link}>
+          <Link to="/signIn"> <Typography variant="caption" color="inherit"> Есть аккаунт? </Typography></Link>
+        </div>
+      </Grid>
+    </Card>
+  </form>
 
 EmailVerification.propTypes = {
   classes: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
@@ -119,8 +101,7 @@ const mapStateToProps = (store) => ({
 export default connect(mapStateToProps)(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
-      console.log(values)
-      props.dispatch(verifyEmail(values))
+      props.dispatch(verifyEmail(Cache.get('user')))
       setSubmitting(false)
     }, 100)
     props.history.push('/')

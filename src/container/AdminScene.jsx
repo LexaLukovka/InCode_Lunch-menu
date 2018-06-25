@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Header from '../component/Header/Header'
 import Admin from '../component/@admin/Admin'
-import { createDataAdmin } from '../redux/actions/loadDishes.action'
+import { createDataAdmin } from '../redux/actions/load.action'
+import Cache from '../services/Cache'
 
 class AdminScene extends React.Component {
   componentWillMount() {
-    const localStore = localStorage.getItem('cache-user')
-    if (!localStore) {
+    if (!Cache.get('user').authorization) {
       this.props.history.push('/signUp')
     }
     this.props.dispatch(createDataAdmin())

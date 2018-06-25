@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/es/TextField/TextField'
 import EnhancedTableToolbar from './Table/EnhancedTableToolbar'
 import EnhancedTableHead from './Table/EnhancedTableHead'
 import ModalScene from '../../container/ModalScene'
-import { changeBalance, createDataAdmin } from '../../redux/actions/loadDishes.action'
+import { changeBalance, createDataAdmin } from '../../redux/actions/load.action'
 
 const styles = theme => ({
   root: {
@@ -152,8 +152,11 @@ class TableUsers extends React.Component {
 
 TableUsers.propTypes = {
   classes: PropTypes.object.isRequired,
-  values: PropTypes.array.isRequired,
+  values: PropTypes.array,
   dispatch: PropTypes.func.isRequired,
+}
+TableUsers.defaultProps = {
+  values: null,
 }
 
 export default connect()(withStyles(styles)(TableUsers))

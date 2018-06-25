@@ -5,12 +5,12 @@ import { withRouter } from 'react-router'
 import Grid from '@material-ui/core/es/Grid/Grid'
 import Header from '../component/Header/Header'
 import IndexBody from '../component/@index/IndexBody'
-import { loadModalData, showStatistics } from '../redux/actions/loadDishes.action'
+import { loadModalData, showStatistics } from '../redux/actions/load.action'
+import Cache from '../services/Cache'
 
 class IndexScene extends React.Component {
   componentWillMount() {
-    const localStore = localStorage.getItem('cache-user')
-    if (!localStore) {
+    if (!Cache.get('user').authorization) {
       this.props.history.push('/signUp')
     }
     this.props.dispatch(showStatistics())

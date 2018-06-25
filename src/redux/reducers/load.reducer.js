@@ -15,7 +15,7 @@ import {
   LOAD_MODAL_DATA_FULFILLED,
 
   CLICK_CARD_INDEX,
-} from '../actions/loadDishes.action'
+} from '../actions/load.action'
 
 const initialState = {
   loading: false,
@@ -54,7 +54,6 @@ const loadDishes = (state = initialState, { type, payload }) => {
     }
 
     case CHANGE_SELECT_FULFILLED: {
-      console.log(payload)
       return {
         ...state,
       }
@@ -69,7 +68,7 @@ const loadDishes = (state = initialState, { type, payload }) => {
     case LOAD_DISHES_SELECT_FULFILLED: {
       return {
         ...state,
-        dishesSelect: payload.dish,
+        dishesSelect: payload.dish[0],
       }
     }
 

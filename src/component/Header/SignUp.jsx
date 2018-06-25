@@ -17,7 +17,7 @@ import InputAdornment from '@material-ui/core/es/InputAdornment/InputAdornment'
 import IconButton from '@material-ui/core/es/IconButton/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import { signUp } from '../../redux/actions/auth.action'
+import { signUp, verifyEmailGet } from '../../redux/actions/auth.action'
 import Errors from '../Errors/Errors'
 
 const styles = theme => ({
@@ -72,12 +72,6 @@ class SignUp extends React.Component {
     this.state = {
       showPassword: false,
       showRepeatPassword: false,
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.auth.user) {
-      this.props.history.push('/verifyEmail')
     }
   }
 
@@ -204,7 +198,7 @@ class SignUp extends React.Component {
                         onClick={this.handleClickShowReapedPassword}
                         onMouseDown={this.handleMouseDownPassword}
                       >
-                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                        {this.state.showRepeatPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   ),
@@ -239,7 +233,6 @@ class SignUp extends React.Component {
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   values: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -276,6 +269,7 @@ export default connect(mapStateToProps)(withRouter(withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     setTimeout(() => {
       props.dispatch(signUp(values))
+      props.dispatch(verifyEmailGet())
       setSubmitting(false)
     }, 100)
   },

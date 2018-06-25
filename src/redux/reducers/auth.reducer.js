@@ -1,4 +1,3 @@
-
 import {
   SIGN_IN_FULFILLED,
   SIGN_IN_REJECTED,
@@ -55,6 +54,7 @@ const auth = (state = initialState, { type, payload }) => {
         user: payload,
       }
     }
+
     default: {
       return state
     }

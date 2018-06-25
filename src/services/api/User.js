@@ -9,7 +9,6 @@ class User {
     const { token, refreshToken } = await Http.post('/signUp', credentials)
     Token.remember(token, refreshToken)
 
-    // const user = JWT(token).data
     const user = JWT(token)._doc
     this.save(user)
 
@@ -27,15 +26,20 @@ class User {
     return this.getSaved()
   }
 
-  async verifyEmail(credentials) {
-    if (!Cache.has('user') || !Cache.has('token')) {
-      const { token, refreshToken } = await Http.post('/verifyEmail', credentials)
-      Token.remember(token, refreshToken)
+  async verifyEmailPost(credentials) {
+    const { token, refreshToken } = await Http.post('/verifyEmail', credentials)
+    Token.remember(token, refreshToken)
+    const user = JWT(token)._doc
+    this.save(user)
 
-      const user = JWT(token)._doc
-      this.save(user)
-    }
     return this.getSaved()
+  }
+
+  async verifyEmailGet() {
+    if (!Cache.has('user') || !Cache.has('token')) {
+      const url = await Http.get('/verifyEmail')
+      console.log(url.url)
+    }
   }
 
   async changeBalance({ email, value }) {

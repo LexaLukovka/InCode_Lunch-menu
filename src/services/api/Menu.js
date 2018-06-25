@@ -6,9 +6,13 @@ class Menu {
     const result = await Http.get('/menu')
     return result
   }
+
   async addMenu() {
-    const result = await Http.post('/menu')
-    return result
+    await Http.post('/menu')
+  }
+
+  async addDishes() {
+    await Http.post('/dishes')
   }
 }
 

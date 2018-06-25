@@ -11,6 +11,8 @@ export const SIGN_UP_FULFILLED = 'SIGN_UP_FULFILLED'
 export const VERIFY_EMAIL = 'VERIFY_EMAIL'
 export const VERIFY_EMAIL_FULFILLED = 'VERIFY_EMAIL_FULFILLED'
 
+export const VERIFY_EMAIL_CHECKED = 'VERIFY_EMAIL_CHECKED'
+
 export const SIGN_OUT = 'SIGN_OUT'
 export const SIGN_OUT_FULFILLED = 'SIGN_OUT_FULFILLED'
 
@@ -35,5 +37,9 @@ export const signUp = (form) => async dispatch => {
 
 export const verifyEmail = (form) => ({
   type: VERIFY_EMAIL,
-  payload: User.verifyEmail(form),
+  payload: User.verifyEmailPost(form),
+})
+export const verifyEmailGet = () => ({
+  type: VERIFY_EMAIL_CHECKED,
+  payload: User.verifyEmailGet(),
 })

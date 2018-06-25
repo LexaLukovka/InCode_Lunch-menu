@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles/index'
-import { changeSelect } from '../../redux/actions/loadDishes.action'
+import { changeSelect } from '../../redux/actions/load.action'
 
 const styles = {
   root: {
@@ -60,6 +60,8 @@ Selected.propTypes = {
   classes: PropTypes.object.isRequired,
   values: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
+  IndexMenu: PropTypes.number.isRequired,
+  indexDish: PropTypes.number.isRequired,
 }
 
 export default connect()(withStyles(styles)(Selected))

@@ -9,9 +9,8 @@ import Container from '../Container'
 import {
   clickCardIndex,
   createDataStatistics,
-  loadDishes,
   showStatistics,
-} from '../../redux/actions/loadDishes.action'
+} from '../../redux/actions/load.action'
 
 const styles = {
   root: {},

@@ -35,6 +35,7 @@ export const CLICK_CARD_INDEX = 'CLICK_CARD_INDEX'
 
 export const loadDishes = () => {
   // Menu.addMenu()
+  // Menu.addDishes()
   return {
     type: LOAD_DISHES,
     payload: Menu.all(),
@@ -43,7 +44,7 @@ export const loadDishes = () => {
 
 export const loadDishesSelect = () => ({
   type: LOAD_DISHES_SELECT,
-  // payload: Http.get('/dishes'),
+  payload: Http.get('/dishes'),
 })
 
 export const changeSelect = (IndexMenu, indexDish, value) => ({
