@@ -57,7 +57,7 @@ const EmailVerification = ({ classes, isSubmitting, handleSubmit }) =>
             name="email"
             label="Email"
             type="text"
-            value={Cache.get('user').email}
+            value={Cache.get('user') && Cache.get('user').email}
             disabled
           />
         </FormControl>
@@ -68,7 +68,7 @@ const EmailVerification = ({ classes, isSubmitting, handleSubmit }) =>
             fullWidth
             type="hidden"
             name="token"
-            value={Cache.get('user').password}
+            value={Cache.get('user') && Cache.get('user').password}
           />
         </FormControl>
       </div>
